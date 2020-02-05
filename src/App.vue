@@ -1,18 +1,23 @@
 <template>
   <div id="app">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1 @click="hello">Help Youtuber</h1>
 		<router-view/>
+		<ul>
+			<li><router-link to="/">HOME</router-link></li>
+			<li><router-link to="/chat">TALK</router-link></li>
+		</ul>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 
 export default {
   name: 'app',
-  components: {
-    HelloWorld
-  }
+	methods:{
+		hello: function(){
+			alert("clicked");
+		}
+	}
 }
 </script>
 

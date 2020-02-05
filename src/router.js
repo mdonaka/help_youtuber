@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Chat from '@/components/chat/home'
+import Home from '@/components/home'
  
 Vue.use(Router)
  
@@ -9,7 +10,7 @@ export default new Router({
 		{
 			path: '/',
 			name: 'Home',
-			component: Chat //TODO: Home画面を作る
+			component: Home 
 		},
 		{
 			path: '/chat',
