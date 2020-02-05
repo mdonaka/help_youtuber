@@ -21,11 +21,11 @@ export default new Router({
 			component: Chat
 		},
 		{
-			path: '/sign',
-			name: 'Sign',
+			path: '/sign/',
 			component: Sign,
-			chilfren: [
-				{path: '',component: Signin},
+			children: [
+				{path: '/',component: Signin},
+				{path: 'signin/',component: Signin},
 				{path: 'signup/',component: Signup},
 			]
 		},
