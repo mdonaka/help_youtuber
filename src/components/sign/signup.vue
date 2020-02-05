@@ -1,5 +1,8 @@
 <template>
-	<h2>sign up</h2>
+	<div>
+		<h2>sign up</h2>
+		<div>no bug</div>
+	</div>
 </template>
 
 <script>
