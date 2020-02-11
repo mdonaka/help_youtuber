@@ -1,6 +1,7 @@
 <template>
 	<div>
 		<h2>sign up</h2>
+		<div v-if="flg">
 		<!-- 仮置き -->
 		<form>
 			mail:<input type="text" v-model="mail">
@@ -9,9 +10,14 @@
 			<input type="submit" @click="signup">
 		</form>
 		{{mail}},{{password}},{{nickname}}
-		<Activate :mail="mail"/>
 		<!-- ------ -->
-		<div>no bug</div>
+		</div>
+
+		<!-- activate -->
+		<div v-else>
+			<Activate :mail="mail"/>
+		</div>
+		<button @click="flg=!flg">change</button>
 	</div>
 </template>
 
@@ -33,6 +39,7 @@ const initialData = ()=>{
 		mail:"test@tsetaa.ppas.aaa",
 		password:"1234**KKoop",
 		nickname:"nickname",
+		flg:true,
 	};
 }
 

@@ -3,7 +3,7 @@
 		<h2>activation</h2>
 		<!-- 仮置き -->
 		<form>
-			mail:{{mail}}
+			mail:<input type="text" v-model="mail">
 			key:<input type="text" v-model="key">
 			<input type="submit" @click="activate">
 		</form>
