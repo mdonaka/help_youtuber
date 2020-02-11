@@ -9,7 +9,7 @@
 			<input type="submit" @click="signup">
 		</form>
 		{{mail}},{{password}},{{nickname}}
-
+		<Activate :mail="mail"/>
 		<!-- ------ -->
 		<div>no bug</div>
 	</div>
@@ -17,6 +17,9 @@
 
 <script>
 /* eslint-disable no-console */
+
+import Activate from "./activation.vue"
+
 // const aws = require("aws-sdk");
 const cognito = require("amazon-cognito-identity-js");
 const poolData = {
@@ -34,6 +37,10 @@ const initialData = ()=>{
 }
 
 export default {
+	name: "signup",
+	components: {
+		Activate
+	},
 	data(){
 		return initialData()
 	},
