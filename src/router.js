@@ -12,13 +12,10 @@ export default new Router({
 	routes: [
 		{
 			path: '/',
-			name: 'Home',
-			component: Home 
-		},
-		{
-			path: '/chat',
-			name: 'Chat',
-			component: Chat
+			component: Home, 
+			children: [
+				{ path: '/chat', component: Chat },
+			]
 		},
 		{
 			path: '/sign/',
