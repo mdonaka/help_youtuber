@@ -4,12 +4,12 @@
 		<div v-if="flg">
 		<!-- 仮置き -->
 		<form>
-			mail:<input type="text" v-model="mail">
+			0or1:<input type="text" v-model="attribute">
 			pass:<input type="text" v-model="password">
 			nick:<input type="text" v-model="nickname">
 			<input type="submit" @click="signup">
 		</form>
-		{{mail}},{{password}},{{nickname}}
+		{{attribute}},{{password}},{{nickname}}
 		<!-- ------ -->
 		</div>
 
@@ -36,9 +36,9 @@ const userPool = new cognito.CognitoUserPool(poolData);
 
 const initialData = ()=>{
 	return {
-		mail:"test@tsetaa.ppas.aaa",
-		password:"1234**KKoop",
 		nickname:"nickname",
+		password:"1234**KKoop",
+		attribute: "1",
 		flg:true,
 	};
 }
@@ -62,7 +62,7 @@ export default {
 			}
 			attributeList.push(new cognito.CognitoUserAttribute(dataNickName));
 
-			userPool.signUp(this.mail, this.password, attributeList, null, (err, result)=>{
+			userPool.signUp(this.nickname, this.password, attributeList, null, (err, result)=>{
 				if(err){console.log(err);return;}
 				console.log("success");
 				console.log(result);
