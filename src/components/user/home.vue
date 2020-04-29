@@ -2,7 +2,8 @@
 	<div> 
 		<h2>ユーザ画面</h2>
 		<h1 @click="update">POST チェック</h1>
-		<h1 @click="get">GET チェック</h1>
+		<h1 @click="get">GET チェック1</h1>
+		<h1 @click="allget">GET チェック2</h1>
 	</div>
 </template>
 
@@ -19,8 +20,21 @@ export default {
 			const axios_obj = Axios.create({
 				responseType: 'json'
 			});
+
 			const API = process.env.VUE_APP_DB_API + "getDB";
-			axios_obj.get(API, {patams:{id:"omiomi"}}).then(response => {
+			axios_obj.get(API,{params:{id:"omitsu"}}).then(response => {
+				const data = response.data;
+				console.log("data:");
+				console.log(data);
+			});
+		},
+		allget:()=>{
+			const axios_obj = Axios.create({
+				responseType: 'json'
+			});
+
+			const API = process.env.VUE_APP_DB_API + "getAllDB";
+			axios_obj.get(API).then(response => {
 				const data = response.data;
 				console.log("data:");
 				console.log(data);
