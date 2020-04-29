@@ -8,25 +8,25 @@
           v-bind:src="require('@/assets/YtoE_logo.png')"
           width="60"
         />
-          <v-col cols="12" sm="5" md="4">
-            <v-text-field
-              label="検索"
-              solo
-              dense
-            ></v-text-field>
-          </v-col>
-        <v-spacer></v-spacer>
-  
+        <v-col cols="12" sm="5">
+        <v-text-field
+          hide-details
+          label="検索"
+          solo
+          dense
+        ></v-text-field>
+        </v-col>
         <v-btn icon>
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
+        <v-spacer></v-spacer>
   
         <v-btn icon>
-          <v-icon>mdi-heart</v-icon>
+          <v-icon>mdi-chat</v-icon>
         </v-btn>
   
         <v-btn icon>
-          <v-icon>mdi-dots-vertical</v-icon>
+          <v-icon>mdi-account</v-icon>
         </v-btn>
       </v-toolbar>
 
