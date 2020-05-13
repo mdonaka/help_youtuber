@@ -12,7 +12,7 @@
           <v-card-actions>
             <v-btn class="info" color="error">ログイン</v-btn>
           </v-card-actions>
-          <p>※アカウントをお持ちでない方は<a href="signup.vue">こちら</a></p>
+          <p>※アカウントをお持ちでない方は<a href="/#/sign/signup">こちら</a></p>
         </v-form>
       </v-card-text>
     </v-card>

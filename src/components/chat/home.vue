@@ -1,11 +1,13 @@
 <template>
   <div>
+  <v-app>
 		<h1>chat画面</h1>
 		<div v-for="text in textList" v-bind:key="text.id">
 			{{text}}
 		</div>
 		<input v-model="sendText">
 		<button @click="sendMessage">send</button>
+  </v-app>
   </div>
 </template>
 

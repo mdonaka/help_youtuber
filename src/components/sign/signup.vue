@@ -1,4 +1,5 @@
 <template>
+<v-app>
 	<div>
 		<h2>sign up</h2>
 		<!-- 仮置き -->
@@ -13,6 +14,7 @@
 
 		<button @click="flg=!flg">change</button>
 	</div>
+</v-app>
 </template>
 
 <script>

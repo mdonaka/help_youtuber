@@ -1,8 +1,10 @@
 <template>
+<v-app>
 	<div> 
 		<h2>ユーザ画面</h2>
 		<h1 @click="post">POST チェック</h1>
 	</div>
+</v-app>
 </template>
 
 <script>

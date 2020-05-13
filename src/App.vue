@@ -21,12 +21,15 @@
         </v-btn>
         <v-spacer></v-spacer>
   
-        <v-btn icon>
+        <v-btn icon href="#/chat" >
           <v-icon>mdi-chat</v-icon>
         </v-btn>
   
-        <v-btn icon>
+        <v-btn icon href="#/user">
           <v-icon>mdi-account</v-icon>
+        </v-btn>
+        <v-btn icon href="/#/">
+          <v-icon>mdi-home</v-icon>
         </v-btn>
       </v-toolbar>
 
