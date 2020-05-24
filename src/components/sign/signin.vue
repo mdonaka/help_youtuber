@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<h2>sign in</h2>
-		<div @click="login('k')">no bug</div>
 		<!-- 仮置き -->
 		<form>
 			mail:<input type="text" v-model="mail">
@@ -66,7 +65,7 @@ export default {
 					console.log(err);
 				}
 			});
-			this.test();
+			setTimeout(this.test, 1000);
 		},
 		test: function(){
 			const cognitoUser = userPool.getCurrentUser();  // 現在のユーザー
