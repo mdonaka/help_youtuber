@@ -1,44 +1,44 @@
 <template>
-  <div>
+<div id="app">
   <v-app id="inspire">
-   <v-card>
+    <v-card>
       <v-tabs
-        v-model="tab"
-        background-color="deep-purple accent-4"
-        centered
-        dark
-        icons-and-text
-      >
-        <v-tabs-slider></v-tabs-slider>
-  
-        <v-tab href="#tab-1">
-          プロフィール
-          <v-icon>mdi-phone</v-icon>
+		v-model="tab"
+		background-color="error"
+		grow
+		dark
+		icons-and-text
+		>
+        <v-tab>
+          <v-icon>mdi-human</v-icon>
+          Editor情報
         </v-tab>
-  
-        <v-tab href="#tab-2">
+        <v-tab>
+          <v-icon>mdi-chat</v-icon>
           チャット
-          <v-icon>mdi-heart</v-icon>
         </v-tab>
-  
-        <v-tab href="#tab-3">
-          Nearby
-          <v-icon>mdi-account-box</v-icon>
-        </v-tab>
-      </v-tabs>
-  
-    <v-tabs-items v-model="tab">
-        <v-tab-item :key="1" :value="'tab-' + 1">
+        <v-tab-item>
           <v-card flat>
-            <v-card-text>工事中</v-card-text>
+			<h1>工事中</h1>
           </v-card>
-
         </v-tab-item>
-        <v-tab-item :key="2" :value="'tab-' + 2">
-          <v-card flat>
-<div>
-<v-app>
-		<h1>chat画面</h1>
+        <v-tab-item>
+          <v-card flat>			
+ <div id="app">
+  <v-app id="inspire">
+    <v-card
+      height="800"
+      min-width="300"
+      max-width="800"
+      class="mx-8 my-3" 
+      elevation="3"
+      color="blue lighten-5"
+    >
+    <v-card>
+      <v-responsive :aspect-ratio="16/9">
+      </v-responsive>
+    </v-card>
+			<h1>chat画面</h1>
 		<div v-for="text in textList" v-bind:key="text.id">
 			{{text}}
 		</div>
@@ -51,21 +51,16 @@
           </v-col>
 		<input v-model="sendText">
 		<button @click="sendMessage">send</button>
-</v-app>
- </div>
-            <v-card-text>さんさん</v-card-text>
-          </v-card>
-
-        </v-tab-item>
-        <v-tab-item :key="3" :value="'tab-' + 3">
-          <v-card flat>
-            <v-card-text>お産</v-card-text>
+<h1>さんさん</h1>
+</v-card>
+  </v-app>
+</div>
           </v-card>
         </v-tab-item>
-      </v-tabs-items>
+      </v-tabs>     
     </v-card>
-</v-app>
- </div>
+  </v-app>
+</div>
 </template>
 
 <script>
