@@ -1,10 +1,46 @@
 <template>
-<v-app>
-	<div> 
-		<h2>ユーザ画面</h2>
-		<h1 @click="post">POST チェック</h1>
-	</div>
-</v-app>
+<div id="app">
+  <v-app id="inspire">
+    <v-card>
+      <v-tabs
+		v-model="tab"
+		background-color="error"
+		grow
+		dark
+		icons-and-text
+		>
+        <v-tab>
+          <v-icon>mdi-card-account-details</v-icon>
+          プロフィール
+        </v-tab>
+        <v-tab>
+          <v-icon>mdi-thumbs-up-down</v-icon>
+          評価
+        </v-tab>
+        <v-tab>
+          <v-icon>mdi-movie-open</v-icon>
+          編集例
+        </v-tab>
+  
+        <v-tab-item>
+          <v-card flat>
+			<h1>aaaa</h1>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
+  </v-app>
+</div>
 </template>
 
 <script>
