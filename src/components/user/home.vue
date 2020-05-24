@@ -20,8 +20,11 @@
 			<button @click="update">情報を更新する</button>
 			<button @click="allget">全取得</button>
 		</p>
-		<div v-for="data in userList" v-bind:key="data.id">
-			{{data}}
+		<div>
+			<span>以下全ユーザリスト</span>
+			<div v-for="data in userList" v-bind:key="data.id">
+				名前:{{data.name}}，mail:{{data.mail}}
+			</div>
 		</div>
 	</div>
 </template>
@@ -87,15 +90,16 @@ export default {
 				callback(data)
 			});
 		},
-		allget:()=>{
+		allget:function(){
 			const axios_obj = Axios.create({
 				responseType: 'json'
 			});
 
+			var local = this;
 			const API = process.env.VUE_APP_DB_API + "getAllDB";
 			axios_obj.get(API).then(function(response) {
 				const data = response.data;
-				console.log(data);
+				local.userList = data;
 			});
 		},
 		post:(method, data, callback)=>{
