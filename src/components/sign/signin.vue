@@ -1,15 +1,22 @@
 <template>
-	<div>
-		<h2>sign in</h2>
-		<!-- 仮置き -->
-		<form>
-			mail:<input type="text" v-model="mail">
-			pass:<input type="text" v-model="password">
-			<input type="submit" @click="signin">
-		</form>
-		<button @click="test">get</button>
-		{{mail}},{{password}}
-	</div>
+  <v-app>
+    <v-card width="400px" class="mx-auto mt-5">
+      <v-card-title>
+        <h1 class="display-1">ログイン</h1>
+      </v-card-title>
+
+      <v-card-text>
+        <v-form>
+          <v-text-field prepend-icon="mdi-account-circle" label="ユーザ名" v-model="mail"/>
+          <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" append-icon="mdi-eye-off" label="パスワード" @click:append="showPassword = !showPassword" v-model="password" />
+          <v-card-actions>
+            <v-btn class="info" color="error" @click="test">ログイン</v-btn>
+          </v-card-actions>
+          <p>※アカウントをお持ちでない方は<a href="/#/sign/signup">こちら</a></p>
+        </v-form>
+      </v-card-text>
+    </v-card>
+  </v-app>
 </template>
 
 <script>
@@ -27,11 +34,13 @@ const userPool = new cognito.CognitoUserPool(poolData);
 const initialData = ()=>{
 	return {
 		mail: "nickname",
-		password: "1234**KKoop"
+		password: "1234**KKoop",
+		showPassword:false
 	};
 };
 
 export default {
+	name: 'App',
 	data(){
 		return initialData()
 	},
@@ -98,6 +107,7 @@ export default {
 		}
 	}
 }
+
 </script>
 
 <style scoped>

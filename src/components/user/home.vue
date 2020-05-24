@@ -1,4 +1,45 @@
 <template>
+<div id="app">
+  <v-app id="inspire">
+    <v-card>
+      <v-tabs
+		v-model="tab"
+		background-color="error"
+		grow
+		dark
+		icons-and-text
+		>
+        <v-tab>
+          <v-icon>mdi-card-account-details</v-icon>
+          プロフィール
+        </v-tab>
+        <v-tab>
+          <v-icon>mdi-thumbs-up-down</v-icon>
+          評価
+        </v-tab>
+        <v-tab>
+          <v-icon>mdi-movie-open</v-icon>
+          編集例
+        </v-tab>
+  
+        <v-tab-item>
+          <v-card flat>
+			<h1>aaaa</h1>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
+  </v-app>
 	<div> 
 		<h2>ユーザ画面</h2>
 		<div>ユーザ名:
@@ -16,8 +57,8 @@
 
 		編集: <input type="checkbox" v-model="editFlg">
 		<p>
-			<button @click="updateAllContents">ユーザ表示</button>
-			<button @click="update">情報を更新する</button>
+			<button @click="updateAllContents">ユーザ表示 |||</button>
+			<button @click="update">情報を更新する |||</button>
 			<button @click="allget">全取得</button>
 		</p>
 		<div>
@@ -27,6 +68,7 @@
 			</div>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>

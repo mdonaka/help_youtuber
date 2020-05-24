@@ -1,6 +1,5 @@
 <template>
 	<div>
-		<h2>sign up, sign in</h2>
 		<router-view/>
 		<ul>
 			<li><router-link to="/">HOMEに戻る</router-link></li>
