@@ -26,18 +26,16 @@
           <v-card flat>			
  <div id="app">
   <v-app id="inspire">
+  <v-container no-gutter>
+  <v-row>
+  <v-col>
     <v-card
       height="800"
-      min-width="300"
-      max-width="800"
+      width="40vw"
       class="mx-8 my-3" 
       elevation="3"
       color="blue lighten-5"
     >
-    <v-card>
-      <v-responsive :aspect-ratio="16/9">
-      </v-responsive>
-    </v-card>
 			<h1>chat画面</h1>
 		<div v-for="text in textList" v-bind:key="text.id">
 			{{text}}
@@ -53,6 +51,53 @@
 		<button @click="sendMessage">send</button>
 <h1>さんさん</h1>
 </v-card>
+</v-col>
+	<v-col>
+	<h1>Editor</h1>
+	<v-card
+      class="mx-auto"
+      width="30vw"
+      tile
+    >
+      <v-img
+        height="100%"
+        src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
+      >
+        <v-row
+          align="end"
+          class="fill-height"
+        >
+          <v-col
+            align-self="start"
+            class="pa-0"
+            cols="12"
+          >
+            <v-avatar
+              class="profile"
+              color="grey"
+              size="164"
+              tile
+            >
+              <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+            </v-avatar>
+          </v-col>
+          <v-col class="py-0">
+            <v-list-item
+              color="rgba(0, 0, 0, .4)"
+              dark
+            >
+              <v-list-item-content>
+                <v-list-item-title class="title">Marcus Obrien</v-list-item-title>
+                <v-list-item-subtitle>Network Engineer</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+        </v-row>
+      </v-img>
+    </v-card>
+</v-col>
+</v-row>
+</v-container>
   </v-app>
 </div>
           </v-card>
