@@ -98,6 +98,7 @@ export default {
 							}
 							login(currentUserData["sub"]);
 							console.log(currentUserData);
+							console.log(result)
 						});
 					}
 				});

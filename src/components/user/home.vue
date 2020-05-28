@@ -61,6 +61,7 @@
 			<button @click="update">情報を更新する |||</button>
 			<button @click="allget">全取得</button>
 		</p>
+		<p>{{id}}</p>
 		<div>
 			<span>以下全ユーザリスト</span>
 			<div v-for="data in userList" v-bind:key="data.id">
