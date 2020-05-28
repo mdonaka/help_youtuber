@@ -75,7 +75,8 @@ export default {
 	},
 	methods:{
 		...mapMutations({
-			login: "id/login"
+			login: "id/login",
+			update: "id/update"
 		}),
 		signup:function(){
 			let attributeList = [];
@@ -87,9 +88,9 @@ export default {
 
 			userPool.signUp(this.nickname, this.password, attributeList, null, (err)=>{
 				if(err){console.log(err);return;}
-				console.log("success");
+				console.log("signup success");
 			});
-			setTimeout(this.signin, 1000);
+			setTimeout(this.signin, 3000);
 		},
 		signin:function(){
 			// 認証データの作成
@@ -97,58 +98,9 @@ export default {
 				Username: this.nickname,
 				Password: this.password
 			};
-			const authenticationDetails = new cognito.AuthenticationDetails(authenticationData);
-
-			const userData = {
-				Username: this.nickname,
-				Pool: userPool
-			};
-			const cognitoUser = new cognito.CognitoUser(userData);
-			// 認証処理
-			cognitoUser.authenticateUser(authenticationDetails, {
-				onSuccess: function () {
-					//var idToken = result.getIdToken().getJwtToken();          // IDトークン
-					//var accessToken = result.getAccessToken().getJwtToken();  // アクセストークン
-					//var refreshToken = result.getRefreshToken().getToken();   // 更新トークン
-					console.log("Success");
-				},
-				onFailure: function(err) {
-					// サインイン失敗の場合、エラーメッセージを画面に表示
-					console.log(err);
-				}
-			});
-			setTimeout(this.test, 1000);
-		},
-		test: function(){
-			const cognitoUser = userPool.getCurrentUser();  // 現在のユーザー
-			let currentUserData = {};  // ユーザーの属性情報
-			const login = this.login;
-			// 現在のユーザー情報が取得できているか？
-			if (cognitoUser != null) {
-				cognitoUser.getSession(function(err) {
-					if (err) {
-						console.log(err);
-					} else {
-						// ユーザの属性を取得
-						cognitoUser.getUserAttributes(function(err, result) {
-							if (err) {
-								console.log(err);
-							}
-
-							// 取得した属性情報を連想配列に格納
-							for (let i = 0; i < result.length; i++) {
-								currentUserData[result[i].getName()] = result[i].getValue();
-							}
-							console.log(currentUserData["sub"]);
-							login(currentUserData["sub"]);
-							console.log(currentUserData);
-						});
-					}
-				});
-				setTimeout(this.update, 1000);
-			}else{
-				console.log("non");
-			} 	
+			this.login(authenticationData);
+			setTimeout(this.update, 3000);
+			setTimeout(this.updateDB, 6000);
 		},
 		post:(method, data, callback)=>{
 			const axios_obj = Axios.create({
@@ -160,7 +112,8 @@ export default {
 				callback(data);
 			});
 		},
-		update:function(){
+		updateDB:function(){
+			console.log("call");
 			const non = '_';
 			if(this.id !== non){
 				const data = JSON.stringify({
