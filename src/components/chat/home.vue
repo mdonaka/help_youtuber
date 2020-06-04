@@ -52,6 +52,7 @@
 <h1>さんさん</h1>
 </v-card>
 </v-col>
+ <v-divider :inset="inset" vertical></v-divider>
 	<v-col>
 	<h1>Editor</h1>
 	<v-card
@@ -95,6 +96,39 @@
         </v-row>
       </v-img>
     </v-card>
+ <v-divider :inset="inset"></v-divider>
+<v-subheader>希望項目</v-subheader>
+<div id="app">
+  <v-app id="inspire">
+<v-row>
+<v-col>
+        <div class="my-2">
+          <v-btn depressed large
+        class="ma-2"
+         @click="loader = 'loading2'"
+      >
+        Custom Loader
+      </v-btn>
+        </div>
+      </v-col>
+<v-col>
+        <div class="my-2">
+          <v-btn depressed large color="primary">Primary</v-btn>
+        </div>
+      </v-col>
+<v-col>
+        <div class="my-2">
+          <v-btn depressed large color="error">Error</v-btn>
+        </div>
+      </v-col>
+<v-col>
+        <div class="my-2">
+          <v-btn depressed large disabled>Disabled</v-btn>
+        </div>
+      </v-col>
+</v-row>
+  </v-app>
+</div>
 </v-col>
 </v-row>
 </v-container>
