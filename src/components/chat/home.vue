@@ -97,38 +97,57 @@
       </v-img>
     </v-card>
  <v-divider :inset="inset"></v-divider>
-<v-subheader>希望項目</v-subheader>
-<div id="app">
-  <v-app id="inspire">
+<v-subheader>希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</v-subheader>
+<v-btn-toggle mandatory v-model="bg1" color="light-blue">
+<v-container>
 <v-row>
 <v-col>
-        <div class="my-2">
-          <v-btn depressed large
-        class="ma-2"
-         @click="loader = 'loading2'"
-      >
-        Custom Loader
-      </v-btn>
-        </div>
-      </v-col>
+  <v-btn 
+      width="15vw" value="クオリティ">クオリティ重視
+          <v-icon>mdi-star</v-icon>
+  </v-btn>
+</v-col>
 <v-col>
-        <div class="my-2">
-          <v-btn depressed large color="primary">Primary</v-btn>
-        </div>
-      </v-col>
-<v-col>
-        <div class="my-2">
-          <v-btn depressed large color="error">Error</v-btn>
-        </div>
-      </v-col>
-<v-col>
-        <div class="my-2">
-          <v-btn depressed large disabled>Disabled</v-btn>
-        </div>
-      </v-col>
+  <v-btn 
+      width="15vw" value="スピード">スピード重視
+          <v-icon>mdi-run</v-icon>
+  </v-btn>
+</v-col>
 </v-row>
-  </v-app>
-</div>
+</v-container>
+</v-btn-toggle>
+<v-btn-toggle maltiple v-model="bg2" color="light-blue">
+<v-container>
+<v-row>
+<v-col>
+  <v-btn
+      width="10vw" value="24h">24時間以内
+  </v-btn>
+</v-col>
+<v-col>
+  <v-btn
+      width="10vw" value="3d">3日以内
+  </v-btn>
+</v-col>
+<v-col>
+  <v-btn
+      width="10vw" value="1w">一週間以内
+  </v-btn>
+</v-col>
+</v-row>
+</v-container>
+</v-btn-toggle>
+<v-btn-toggle maltiple v-model="bg3" color="light-blue">
+<v-container>
+<v-row>
+<v-col>
+  <v-btn
+      width="5vw" value="サムネイル">サムネイル
+  </v-btn>
+</v-col>
+</v-row>
+</v-container>
+</v-btn-toggle>
 </v-col>
 </v-row>
 </v-container>
