@@ -36,6 +36,7 @@
 
 <script>
 /* eslint-disable no-console */
+import {mapState} from 'vuex'
 
 const initialData = ()=>{
 	return {
@@ -51,13 +52,23 @@ export default {
 	data(){
 		return initialData()
 	},
+	computed: {
+		...mapState({
+			id:s=>s.id.id
+		}),
+	},
 	created(){
+		if(this.id==="_"){return;}
+
+		const data = this;
 		// 接続
 		this.sock.addEventListener('open',function(){
 			console.log('Socket 接続成功');
+			// ユーザの登録
+			const req= JSON.stringify({"action":"addUser", "data":data.id});
+			data.sock.send(req);
 		});
 
-		const data = this;
 		// サーバーからデータを受け取る
 		this.sock.addEventListener('message',function(e){
 			data.textList.push(e.data);
