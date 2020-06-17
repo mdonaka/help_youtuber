@@ -43,7 +43,8 @@ const initialData = ()=>{
 		sendText: "",
 		textList: ["あああああああああああ",
 		"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"],
-		sock: new WebSocket(process.env.VUE_APP_CHAT_URL)
+		sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
+		sendTo: ""
 	};
 }
 
@@ -76,7 +77,12 @@ export default {
 	},
 	methods:{
 		sendMessage: function(){
-			const data = JSON.stringify({"action":"sendMessage", "data":this.sendText});
+			const data = JSON.stringify({"action":"sendMessage", "data":
+				{
+					text:this.sendText,
+					sendId:this.sendTo
+				}
+			});
 			this.sock.send(data);
 			this.sendText= "";
 		}
