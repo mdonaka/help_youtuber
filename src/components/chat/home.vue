@@ -98,7 +98,7 @@
     </v-card>
  <v-divider :inset="inset"></v-divider>
 <v-subheader>希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</v-subheader>
-<v-btn-toggle mandatory v-model="bg1" color="light-blue">
+<v-btn-toggle mandatory v-model="bg1" color="error">
 <v-container>
 <v-row>
 <v-col>
@@ -142,7 +142,7 @@
 <v-row>
 <v-col>
   <v-btn
-      width="5vw" value="サムネイル">サムネイル
+      width="30vw" value="サムネイル">サムネイル
   </v-btn>
 </v-col>
 </v-row>
