@@ -31,12 +31,20 @@
 			<textarea id="ms_send_message" v-model="sendText"></textarea>
 			<div id="ms_send_btn" @click="sendMessage">送信</div>
 		</div>
+
+		<div>
+			<h2>userList(今だけ仮指定)</h2>
+			<h2>to => {{sendTo}}</h2>
+			<div v-for="data in sendToList" v-bind:key="data.id" @click="toSet(data.id)">
+				{{data.name}}に送る
+			</div>
+		</div>
   </div>
 </template>
 
 <script>
 /* eslint-disable no-console */
-import {mapState} from 'vuex'
+import {mapState, mapGetters} from 'vuex'
 
 const initialData = ()=>{
 	return {
@@ -44,7 +52,8 @@ const initialData = ()=>{
 		textList: ["あああああああああああ",
 		"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"],
 		sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
-		sendTo: ""
+		sendTo: "",
+		sendToList: []
 	};
 }
 
@@ -55,13 +64,37 @@ export default {
 	},
 	computed: {
 		...mapState({
-			id:s=>s.id.id
+			id:s=>s.id.id,
 		}),
+	},
+	methods:{
+		...mapGetters({
+			getUsers: "users/getUsers",
+		}),
+		sendMessage: function(){
+			const data = JSON.stringify({"action":"sendMessage", "data":
+				{
+					text:this.sendText,
+					sendId:this.sendTo
+				}
+			});
+			this.sock.send(data);
+			this.sendText= "";
+		},
+		toSet(id){
+			this.sendTo = id;
+		},
 	},
 	created(){
 		if(this.id==="_"){return;}
 
 		const data = this;
+
+		// debug用 ユーザ取得
+		this.getUsers().then(function(users){
+			data.sendToList = users;
+		});
+
 		// 接続
 		this.sock.addEventListener('open',function(){
 			console.log('Socket 接続成功');
@@ -75,18 +108,6 @@ export default {
 			data.textList.push(e.data);
 		});
 	},
-	methods:{
-		sendMessage: function(){
-			const data = JSON.stringify({"action":"sendMessage", "data":
-				{
-					text:this.sendText,
-					sendId:this.sendTo
-				}
-			});
-			this.sock.send(data);
-			this.sendText= "";
-		}
-	}
 }
 
 </script>

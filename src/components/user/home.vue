@@ -144,6 +144,7 @@ export default {
 				const data = response.data;
 				local.userList = data;
 			});
+			console.log(local.userList);
 		},
 		post:(method, data, callback)=>{
 			const axios_obj = Axios.create({
