@@ -31,8 +31,8 @@
   <v-col>
     <v-card
       height="800"
-      width="40vw"
-      class="mx-8 my-3" 
+      class="my-3" 
+      width="450"
       elevation="3"
       color="blue lighten-5"
     >
@@ -57,8 +57,7 @@
 	<h1>Editor</h1>
 	<v-card
       class="mx-auto"
-      width="30vw"
-      tile
+      width="400"
     >
       <v-img
         height="100%"
@@ -98,56 +97,77 @@
     </v-card>
  <v-divider :inset="inset"></v-divider>
 <v-subheader>希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</v-subheader>
-<v-btn-toggle mandatory v-model="bg1" color="light-blue">
+<v-btn-toggle mandatory v-model="bg1">
 <v-container>
 <v-row>
 <v-col>
   <v-btn 
-      width="15vw" value="クオリティ">クオリティ重視
-          <v-icon>mdi-star</v-icon>
+      width="15vw" outlined color="green" value="クオリティ">クオリティ重視
   </v-btn>
 </v-col>
 <v-col>
   <v-btn 
-      width="15vw" value="スピード">スピード重視
-          <v-icon>mdi-run</v-icon>
+      width="15vw" outlined color="light-blue" value="スピード">スピード重視
   </v-btn>
 </v-col>
 </v-row>
 </v-container>
 </v-btn-toggle>
-<v-btn-toggle maltiple v-model="bg2" color="light-blue">
+<v-btn-toggle maltiple v-model="bg2">
 <v-container>
 <v-row>
 <v-col>
   <v-btn
-      width="10vw" value="24h">24時間以内
+      width="10vw" outlined color="red" value="24h">24時間以内
   </v-btn>
 </v-col>
 <v-col>
   <v-btn
-      width="10vw" value="3d">3日以内
+      width="10vw" outlined color="red accent-3" value="3d">3日以内
   </v-btn>
 </v-col>
 <v-col>
   <v-btn
-      width="10vw" value="1w">一週間以内
+      width="10vw" outlined color="pink" value="1w">一週間以内
   </v-btn>
 </v-col>
 </v-row>
 </v-container>
 </v-btn-toggle>
-<v-btn-toggle maltiple v-model="bg3" color="light-blue">
+<v-btn-toggle maltiple v-model="bg3">
 <v-container>
 <v-row>
 <v-col>
   <v-btn
-      width="5vw" value="サムネイル">サムネイル
+      width="30vw" outlined color="black" value="サムネイル">サムネイル作成
   </v-btn>
 </v-col>
 </v-row>
 </v-container>
 </v-btn-toggle>
+<h1>動画時間目安</h1>
+<v-container>
+<v-row>
+<v-col>
+ <v-slider
+color="red"
+            v-model="offset"
+            min="0"
+            max="24"
+            label="時"
+            thumb-label
+          ></v-slider>
+ <v-slider
+color="red"
+            v-model="offset"
+            min="1"
+            max="60"
+            label="分"
+            thumb-label
+          ></v-slider>
+</v-col>
+</v-row>
+</v-container>
 </v-col>
 </v-row>
 </v-container>
