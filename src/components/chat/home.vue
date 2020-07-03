@@ -29,14 +29,15 @@
   <v-container no-gutter>
   <v-row>
   <v-col>
+<div class="font-weight-medium">○○さんとの会話
+</div>
     <v-card
       height="800"
       class="my-3" 
       width="450"
       elevation="3"
-      color="blue lighten-5"
+color="red lighten-5"
     >
-			<h1>chat画面</h1>
 		<div v-for="text in textList" v-bind:key="text.id">
 			{{text}}
 		</div>
@@ -49,12 +50,12 @@
           </v-col>
 		<input v-model="sendText">
 		<button @click="sendMessage">send</button>
-<h1>さんさん</h1>
 </v-card>
 </v-col>
  <v-divider :inset="inset" vertical></v-divider>
 	<v-col>
-	<h1>Editor</h1>
+<div class="font-weight-medium">Editor
+</div>
 	<v-card
       class="mx-auto"
       width="400"
@@ -95,8 +96,9 @@
         </v-row>
       </v-img>
     </v-card>
+<v-spacer></v-spacer>
  <v-divider :inset="inset"></v-divider>
-<v-subheader>希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</v-subheader>
+<div class="font-weight-medium">Youtuber希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</div>
 <v-btn-toggle mandatory v-model="bg1">
 <v-container>
 <v-row>
@@ -145,13 +147,13 @@
 </v-row>
 </v-container>
 </v-btn-toggle>
-<h1>動画時間目安</h1>
+<div class="font-weight-medium">動画時間目安 : {{offset1}}時間{{offset2}}分</div>
 <v-container>
 <v-row>
 <v-col>
  <v-slider
 color="red"
-            v-model="offset"
+            v-model="offset1"
             min="0"
             max="24"
             label="時"
@@ -159,7 +161,7 @@ color="red"
           ></v-slider>
  <v-slider
 color="red"
-            v-model="offset"
+            v-model="offset2"
             min="1"
             max="60"
             label="分"
