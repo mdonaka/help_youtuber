@@ -44,7 +44,7 @@ const actions = {
 			const cognitoUser = userPool.getCurrentUser();  // 現在のユーザー
 
 			// 現在のユーザー情報が取得できているか？
-			if (cognitoUser == null){ reject("use not found"); } 
+			if (cognitoUser == null){ reject("user not found"); } 
 
 			cognitoUser.getSession(function(err) {
 				if (err) { reject(err);}
@@ -61,8 +61,13 @@ const actions = {
 			});
 		});
 	},
-	logout(state){
-		state.id="_";
+	logout({state, commit}){
+		const cognitoUser = userPool.getCurrentUser();
+		if(cognitoUser == null){return "use not found";}
+		const id = state.id;
+		cognitoUser.signOut();
+		commit("login", "_");
+		return {logout: id};
 	}
 }
 

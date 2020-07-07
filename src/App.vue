@@ -1,7 +1,6 @@
 <template>
   <v-app>
     <v-toolbar color="error" dense>
-		{{id}}
           <v-img
           alt="YtoE Logo"
           class="shrink mr-2"
@@ -32,12 +31,14 @@
         <v-btn icon href="/#/">
           <v-icon>mdi-home</v-icon>
         </v-btn>
-				{{id}}
-        <v-btn icon @click=logout>
-          <v-icon>mdi-home</v-icon>
-        </v-btn>
       </v-toolbar>
 
+		<!-- debug用 -->
+		<v-btn icon @click=logout>
+			<v-icon>mdi-wifi-off</v-icon>
+		</v-btn>
+		(debug用)ユーザID:{{id}}
+		<!-- ------- -->
     <v-content>
       <router-view/>
     </v-content>
@@ -61,11 +62,11 @@ export default {
 		},
 		...mapActions({
 			logout:"id/logout",
-			update:"id/update"
+			login:"id/login"
 		}),
 	},
 	created(){
-		// this.update();
+		this.login().then((res) => {console.log(res);});
 	}
 };
 </script>
