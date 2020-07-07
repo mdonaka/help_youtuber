@@ -1,20 +1,21 @@
 <template>
 <v-app>
 	<div>
-			<h2>sign up</h2>
-			<!-- 仮置き -->
-			<form>
-				nick:<input type="text" v-model="nickname">
-				pass:<input type="text" v-model="password">
-				0or1:<input type="text" v-model="attribute">
-				<input type="submit" @click="signup">
-			</form>
-			{{attribute}},{{password}},{{nickname}}
-			<!-- ------ -->
-
-			<button @click="flg=!flg">change</button>
-
-		<v-card width="400px" class="mx-auto mt-5">
+		<v-card width="400px" class="mx-auto mt-5" v-bind:disabled="nowLoading">
+			<!-- サインイン時のローディング処理 -->
+			<v-dialog width="400px" v-model="nowLoading" persistent hide-overlay>
+				<v-card color="primary" dark >
+					<v-card-text>
+						now signup...
+						<v-progress-linear
+							indeterminate
+							color="white"
+							class="mb-0"
+						></v-progress-linear>
+					</v-card-text>
+				</v-card>
+			</v-dialog>
+			<!-- ---------------------------- -->
 		<v-card-title>
 			<h1 class="display-1">アカウント作成</h1>
 		</v-card-title>
@@ -57,7 +58,9 @@ const initialData = ()=>{
 		nickname:"nickname",
 		password:"1234**KKoop",
 		attribute: "1",
-		flg:true,
+		showPassword: false,
+		row:1,
+		nowLoading: false
 	};
 }
 
@@ -75,57 +78,71 @@ export default {
 	},
 	methods:{
 		...mapActions({
-			login: "id/login",
-			update: "id/update"
+			login: "id/login_new",
 		}),
-		signup:function(){
-			let attributeList = [];
-			const dataNickName = {
-				Name: "nickname",
-				value: this.nickname
-			}
-			attributeList.push(new cognito.CognitoUserAttribute(dataNickName));
+		signup: async function(){
+			const this2 = this;
+			this.nowLoading = true;
+			new Promise((resolve, reject)=>{
+				let attributeList = [];
+				const dataNickName = {
+					Name: "nickname",
+					value: this.nickname
+				}
+				attributeList.push(new cognito.CognitoUserAttribute(dataNickName));
 
-			userPool.signUp(this.nickname, this.password, attributeList, null, (err)=>{
-				if(err){console.log(err);return;}
-				console.log("signup success");
-			});
-			setTimeout(this.signin, 3000);
-		},
-		signin:function(){
-			// 認証データの作成
-			const authenticationData = {
-				Username: this.nickname,
-				Password: this.password
-			};
-			this.login(authenticationData);
-			setTimeout(this.update, 3000);
-			setTimeout(this.updateDB, 6000);
-		},
-		post:(method, data, callback)=>{
-			const axios_obj = Axios.create({
-				responseType: 'json'
-			});
-			const API = process.env.VUE_APP_DB_API + method;
-			axios_obj.post(API, data).then(response => {
-				const data = response.data;
-				callback(data);
-			});
-		},
-		updateDB:function(){
-			console.log("call");
-			const non = '_';
-			if(this.id !== non){
-				const data = JSON.stringify({
-					id:this.id,
-					name: this.nickname,
-					mail: "_",
-					food:"_" 
+				userPool.signUp(this.nickname, this.password, attributeList, null, (err)=>{
+					if(err){reject(err); return;}
+					resolve(this2.signin());
 				});
-				this.post("updateDB", data, (response)=>{
-					console.log(response);
+			}).then((res)=>{
+				console.log({signup: res});
+				this2.nowLoading = false;
+			},(err)=>{
+				console.log(err);
+				this2.nowLoading = false;
+			});
+		},
+		signin: async function(){
+			return new Promise((resolve) => {
+				// 認証データの作成
+				const authenticationData = {
+					Username: this.nickname,
+					Password: this.password
+				};
+				const this2 = this;
+				this.login(authenticationData).then(()=>{
+					this2.updateDB();
+					resolve(this2.nickname);
 				});
-			}
+			});
+		},
+		post: async (method, data)=>{
+			return new Promise((resolve) => {
+				const axios_obj = Axios.create({
+					responseType: 'json'
+				});
+				const API = process.env.VUE_APP_DB_API + method;
+				axios_obj.post(API, data).then(response => {
+					resolve(response);
+				});
+			});
+		},
+		updateDB: async function(){
+			return new Promise((resolve) => {
+				const non = '_';
+				if(this.id !== non){
+					const data = JSON.stringify({
+						id:this.id,
+						name: this.nickname,
+						mail: "_",
+						food:"_" 
+					});
+					this.post("updateDB", data).then((response)=>{
+						resolve(response);
+					});
+				}
+			});
 		},
 	}
 }
