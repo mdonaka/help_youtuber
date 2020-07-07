@@ -40,7 +40,7 @@
 
 <script>
 /* eslint-disable no-console */
-import {mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 import {mapState} from 'vuex'
 import Axios from 'axios';
 
@@ -74,7 +74,7 @@ export default {
 	created(){
 	},
 	methods:{
-		...mapMutations({
+		...mapActions({
 			login: "id/login",
 			update: "id/update"
 		}),

@@ -17,61 +17,59 @@ const state = {
 }
 
 const actions = {
-}
+	// ログイン
+	login_new: async ({dispatch}, authenticationData) => {
+		return new Promise((resolve, reject) => {
+			// 認証データの作成
+			const authenticationDetails = new cognito.AuthenticationDetails(authenticationData);
+			const userData = {
+				Username: authenticationData.Username,
+				Pool: userPool
+			};
+			const cognitoUser = new cognito.CognitoUser(userData);
 
-const mutations = {
-	login(state, authenticationData){
-		const authenticationDetails = new cognito.AuthenticationDetails(authenticationData);
-
-		const userData = {
-			Username: authenticationData.Username,
-			Pool: userPool
-		};
-		console.log(authenticationData);
-		const cognitoUser = new cognito.CognitoUser(userData);
-		// 認証処理
-		cognitoUser.authenticateUser(authenticationDetails, {
-			onSuccess: function () {
-				console.log("signin success");
-			},
-			onFailure: function(err) {
-				// サインイン失敗の場合、エラーメッセージを画面に表示
-				console.log(err);
-			}
-		});
-	},
-	update(state){
-		const cognitoUser = userPool.getCurrentUser();  // 現在のユーザー
-		let currentUserData = {};  // ユーザーの属性情報
-		// 現在のユーザー情報が取得できているか？
-		if (cognitoUser != null) {
-			cognitoUser.getSession(function(err) {
-				if (err) {
-					console.log(err);
-				} else {
-					// ユーザの属性を取得
-					cognitoUser.getUserAttributes(function(err, result) {
-						if (err) {
-							console.log(err);
-						}
-
-						// 取得した属性情報を連想配列に格納
-						for (let i = 0; i < result.length; i++) {
-							currentUserData[result[i].getName()] = result[i].getValue();
-						}
-						state.id = currentUserData["sub"];
-						console.log("id get success");
-						console.log(currentUserData);
-					});
+			// 認証処理
+			cognitoUser.authenticateUser(authenticationDetails, {
+				onSuccess: function () {
+					resolve(dispatch("login"));
+				},
+				onFailure: function(err) {
+					reject(err);
 				}
 			});
-		}else{
-			console.log("user not found");
-		} 	
+		});
+	},
+	login: async({commit}) => {
+		return new Promise((resolve, reject) => {
+			const cognitoUser = userPool.getCurrentUser();  // 現在のユーザー
+
+			// 現在のユーザー情報が取得できているか？
+			if (cognitoUser == null){ reject("use not found"); } 
+
+			cognitoUser.getSession(function(err) {
+				if (err) { reject(err);}
+
+				// ユーザの属性を取得
+				cognitoUser.getUserAttributes(function(err, result) {
+					if (err) { reject(err);}
+
+					// idを更新
+					const id = result[0].getValue();
+					commit("login", id);
+					resolve({login: id});
+				});
+			});
+		});
 	},
 	logout(state){
 		state.id="_";
 	}
+}
+
+const mutations = {
+	login: (state, id) => {
+		state.id = id;
+	},
 }
 
 const getters = {

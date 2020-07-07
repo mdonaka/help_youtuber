@@ -21,7 +21,7 @@
 
 <script>
 /* eslint-disable no-console */
-import {mapMutations} from 'vuex'
+import {mapActions} from 'vuex'
 
 const initialData = ()=>{
 	return {
@@ -37,9 +37,8 @@ export default {
 		return initialData()
 	},
 	methods:{
-		...mapMutations({
-			login: "id/login",
-			update: "id/update"
+		...mapActions({
+			login: "id/login_new",
 		}),
 		signin:function(){
 			// 認証データの作成
@@ -47,8 +46,10 @@ export default {
 				Username: this.mail,
 				Password: this.password
 			};
-			this.login(authenticationData);
-			setTimeout(this.update, 300);
+			const ok =  this.login(authenticationData);
+			ok.then((v)=>{
+				console.log(v);
+			});
 		},
 	}
 }

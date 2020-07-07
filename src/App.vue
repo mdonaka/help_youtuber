@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-toolbar color="error" dense>
+		{{id}}
           <v-img
           alt="YtoE Logo"
           class="shrink mr-2"
@@ -45,7 +46,7 @@
 
 <script>
 /* eslint-disable no-console */
-import {mapState, mapMutations} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 export default {
 	name: 'app',
@@ -58,13 +59,13 @@ export default {
 		hello: function(){
 			console.log("on");
 		},
-		...mapMutations({
+		...mapActions({
 			logout:"id/logout",
 			update:"id/update"
 		}),
 	},
 	created(){
-		this.update();
+		// this.update();
 	}
 };
 </script>
