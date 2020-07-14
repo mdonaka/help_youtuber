@@ -93,6 +93,7 @@
 </td>
           <v-select
             :items="Sitems"
+						v-model="sitem"
             filled
             label="サムネイル作成"
 						v-bind:readonly="!isEditing"
@@ -100,6 +101,7 @@
 
           <v-select
             :items="Kitems"
+						v-model="kitem"
             filled
             label="希望価格帯"
 						v-bind:readonly="!isEditing"
@@ -114,6 +116,7 @@
 
           <v-select
             :items="Gitems"
+						v-model="gitem"
             filled
             label="業務形態"
 						v-bind:readonly="!isEditing"
@@ -121,6 +124,7 @@
 
           <v-select
             :items="Ditems"
+						v-model="ditem"
             filled
             label="動画編集歴"
 						v-bind:readonly="!isEditing"
@@ -165,10 +169,13 @@ const initialData = ()=>{
 		name: "_",
 		mail: "_" ,
 		food: "_",
-		userList: [],
+		sitem: "_",
 		Sitems: ['可能(別途料金)', '可能(込料金)', '不可', '要相談'],
+		kitem: "_",
 		Kitems: ['作業時間制', '動画時間制', '単価制', 'その他','要相談'],
+		gitem: "_",
 		Gitems: ['専業', '副業', '小遣い稼ぎ','練習'],
+		ditem: "_",
 		Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
 	};
 }
@@ -205,15 +212,24 @@ export default {
 					local.name = item.name;
 					local.mail= item.mail;
 					local.food= item.food;
+					local.sitem = item.sitem;
+					local.kitem = item.kitem;
+					local.gitem = item.gitem;
+					local.ditem = item.ditem;
 				});
 			}
 		},
 		updateUserInfo:function(){
+			console.log(this.kitem);
 			const data = JSON.stringify({
 				id:this.id,
 				name: this.name,
 				mail: this.mail,
-				food: this.food
+				food: this.food,
+				sitem: this.sitem,
+				kitem: this.kitem,
+				gitem: this.gitem,
+				ditem: this.ditem,
 			});
 			const local = this;
 			this.userUpdate(data).then(()=>{
