@@ -88,7 +88,7 @@
 <td>
 <p prepend-icon="mdi-account-edit">
 	<v-icon>mdi-account-edit</v-icon> 編集
-	<v-btn small color="primary" v-if="isEditing" @click="update">情報を更新する</v-btn>
+	<v-btn small color="primary" v-if="isEditing" @click="updateUserInfo">情報を更新する</v-btn>
 </p>
 </td>
           <v-select
@@ -149,6 +149,7 @@
 			<v-text-field label="ユーザー名" type="text" v-model="name" readonly />
 			<v-text-field label="メールアドレス" type="text" v-model="mail" v-bind:readonly="!isEditing"/>
 			<v-text-field label="好きな食べ物" type="text" v-model="food" v-bind:readonly="!isEditing" />
+			<div @click="test">click me</div>
   </v-app>
 </div>
 </template>
@@ -156,8 +157,7 @@
 <script>
 /* eslint-disable no-console */
 
-import {mapState} from 'vuex'
-import Axios from 'axios';
+import {mapState, mapActions} from 'vuex'
 
 const initialData = ()=>{
 	return {
@@ -186,61 +186,40 @@ export default {
 		this.updateAllContents();
 	},
 	methods:{
+		...mapActions({
+			getUserInfo: "users/getUserInfo",
+			userUpdate: "users/userUpdate",
+		}),
+		test: function(){ 
+			console.log(this.id);
+			this.getUserInfo(this.id).then((val)=>{
+				console.log({val: val});
+			});
+		},
 		updateAllContents: function() {
 			const non = '_';
 			if(this.id !== non){
 				const local = this;
-				this.get(this.id, function(data){
-					console.log(data.body);
-					if("Item" in data.body){
-						const item = data.body.Item;
-						local.name = item.name;
-						local.mail= item.mail;
-						local.food= item.food;
-					}else{
-						const prop = initialData();
-						for(const key in prop)if(prop.hasOwnProperty(key)){
-							local[key] = prop[key];
-						}
-					}
+				this.getUserInfo(this.id).then((data) => {
+					const item = data.Item;
+					local.name = item.name;
+					local.mail= item.mail;
+					local.food= item.food;
 				});
 			}
 		},
-		get:(id, callback)=>{
-			console.log("call", id);
-			const axios_obj = Axios.create({
-				responseType: 'json'
+		updateUserInfo:function(){
+			const data = JSON.stringify({
+				id:this.id,
+				name: this.name,
+				mail: this.mail,
+				food: this.food
 			});
-
-			const API = process.env.VUE_APP_DB_API + "getDB";
-			axios_obj.get(API,{params:{id:id}}).then(response => {
-				const data = response.data;
-				callback(data)
+			const local = this;
+			this.userUpdate(data).then(()=>{
+				console.log("update fin");
+				local.isEditing = false;
 			});
-		},
-		post:(method, data, callback)=>{
-			const axios_obj = Axios.create({
-				responseType: 'json'
-			});
-			const API = process.env.VUE_APP_DB_API + method;
-			axios_obj.post(API, data).then(response => {
-				const data = response.data;
-				callback(data);
-			});
-		},
-		update:function(){
-		const non = '_';
-			if(this.id !== non){
-				const data = JSON.stringify({
-					id:this.id,
-					name: this.name,
-					mail: this.mail,
-					food: this.food
-				});
-				this.post("updateDB", data, (response)=>{
-					console.log(response);
-				});
-			}
 		},
 	}
 }
