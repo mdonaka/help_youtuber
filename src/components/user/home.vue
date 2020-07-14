@@ -76,7 +76,7 @@
 					<v-textarea
 						outlined
 						label="自己紹介"
-						value=""
+						v-model="selfIntro"
 						v-bind:readonly="!isEditing"
 					></v-textarea>
 
@@ -110,7 +110,7 @@
 					<v-textarea
 						outlined
 						label="コメント"
-						value=""
+						v-model="comment"
 						v-bind:readonly="!isEditing"
 					></v-textarea>
 
@@ -177,6 +177,9 @@ const initialData = ()=>{
 		Gitems: ['専業', '副業', '小遣い稼ぎ','練習'],
 		ditem: "_",
 		Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
+		comment: "",
+		selfIntro: "",
+
 	};
 }
 
@@ -216,6 +219,8 @@ export default {
 					local.kitem = item.kitem;
 					local.gitem = item.gitem;
 					local.ditem = item.ditem;
+					local.comment = item.comment;
+					local.selfIntro = item.selfIntro;
 				});
 			}
 		},
@@ -230,6 +235,8 @@ export default {
 				kitem: this.kitem,
 				gitem: this.gitem,
 				ditem: this.ditem,
+				comment: this.comment,
+				selfIntro: this.selfIntro,
 			});
 			const local = this;
 			this.userUpdate(data).then(()=>{
