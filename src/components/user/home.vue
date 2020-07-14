@@ -74,18 +74,10 @@
 					</v-card>
 					<br>
 					<v-textarea
-					outlined
-					label="自己紹介"
-					value=""
-					v-if=editFlg
-					></v-textarea>
-
-					<v-textarea
-					outlined
-					label="自己紹介"
-					value=""
-					v-else
-					readonly
+						outlined
+						label="自己紹介"
+						value=""
+						v-bind:readonly="!editFlg"
 					></v-textarea>
 
 			</v-col>
@@ -101,74 +93,35 @@
             :items="Sitems"
             filled
             label="サムネイル作成"
-			v-if=editFlg
-          ></v-select>
-
-          <v-select
-            :items="Sitems"
-            filled
-            label="サムネイル作成"
-			v-else
-			readonly
+						v-bind:readonly="!editFlg"
           ></v-select>
 
           <v-select
             :items="Kitems"
             filled
             label="希望価格帯"
-			v-if=editFlg
+						v-bind:readonly="!editFlg"
           ></v-select>
 
-          <v-select
-            :items="Kitems"
-            filled
-            label="希望価格帯"
-			v-else
-			readonly
-          ></v-select>
-			<v-textarea
-			outlined
-			label="コメント"
-			value=""
-			v-if=editFlg
-			></v-textarea>
-
-			<v-textarea
-			outlined
-			label="コメント"
-			value=""
-			v-else
-			readonly
-			></v-textarea>
+					<v-textarea
+						outlined
+						label="コメント"
+						value=""
+						v-bind:readonly="!editFlg"
+					></v-textarea>
 
           <v-select
             :items="Gitems"
             filled
             label="業務形態"
-			v-if=editFlg
-          ></v-select>
-
-          <v-select
-            :items="Gitems"
-            filled
-            label="業務形態"
-			v-else
-			readonly
+						v-bind:readonly="!editFlg"
           ></v-select>
 
           <v-select
             :items="Ditems"
             filled
             label="動画編集歴"
-			v-if=editFlg
-          ></v-select>
-
-          <v-select
-            :items="Ditems"
-            filled
-            label="動画編集歴"
-			v-else
-			readonly
+						v-bind:readonly="!editFlg"
           ></v-select>
 
 	</div>
@@ -190,18 +143,10 @@
         </v-tab-item>
       </v-tabs>
     </v-card>
-			<v-text-field v-if=editFlg label="ユーザー名" type="text" v-model="name">
-			</v-text-field>
-			<v-text-field v-else label="ユーザー名" type="text" v-model="name" readonly>
-			{{name}}</v-text-field>
-			<v-text-field v-if=editFlg label="メールアドレス" type="text" v-model="mail">
-			</v-text-field>
-			<v-text-field v-else label="メールアドレス" type="text" v-model="mail" readonly>
-			{{name}}</v-text-field>
-			<v-text-field v-if=editFlg label="好きな食べ物" type="text" v-model="food">
-			</v-text-field>
-			<v-text-field v-else label="好きな食べ物" type="text" v-model="food" readonly>
-			{{name}}</v-text-field>
+			<v-text-field label="ユーザー名" type="text" v-model="name" v-bind:readonly="!editFlg" />
+			<v-text-field label="メールアドレス" type="text" v-model="mail" v-bind:readonly="!editFlg"/>
+			<v-text-field label="好きな食べ物" type="text" v-model="food" v-bind:readonly="!editFlg" />
+
 			<p>
 			<button @click="updateAllContents">ユーザ表示 |||</button>
 			<button @click="update">情報を更新する |||</button>
