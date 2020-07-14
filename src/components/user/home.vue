@@ -61,7 +61,7 @@
 							>
 							<v-list-item-content>
 								<v-list-item-title class="title">
-								<input v-if=editFlg type="text" v-model="name">
+								<input v-if=isEditing type="text" v-model="name">
 								<span v-else>{{name}}</span>
 								</v-list-item-title>
 								<v-list-item-subtitle>Editor</v-list-item-subtitle>
@@ -77,51 +77,53 @@
 						outlined
 						label="自己紹介"
 						value=""
-						v-bind:readonly="!editFlg"
+						v-bind:readonly="!isEditing"
 					></v-textarea>
 
 			</v-col>
 			<v-col>
 <div> 
 <td>
-<v-switch v-model="editFlg"></v-switch></td>
+<v-switch v-model="isEditing"></v-switch></td>
 <td>
 <p prepend-icon="mdi-account-edit">
-<v-icon>mdi-account-edit</v-icon> 編集</p>
+	<v-icon>mdi-account-edit</v-icon> 編集
+	<v-btn small color="primary" v-if="isEditing" @click="update">情報を更新する</v-btn>
+</p>
 </td>
           <v-select
             :items="Sitems"
             filled
             label="サムネイル作成"
-						v-bind:readonly="!editFlg"
+						v-bind:readonly="!isEditing"
           ></v-select>
 
           <v-select
             :items="Kitems"
             filled
             label="希望価格帯"
-						v-bind:readonly="!editFlg"
+						v-bind:readonly="!isEditing"
           ></v-select>
 
 					<v-textarea
 						outlined
 						label="コメント"
 						value=""
-						v-bind:readonly="!editFlg"
+						v-bind:readonly="!isEditing"
 					></v-textarea>
 
           <v-select
             :items="Gitems"
             filled
             label="業務形態"
-						v-bind:readonly="!editFlg"
+						v-bind:readonly="!isEditing"
           ></v-select>
 
           <v-select
             :items="Ditems"
             filled
             label="動画編集歴"
-						v-bind:readonly="!editFlg"
+						v-bind:readonly="!isEditing"
           ></v-select>
 
 	</div>
@@ -143,22 +145,10 @@
         </v-tab-item>
       </v-tabs>
     </v-card>
-			<v-text-field label="ユーザー名" type="text" v-model="name" v-bind:readonly="!editFlg" />
-			<v-text-field label="メールアドレス" type="text" v-model="mail" v-bind:readonly="!editFlg"/>
-			<v-text-field label="好きな食べ物" type="text" v-model="food" v-bind:readonly="!editFlg" />
-
-			<p>
-			<button @click="updateAllContents">ユーザ表示 |||</button>
-			<button @click="update">情報を更新する |||</button>
-			<button @click="allget">全取得</button>
-		</p>
-		<p>{{id}}</p>
-		<div>
-			<span>以下全ユーザリスト</span>
-			<div v-for="data in userList" v-bind:key="data.id">
-				名前:{{data.name}}，mail:{{data.mail}}
-			</div>
-		</div>
+			<!-- ユーザ名は登録情報に関わるため変更不可能 -->
+			<v-text-field label="ユーザー名" type="text" v-model="name" readonly />
+			<v-text-field label="メールアドレス" type="text" v-model="mail" v-bind:readonly="!isEditing"/>
+			<v-text-field label="好きな食べ物" type="text" v-model="food" v-bind:readonly="!isEditing" />
   </v-app>
 </div>
 </template>
@@ -171,7 +161,7 @@ import Axios from 'axios';
 
 const initialData = ()=>{
 	return {
-		editFlg: false,
+		isEditing: false,
 		name: "_",
 		mail: "_" ,
 		food: "_",
@@ -227,19 +217,6 @@ export default {
 				const data = response.data;
 				callback(data)
 			});
-		},
-		allget:function(){
-			const axios_obj = Axios.create({
-				responseType: 'json'
-			});
-
-			var local = this;
-			const API = process.env.VUE_APP_DB_API + "getAllDB";
-			axios_obj.get(API).then(function(response) {
-				const data = response.data;
-				local.userList = data;
-			});
-			console.log(local.userList);
 		},
 		post:(method, data, callback)=>{
 			const axios_obj = Axios.create({
