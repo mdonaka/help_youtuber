@@ -23,8 +23,159 @@
         </v-tab>
   
         <v-tab-item>
-          <v-card flat>
-			<h1>aaaa</h1>
+			<v-card flat>
+			<v-container fluid>
+			<v-row align="center" >
+			<v-col>
+				<v-card
+					class="mx-auto"
+					max-width="434"
+					tile
+					>
+					<v-img
+						height="100%"
+						src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
+					>
+						<v-row
+						align="end"
+						class="fill-height"
+						>
+						<v-col
+							align-self="start"
+							class="pa-0"
+							cols="12"
+						>
+							<v-avatar
+							class="profile"
+							color="grey"
+							size="164"
+							tile
+							>
+							<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+							</v-avatar>
+						</v-col>
+						<v-col class="py-0">
+							<v-list-item
+							color="rgba(0, 0, 0, .4)"
+							dark
+							>
+							<v-list-item-content>
+								<v-list-item-title class="title">
+								<input v-if=editFlg type="text" v-model="name">
+								<span v-else>{{name}}</span>
+								</v-list-item-title>
+								<v-list-item-subtitle>Editor</v-list-item-subtitle>
+								<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
+							</v-list-item-content>
+							</v-list-item>
+						</v-col>
+						</v-row>
+					</v-img>
+					</v-card>
+					<br>
+					<v-textarea
+					outlined
+					label="自己紹介"
+					value=""
+					v-if=editFlg
+					></v-textarea>
+
+					<v-textarea
+					outlined
+					label="自己紹介"
+					value=""
+					v-else
+					readonly
+					></v-textarea>
+
+			</v-col>
+			<v-col>
+<div> 
+<td>
+<v-switch v-model="editFlg"></v-switch></td>
+<td>
+<p prepend-icon="mdi-account-edit">
+<v-icon>mdi-account-edit</v-icon> 編集</p>
+</td>
+          <v-select
+            :items="Sitems"
+            filled
+            label="サムネイル作成"
+			v-if=editFlg
+          ></v-select>
+
+          <v-select
+            :items="Sitems"
+            filled
+            label="サムネイル作成"
+			v-else
+			readonly
+          ></v-select>
+
+          <v-select
+            :items="Kitems"
+            filled
+            label="希望価格帯"
+			v-if=editFlg
+          ></v-select>
+
+          <v-select
+            :items="Kitems"
+            filled
+            label="希望価格帯"
+			v-else
+			readonly
+          ></v-select>
+			<v-textarea
+			outlined
+			label="コメント"
+			value=""
+			v-if=editFlg
+			></v-textarea>
+
+			<v-textarea
+			outlined
+			label="コメント"
+			value=""
+			v-else
+			readonly
+			></v-textarea>
+
+          <v-select
+            :items="Gitems"
+            filled
+            label="業務形態"
+			v-if=editFlg
+          ></v-select>
+
+          <v-select
+            :items="Gitems"
+            filled
+            label="業務形態"
+			v-else
+			readonly
+          ></v-select>
+
+          <v-select
+            :items="Ditems"
+            filled
+            label="動画編集歴"
+			v-if=editFlg
+          ></v-select>
+
+          <v-select
+            :items="Ditems"
+            filled
+            label="動画編集歴"
+			v-else
+			readonly
+          ></v-select>
+
+	</div>
+			</v-col>
+			</v-row>
+			</v-container>
+			
           </v-card>
         </v-tab-item>
         <v-tab-item>
@@ -39,24 +190,19 @@
         </v-tab-item>
       </v-tabs>
     </v-card>
-  </v-app>
-	<div> 
-		<h2>ユーザ画面</h2>
-		<div>ユーザ名:
-			<input v-if=editFlg type="text" v-model="name">
-			<span v-else>{{name}}</span>
-		</div>
-		<div>メアド:
-			<input v-if=editFlg type="text" v-model="mail">
-			<span v-else>{{mail}}</span>
-		</div>
-		<div>好きな食べ物:
-			<input v-if=editFlg type="text" v-model="food">
-			<span v-else>{{food}}</span>
-		</div>
-
-		編集: <input type="checkbox" v-model="editFlg">
-		<p>
+			<v-text-field v-if=editFlg label="ユーザー名" type="text" v-model="name">
+			</v-text-field>
+			<v-text-field v-else label="ユーザー名" type="text" v-model="name" readonly>
+			{{name}}</v-text-field>
+			<v-text-field v-if=editFlg label="メールアドレス" type="text" v-model="mail">
+			</v-text-field>
+			<v-text-field v-else label="メールアドレス" type="text" v-model="mail" readonly>
+			{{name}}</v-text-field>
+			<v-text-field v-if=editFlg label="好きな食べ物" type="text" v-model="food">
+			</v-text-field>
+			<v-text-field v-else label="好きな食べ物" type="text" v-model="food" readonly>
+			{{name}}</v-text-field>
+			<p>
 			<button @click="updateAllContents">ユーザ表示 |||</button>
 			<button @click="update">情報を更新する |||</button>
 			<button @click="allget">全取得</button>
@@ -67,7 +213,7 @@
 				名前:{{data.name}}，mail:{{data.mail}}
 			</div>
 		</div>
-	</div>
+  </v-app>
 </div>
 </template>
 
@@ -84,6 +230,10 @@ const initialData = ()=>{
 		mail: "_" ,
 		food: "_",
 		userList: [],
+		Sitems: ['可能(別途料金)', '可能(込料金)', '不可', '要相談'],
+		Kitems: ['作業時間制', '動画時間制', '単価制', 'その他','要相談'],
+		Gitems: ['専業', '副業', '小遣い稼ぎ','練習'],
+		Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
 	};
 }
 

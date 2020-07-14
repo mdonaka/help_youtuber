@@ -10,7 +10,7 @@
           <v-text-field prepend-icon="mdi-account-circle" label="ユーザ名" v-model="mail"/>
           <v-text-field v-bind:type="showPassword ? 'text' : 'password'" prepend-icon="mdi-lock" append-icon="mdi-eye-off" label="パスワード" @click:append="showPassword = !showPassword" v-model="password" />
           <v-card-actions>
-            <v-btn class="info" color="error" @click="test">ログイン</v-btn>
+            <v-btn class="info" color="error" @click="signin">ログイン</v-btn>
           </v-card-actions>
           <p>※アカウントをお持ちでない方は<a href="/#/sign/signup">こちら</a></p>
         </v-form>
