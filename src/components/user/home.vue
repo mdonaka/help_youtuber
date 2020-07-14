@@ -153,7 +153,6 @@
 			<v-text-field label="ユーザー名" type="text" v-model="name" readonly />
 			<v-text-field label="メールアドレス" type="text" v-model="mail" v-bind:readonly="!isEditing"/>
 			<v-text-field label="好きな食べ物" type="text" v-model="food" v-bind:readonly="!isEditing" />
-			<div @click="test">click me</div>
   </v-app>
 </div>
 </template>
@@ -200,12 +199,6 @@ export default {
 			getUserInfo: "users/getUserInfo",
 			userUpdate: "users/userUpdate",
 		}),
-		test: function(){ 
-			console.log(this.id);
-			this.getUserInfo(this.id).then((val)=>{
-				console.log({val: val});
-			});
-		},
 		updateAllContents: function() {
 			const non = '_';
 			if(this.id !== non){
