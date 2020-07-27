@@ -21,14 +21,14 @@
         </v-btn>
         <v-spacer></v-spacer>
   
-        <v-btn icon href="#/chat" >
+        <v-btn icon href="#/user/chat" >
           <v-icon>mdi-chat</v-icon>
         </v-btn>
   
-        <v-btn icon href="#/user">
+        <v-btn icon href="#/user/userpage">
           <v-icon>mdi-account</v-icon>
         </v-btn>
-        <v-btn icon href="/#/">
+        <v-btn icon href="/#/user/">
           <v-icon>mdi-home</v-icon>
         </v-btn>
       </v-toolbar>
@@ -37,16 +37,10 @@
 			<v-icon>mdi-wifi-off</v-icon>
 		</v-btn>
 		(debug用)ユーザID:{{id}}
+		<router-link to="/sign/signin">signin</router-link>
 		<!-- ------- -->
 
 		<router-view/>
-		<ul>
-			<li><router-link to="/">HOME</router-link></li>
-			<li><router-link to="/chat">TALK</router-link></li>
-			<li><router-link to="/user">User page</router-link></li>
-		</ul>
-		ここ以下はデバグ用
-		<li><router-link to="/sign">signin</router-link></li>
 	</div>
 </template>
 
@@ -69,7 +63,12 @@ export default {
 		}),
 	},
 	created(){
-		this.login().then((res) => {console.log(res);});
+		const this2 = this;
+		this.login().then((res) => {
+			console.log(res);
+		}).catch(function(){
+			this2.$router.push("/sign");
+		});
 	}
 }
 </script>

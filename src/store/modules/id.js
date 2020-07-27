@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 import Vue from 'vue'
 import Vuex from 'vuex'
+import router from '../../router.js'
 
 const cognito = require("amazon-cognito-identity-js");
 const poolData = {
@@ -39,8 +40,9 @@ const actions = {
 			});
 		});
 	},
-	login: async({commit}) => {
+	login: async({commit, state}) => {
 		return new Promise((resolve, reject) => {
+			if(state.id !== "_"){resolve({already: state.id});}
 			const cognitoUser = userPool.getCurrentUser();  // 現在のユーザー
 
 			// 現在のユーザー情報が取得できているか？
@@ -56,6 +58,7 @@ const actions = {
 					// idを更新
 					const id = result[0].getValue();
 					commit("login", id);
+					router.push("/user");
 					resolve({login: id});
 				});
 			});
@@ -67,6 +70,7 @@ const actions = {
 		const id = state.id;
 		cognitoUser.signOut();
 		commit("login", "_");
+		router.push("/sign");
 		return {logout: id};
 	}
 }
