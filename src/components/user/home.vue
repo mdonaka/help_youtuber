@@ -3,7 +3,6 @@
   <v-app id="inspire">
     <v-card>
       <v-tabs
-		v-model="tab"
 		background-color="error"
 		grow
 		dark
