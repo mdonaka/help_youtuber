@@ -72,6 +72,10 @@
 						</v-row>
 					</v-img>
 					</v-card>
+<v-card
+max-width="434"
+class="mx-auto"
+elevation="0">
 					<br>
 					<v-textarea
 					outlined
@@ -87,6 +91,7 @@
 					v-else
 					readonly
 					></v-textarea>
+</v-card>
 
 			</v-col>
 			<v-col>
@@ -97,6 +102,10 @@
 <p prepend-icon="mdi-account-edit">
 <v-icon>mdi-account-edit</v-icon> 編集</p>
 </td>
+<v-card
+max-width="300"
+elevation="0"
+>
           <v-select
             :items="Sitems"
             filled
@@ -112,6 +121,12 @@
 			readonly
           ></v-select>
 
+<v-card
+elevation="0"
+max-width="300"
+>
+<v-row>
+<v-col>
           <v-select
             :items="Kitems"
             filled
@@ -126,9 +141,32 @@
 			v-else
 			readonly
           ></v-select>
+</v-col>
+<v-col>
+  <v-textarea
+			outlined
+			label="価格帯詳細"
+placeholder="約3,000円/h"
+height="50"
+			value=""
+			v-if=editFlg
+			></v-textarea>
+
+			<v-textarea
+			outlined
+			label="価格帯詳細"
+height="50"
+			value=""
+			v-else
+			readonly
+			></v-textarea>
+</v-col>
+</v-row>
+<v-row>
 			<v-textarea
 			outlined
 			label="コメント"
+placeholder="価格相談受け付けます。"
 			value=""
 			v-if=editFlg
 			></v-textarea>
@@ -136,10 +174,13 @@
 			<v-textarea
 			outlined
 			label="コメント"
+placeholder="編集をONにして入力してください"
 			value=""
 			v-else
 			readonly
 			></v-textarea>
+</v-row>
+</v-card>
 
           <v-select
             :items="Gitems"
@@ -170,6 +211,7 @@
 			v-else
 			readonly
           ></v-select>
+</v-card>
 
 	</div>
 			</v-col>
@@ -232,7 +274,7 @@ const initialData = ()=>{
 		userList: [],
 		Sitems: ['可能(別途料金)', '可能(込料金)', '不可', '要相談'],
 		Kitems: ['作業時間制', '動画時間制', '単価制', 'その他','要相談'],
-		Gitems: ['専業', '副業', '小遣い稼ぎ','練習'],
+		Gitems: ['専業', '副業', '小遣い稼ぎ','練習（無料で編集します）'],
 		Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
 	};
 }
