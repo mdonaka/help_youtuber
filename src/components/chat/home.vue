@@ -28,39 +28,6 @@
   <v-app id="inspire">
   <v-container fluid no-gutter>
   <v-row>
-  <v-col>
-<div class="font-weight-medium">○○さんとの会話
-</div>
-  <!-- タイムライン部分③ -->
-  <div id="ms_messages">
-    <br>
-    <!--メッセージ左側-->
-    <div v-for="text in textList" v-bind:key="text.id">
-      <div class="ms_message ms_left">
-        <div class = ms_message_box>
-          {{text}}
-        </div>
-      </div>
-    </div>
-    <div class="ms_clear"></div>
-
-    <!--メッセージ右側-->
-    <div v-for="text in textList" v-bind:key="text.id">
-      <div class="ms_message ms_right">
-        <div class = ms_message_box>
-          {{text}}
-        </div>
-      </div>
-    </div>
-    <div class="ms_clear"></div>
-  </div>
-
-  <div id="ms_send">
-    <textarea id="ms_send_message" v-model="sendText"></textarea>
-    <div id="ms_send_btn" @click="sendMessage">送信</div>
-  </div>
-
-</v-col>
  <v-divider :inset="inset" vertical></v-divider>
 	<v-col
 cols="10"
@@ -182,6 +149,49 @@ color="red"
 </v-row>
 </v-container>
 </v-col>
+  <v-col>
+<div class="font-weight-medium">○○さんとの会話
+</div>
+
+<div id="your_container">
+
+  <!-- チャットの外側部分① -->
+  <div id="ms_messages_container">
+
+  <!-- タイムライン部分③ -->
+  <div id="ms_messages">
+    <br>
+    <!--メッセージ左側-->
+    <div v-for="text in textList" v-bind:key="text.id">
+      <div class="ms_message ms_left">
+        <div class = ms_message_box>
+          {{text}}
+        </div>
+      </div>
+    </div>
+    <div class="ms_clear"></div>
+
+    <!--メッセージ右側-->
+    <div v-for="text in textList" v-bind:key="text.id">
+      <div class="ms_message ms_right">
+        <div class = ms_message_box>
+          {{text}}
+        </div>
+      </div>
+    </div>
+    <div class="ms_clear"></div>
+</div>
+</div>
+
+  <div id="ms_send">
+    <textarea id="ms_send_message" v-model="sendText"></textarea>
+    <div id="ms_send_btn" @click="sendMessage">送信</div>
+  </div>
+
+</div>
+
+
+</v-col>
 </v-row>
 </v-container>
   </v-app>
@@ -201,7 +211,7 @@ const initialData = ()=>{
 	return {
 		tab: null,
 		sendText: "",
-		textList: ["aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","qfkkmkoknkmnkomnjkomnjkomnjkokmnkomnkomnkomnkolkmkolkmkokqifojqif"],
+		textList: ["a","aa","aaa","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","sdfguhijokpljhgfdzghjkl;l:kjhgfdhjkl;::kjhgfjk;:lhfgcfbxhgjklhjgcfxhcgjkjl;hgfcgjykuhgyfjthdrgxrdhtfygkuhlijhgcfxqfkkmkoknkmnkomnjkomnjkomnjkokmnkomnkomnkomnkolkmkolkmkokqifojqif"],
 		sock: new WebSocket(process.env.VUE_APP_CHAT_URL)
 	};
 }
@@ -235,10 +245,25 @@ export default {
 </script>
 
 <style>
+  #your_container{
+      /* 高さや幅など、好きな様に設定
+      bms_messages_containerの方で、縦横いっぱいに広がってくれるので、
+      ここで充てた高さと横幅がそのままスタイルになる仕組み */
+
+      height:600px;/*ここはご自由に*/
+      width: 100%;/*ここはご自由に*/
+  }
+  /* チャットの外側部分① */
+  #ms_messages_container{
+      height: 100%;/*your_containerに対して100%になる */
+      width: 100%;/*your_containerに対して100%になる */
+      background-color: #eee;
+  }
+
 	/* タイムライン部分 */
 	#ms_messages {
 		overflow: auto;
-		height:80%;
+		height:100%;
 		border-right: 1px solid #ddd;
 		border-left: 1px solid #ddd;
 		background-color: #eee;
@@ -268,7 +293,7 @@ export default {
 						padding: 10px;
 						color: #333;/*テキストを黒にする*/
 						background: #fff;
-						border: 2px solid #13178E;
+						border: 2px solid #CC3300;
 						border-radius: 30px 30px 30px 0px;
 						margin-right: 50px;/*吹き出し右側に隙間を入れる*/
 						display: inline-block;
@@ -281,8 +306,8 @@ export default {
 				.ms_right .ms_message_box {
 					padding: 10px;
 					color: #fff;/*テキストを白にする*/
-					background: #13178E;
-					border: 2px solid #13178E;
+					background: #CC3300;
+					border: 2px solid #CC3300;
 					border-radius: 30px 30px 0px 30px;
 					display: inline-block;
 				}
@@ -325,7 +350,8 @@ export default {
 				box-sizing: border-box;
 			}
 			#ms_send_btn:hover {
-				background: #13178E; /*マウスポインタを当てた場合、色が変化*/
+				background: #CC3300; /*マウスポインタを当てた場合、色が変化*/
 				cursor: pointer;/*マウスポインタを当てた場合、カーソルが変化*/
 			}
+      /**/
 </style>
