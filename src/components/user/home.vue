@@ -1,5 +1,19 @@
 <template>
 <div id="app">
+	<!-- ローディング処理 -->
+	<v-dialog width="400px" v-model="nowLoading" persistent hide-overlay>
+		<v-card color="primary" dark >
+			<v-card-text>
+				now loading...
+				<v-progress-linear
+					indeterminate
+					color="white"
+					class="mb-0"
+				></v-progress-linear>
+			</v-card-text>
+		</v-card>
+	</v-dialog>
+	<!-- ---------------------------- -->
   <v-app id="inspire">
     <v-card>
       <v-tabs
@@ -163,6 +177,7 @@ import {mapState, mapActions} from 'vuex'
 
 const initialData = ()=>{
 	return {
+		nowLoading: true,
 		isEditing: false,
 		name: "_",
 		mail: "_" ,
@@ -197,8 +212,10 @@ export default {
 		...mapActions({
 			getUserInfo: "users/getUserInfo",
 			userUpdate: "users/userUpdate",
+			login:"id/login",
 		}),
 		updateAllContents: function() {
+			this.nowLoading = true;
 			const non = '_';
 			if(this.id !== non){
 				const local = this;
@@ -213,7 +230,13 @@ export default {
 					local.ditem = item.ditem;
 					local.comment = item.comment;
 					local.selfIntro = item.selfIntro;
+					local.nowLoading = false;
+				}).catch(()=>{
+					local.nowLoading = false;
 				});
+			}else{
+				const this2 = this;
+				this.login().then(()=>{this2.updateAllContents();});
 			}
 		},
 		updateUserInfo:function(){

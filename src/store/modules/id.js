@@ -58,7 +58,7 @@ const actions = {
 					// idを更新
 					const id = result[0].getValue();
 					commit("login", id);
-					router.push("/user");
+					router.push("/user", ()=>{});
 					resolve({login: id});
 				});
 			});
@@ -70,7 +70,7 @@ const actions = {
 		const id = state.id;
 		cognitoUser.signOut();
 		commit("login", "_");
-		router.push("/sign");
+		router.push("/sign", ()=>{});
 		return {logout: id};
 	}
 }
