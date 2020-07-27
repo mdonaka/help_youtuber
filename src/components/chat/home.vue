@@ -26,7 +26,7 @@
           <v-card flat>			
  <div id="app">
   <v-app id="inspire">
-  <v-container no-gutter>
+  <v-container fluid no-gutter>
   <v-row>
   <v-col>
 <div class="font-weight-medium">○○さんとの会話
@@ -62,11 +62,13 @@
 
 </v-col>
  <v-divider :inset="inset" vertical></v-divider>
-	<v-col>
+	<v-col
+cols="10"
+md="5">
 <div class="font-weight-medium">Editor
 </div>
 	<v-card
-      class="mx-auto"
+      class="mx-auto mb-3"
       width="400"
     >
       <v-img
@@ -105,7 +107,6 @@
         </v-row>
       </v-img>
     </v-card>
-<v-spacer></v-spacer>
  <v-divider :inset="inset"></v-divider>
 <div class="font-weight-medium">Youtuber希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</div>
 <v-btn-toggle mandatory v-model="bg1">
@@ -156,6 +157,7 @@
 </v-row>
 </v-container>
 </v-btn-toggle>
+ <v-divider :inset="inset"></v-divider>
 <div class="font-weight-medium">動画時間目安 : {{offset1}}時間{{offset2}}分</div>
 <v-container>
 <v-row>
@@ -172,7 +174,7 @@ color="red"
 color="red"
             v-model="offset2"
             min="1"
-            max="60"
+            max="59"
             label="分"
             thumb-label
           ></v-slider>
