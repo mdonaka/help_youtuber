@@ -77,14 +77,16 @@ md="5">
  <v-divider :inset="inset"></v-divider>
 <div class="font-weight-medium">Youtuber希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</div>
 <v-btn-toggle mandatory v-model="bg1">
-<v-container>
+<v-container
+class="mb-n6" >
 <v-row>
 <v-col>
   <v-btn 
       width="15vw" outlined color="green" value="クオリティ">クオリティ重視
   </v-btn>
 </v-col>
-<v-col>
+<v-col
+class="ml-n2">
   <v-btn 
       width="15vw" outlined color="light-blue" value="スピード">スピード重視
   </v-btn>
@@ -93,19 +95,22 @@ md="5">
 </v-container>
 </v-btn-toggle>
 <v-btn-toggle maltiple v-model="bg2">
-<v-container>
+<v-container
+class="mb-n6">
 <v-row>
 <v-col>
   <v-btn
       width="10vw" outlined color="red" value="24h">24時間以内
   </v-btn>
 </v-col>
-<v-col>
+<v-col
+class="ml-n4">
   <v-btn
       width="10vw" outlined color="red accent-3" value="3d">3日以内
   </v-btn>
 </v-col>
-<v-col>
+<v-col
+class="ml-n4">
   <v-btn
       width="10vw" outlined color="pink" value="1w">一週間以内
   </v-btn>
@@ -118,7 +123,7 @@ md="5">
 <v-row>
 <v-col>
   <v-btn
-      width="30vw" outlined color="black" value="サムネイル">サムネイル作成
+      width="31vw" outlined color="black" value="サムネイル">サムネイル作成
   </v-btn>
 </v-col>
 </v-row>
