@@ -1,47 +1,244 @@
 <template>
-	<div> 
-		<h2>ユーザ画面</h2>
-		<div>ユーザ名:
-			<input v-if=editFlg type="text" v-model="name">
-			<span v-else>{{name}}</span>
-		</div>
-		<div>メアド:
-			<input v-if=editFlg type="text" v-model="mail">
-			<span v-else>{{mail}}</span>
-		</div>
-		<div>好きな食べ物:
-			<input v-if=editFlg type="text" v-model="food">
-			<span v-else>{{food}}</span>
-		</div>
+<div id="app">
+	<!-- ローディング処理 -->
+	<v-dialog width="400px" v-model="nowLoading" persistent hide-overlay>
+		<v-card color="primary" dark >
+			<v-card-text>
+				now loading...
+				<v-progress-linear
+					indeterminate
+					color="white"
+					class="mb-0"
+				></v-progress-linear>
+			</v-card-text>
+		</v-card>
+	</v-dialog>
+	<!-- ---------------------------- -->
+  <v-app id="inspire">
+    <v-card>
+      <v-tabs
+				background-color="error"
+				grow
+				dark
+				icons-and-text
+			>
+        <v-tab>
+          <v-icon>mdi-card-account-details</v-icon>
+          プロフィール
+        </v-tab>
+        <v-tab>
+          <v-icon>mdi-thumbs-up-down</v-icon>
+          評価
+        </v-tab>
+        <v-tab>
+          <v-icon>mdi-movie-open</v-icon>
+          編集例
+        </v-tab>
+  
+        <v-tab-item>
+			<v-card flat>
+			<v-container fluid>
+			<v-row align="center" >
+			<v-col>
+				<v-card
+					class="mx-auto"
+					max-width="434"
+					tile
+					>
+					<v-img
+						height="100%"
+						src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
+					>
+						<v-row
+						align="end"
+						class="fill-height"
+						>
+						<v-col
+							align-self="start"
+							class="pa-0"
+							cols="12"
+						>
+							<v-avatar
+							class="profile"
+							color="grey"
+							size="164"
+							tile
+							>
+							<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+							</v-avatar>
+						</v-col>
+						<v-col class="py-0">
+							<v-list-item
+							color="rgba(0, 0, 0, .4)"
+							dark
+							>
+							<v-list-item-content>
+								<v-list-item-title class="title">
+								<input v-if=isEditing type="text" v-model="name">
+								<span v-else>{{name}}</span>
+								</v-list-item-title>
+								<v-list-item-subtitle>Editor</v-list-item-subtitle>
+								<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
+							</v-list-item-content>
+							</v-list-item>
+						</v-col>
+						</v-row>
+					</v-img>
+					</v-card>
 
-		編集: <input type="checkbox" v-model="editFlg">
-		<p>
-			<button @click="updateAllContents">ユーザ表示</button>
-			<button @click="update">情報を更新する</button>
-			<button @click="allget">全取得</button>
-		</p>
-		<div>
-			<span>以下全ユーザリスト</span>
-			<div v-for="data in userList" v-bind:key="data.id">
-				名前:{{data.name}}，mail:{{data.mail}}
-			</div>
-		</div>
+			<v-card
+			max-width="434"
+			class="mx-auto"
+			elevation="0">
+				<br>
+				<v-textarea
+					color="cyan"
+					height="200"
+					outlined
+					label="自己紹介"
+					placeholder="編集をONにして入力してください"
+					v-model="selfIntro"
+					v-bind:readonly="!isEditing"
+				></v-textarea>
+			</v-card>
+		</v-col>
+
+		<v-col>
+			<div> 
+				<td> <v-switch v-model="isEditing"></v-switch></td> 
+				<td>
+					<p prepend-icon="mdi-account-edit">
+						<v-icon>mdi-account-edit</v-icon> 編集
+						<v-btn small color="primary" v-if="isEditing" @click="updateUserInfo">情報を更新する</v-btn>
+					</p>
+				</td>
+				<v-card
+					max-width="300"
+					min-width="200"
+					elevation="0"
+				>
+
+          <v-select
+            :items="Sitems"
+						v-model="sitem"
+            filled
+						class="mb-n6"
+            label="サムネイル作成"
+						v-bind:readonly="!isEditing"
+          ></v-select>
+
+				<v-card
+					elevation="0"
+					max-width="300"
+				>
+					<v-row>
+					<v-col>
+						<v-select
+							:items="Kitems"
+							v-model="kitem"
+							filled
+							class="mb-n6"
+							label="希望価格帯"
+							v-bind:readonly="!isEditing"
+						></v-select>
+					</v-col>
+
+					<v-col>
+						<v-textarea
+							outlined
+							color="cyan"
+							class="mb-n6"
+							height="50"
+							label="価格帯詳細"
+							placeholder="約3,000円/h"
+							v-model="price"
+							v-bind:readonly="!isEditing"
+						></v-textarea>
+					</v-col>
+					</v-row>
+
+					<v-row>
+						<v-textarea
+							color="cyan"
+							class="mb-n3"
+							outlined
+							label="コメント"
+							placeholder="価格相談受け付けます。"
+							v-model="comment"
+							v-bind:readonly="!isEditing"
+						></v-textarea>
+					</v-row>
+				</v-card>
+
+				<v-select
+					:items="Gitems"
+					v-model="gitem"
+					filled
+					class="mb-n3"
+					label="業務形態"
+					v-bind:readonly="!isEditing"
+				></v-select>
+
+				<v-select
+					:items="Ditems"
+					v-model="ditem"
+					filled
+					class="mb-n6"
+					label="動画編集歴"
+					v-bind:readonly="!isEditing"
+				></v-select>
+			</v-card>
+
 	</div>
+			</v-col>
+			</v-row>
+			</v-container>
+			
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>
+			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>
+    </v-card>
+			<!-- ユーザ名は登録情報に関わるため変更不可能 -->
+			<v-text-field label="ユーザー名" type="text" v-model="name" readonly />
+			<v-text-field label="メールアドレス" type="text" v-model="mail" v-bind:readonly="!isEditing"/>
+			<v-text-field label="好きな食べ物" type="text" v-model="food" v-bind:readonly="!isEditing" />
+  </v-app>
+</div>
 </template>
 
 <script>
 /* eslint-disable no-console */
 
-import {mapState} from 'vuex'
-import Axios from 'axios';
+import {mapState, mapActions} from 'vuex'
 
 const initialData = ()=>{
 	return {
-		editFlg: false,
+		nowLoading: true,
+		isEditing: false,
 		name: "_",
 		mail: "_" ,
 		food: "_",
-		userList: [],
+		sitem: "_",
+		Sitems: ['可能(別途料金)', '可能(込料金)', '不可', '要相談'],
+		kitem: "_",
+		Kitems: ['作業時間制', '動画時間制', '単価制', 'その他','要相談'],
+		gitem: "_",
+		Gitems: ['専業', '副業', '小遣い稼ぎ','練習（無料で編集します）'],
+		ditem: "_",
+		Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
+		comment: "",
+		price: "",
+		selfIntro: "",
 	};
 }
 
@@ -58,73 +255,57 @@ export default {
 		this.updateAllContents();
 	},
 	methods:{
+		...mapActions({
+			getUserInfo: "users/getUserInfo",
+			userUpdate: "users/userUpdate",
+			login:"id/login",
+		}),
 		updateAllContents: function() {
+			this.nowLoading = true;
 			const non = '_';
 			if(this.id !== non){
 				const local = this;
-				this.get(this.id, function(data){
-					console.log(data.body);
-					if("Item" in data.body){
-						const item = data.body.Item;
-						local.name = item.name;
-						local.mail= item.mail;
-						local.food= item.food;
-					}else{
-						const prop = initialData();
-						for(const key in prop)if(prop.hasOwnProperty(key)){
-							local[key] = prop[key];
-						}
-					}
+				this.getUserInfo(this.id).then((data) => {
+					const item = data.Item;
+					local.name = item.name;
+					local.mail= item.mail;
+					local.food= item.food;
+					local.sitem = item.sitem;
+					local.kitem = item.kitem;
+					local.gitem = item.gitem;
+					local.ditem = item.ditem;
+					local.comment = item.comment;
+					local.selfIntro = item.selfIntro;
+					local.nowLoading = false;
+					local.price = item.price;
+				}).catch(()=>{
+					local.nowLoading = false;
 				});
+			}else{
+				const this2 = this;
+				this.login().then(()=>{this2.updateAllContents();});
 			}
 		},
-		get:(id, callback)=>{
-			console.log("call", id);
-			const axios_obj = Axios.create({
-				responseType: 'json'
+		updateUserInfo:function(){
+			console.log(this.kitem);
+			const data = JSON.stringify({
+				id:this.id,
+				name: this.name,
+				mail: this.mail,
+				food: this.food,
+				sitem: this.sitem,
+				kitem: this.kitem,
+				gitem: this.gitem,
+				ditem: this.ditem,
+				comment: this.comment,
+				price: this.price,
+				selfIntro: this.selfIntro,
 			});
-
-			const API = process.env.VUE_APP_DB_API + "getDB";
-			axios_obj.get(API,{params:{id:id}}).then(response => {
-				const data = response.data;
-				callback(data)
+			const local = this;
+			this.userUpdate(data).then(()=>{
+				console.log("update fin");
+				local.isEditing = false;
 			});
-		},
-		allget:function(){
-			const axios_obj = Axios.create({
-				responseType: 'json'
-			});
-
-			var local = this;
-			const API = process.env.VUE_APP_DB_API + "getAllDB";
-			axios_obj.get(API).then(function(response) {
-				const data = response.data;
-				local.userList = data;
-			});
-		},
-		post:(method, data, callback)=>{
-			const axios_obj = Axios.create({
-				responseType: 'json'
-			});
-			const API = process.env.VUE_APP_DB_API + method;
-			axios_obj.post(API, data).then(response => {
-				const data = response.data;
-				callback(data);
-			});
-		},
-		update:function(){
-		const non = '_';
-			if(this.id !== non){
-				const data = JSON.stringify({
-					id:this.id,
-					name: this.name,
-					mail: this.mail,
-					food: this.food
-				});
-				this.post("updateDB", data, (response)=>{
-					console.log(response);
-				});
-			}
 		},
 	}
 }

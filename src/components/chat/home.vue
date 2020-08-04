@@ -1,48 +1,233 @@
 <template>
-  <div>
-  
-  <!-- タイムライン部分③ -->
-            <div id="ms_messages">
-			<br>
+<div id="app">
+  <v-app id="inspire">
+    <v-card>
+      <v-tabs
+		v-model="tab"
+		background-color="error"
+		grow
+		dark
+		icons-and-text
+		>
+        <v-tab>
+          <v-icon>mdi-human</v-icon>
+          Editor情報
+        </v-tab>
+        <v-tab>
+          <v-icon>mdi-chat</v-icon>
+          チャット
+        </v-tab>
+        <v-tab-item>
+          <v-card flat>
+			<h1>工事中</h1>
+          </v-card>
+        </v-tab-item>
+        <v-tab-item>
+          <v-card flat>			
+ <div id="app">
+  <v-app id="inspire">
+  <v-container fluid no-gutter>
+  <v-row>
+ <v-divider :inset="inset" vertical></v-divider>
+	<v-col
+cols="10"
+md="5">
+<div class="font-weight-medium">Editor
+</div>
+	<v-card
+      class="mx-auto mb-3"
+      width="400"
+    >
+      <v-img
+        height="100%"
+        src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
+      >
+        <v-row
+          align="end"
+          class="fill-height"
+        >
+          <v-col
+            align-self="start"
+            class="pa-0"
+            cols="12"
+          >
+            <v-avatar
+              class="profile"
+              color="grey"
+              size="164"
+              tile
+            >
+              <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+            </v-avatar>
+          </v-col>
+          <v-col class="py-0">
+            <v-list-item
+              color="rgba(0, 0, 0, .4)"
+              dark
+            >
+              <v-list-item-content>
+                <v-list-item-title class="title">Marcus Obrien</v-list-item-title>
+                <v-list-item-subtitle>Network Engineer</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-col>
+        </v-row>
+      </v-img>
+    </v-card>
+ <v-divider :inset="inset"></v-divider>
+<div class="font-weight-medium">Youtuber希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</div>
+<v-btn-toggle mandatory v-model="bg1">
+<v-container>
+<v-row>
+<v-col>
+  <v-btn 
+      width="15vw" outlined color="green" value="クオリティ">クオリティ重視
+  </v-btn>
+</v-col>
+<v-col>
+  <v-btn 
+      width="15vw" outlined color="light-blue" value="スピード">スピード重視
+  </v-btn>
+</v-col>
+</v-row>
+</v-container>
+</v-btn-toggle>
+<v-btn-toggle maltiple v-model="bg2">
+<v-container>
+<v-row>
+<v-col>
+  <v-btn
+      width="10vw" outlined color="red" value="24h">24時間以内
+  </v-btn>
+</v-col>
+<v-col>
+  <v-btn
+      width="10vw" outlined color="red accent-3" value="3d">3日以内
+  </v-btn>
+</v-col>
+<v-col>
+  <v-btn
+      width="10vw" outlined color="pink" value="1w">一週間以内
+  </v-btn>
+</v-col>
+</v-row>
+</v-container>
+</v-btn-toggle>
+<v-btn-toggle maltiple v-model="bg3">
+<v-container>
+<v-row>
+<v-col>
+  <v-btn
+      width="30vw" outlined color="black" value="サムネイル">サムネイル作成
+  </v-btn>
+</v-col>
+</v-row>
+</v-container>
+</v-btn-toggle>
+ <v-divider :inset="inset"></v-divider>
+<div class="font-weight-medium">動画時間目安 : {{offset1}}時間{{offset2}}分</div>
+<v-container>
+<v-row>
+<v-col>
+ <v-slider
+color="red"
+            v-model="offset1"
+            min="0"
+            max="24"
+            label="時"
+            thumb-label
+          ></v-slider>
+ <v-slider
+color="red"
+            v-model="offset2"
+            min="1"
+            max="59"
+            label="分"
+            thumb-label
+          ></v-slider>
+</v-col>
+</v-row>
+</v-container>
+</v-col>
+  <v-col>
+<div class="font-weight-medium">○○さんとの会話
+</div>
 
-                <!--メッセージ左側-->
-				<div v-for="text in textList" v-bind:key="text.id">
-					<div class="ms_message ms_left">
-						<div class = ms_message_box>
-							{{text}}
-						</div>
-                    </div>
-                </div>
-				<div class="ms_clear"></div>
+<div id="your_container">
 
-                <!--メッセージ右側-->
-				<div v-for="text in textList" v-bind:key="text.id">
-					<div class="ms_message ms_right">
-						<div class = ms_message_box>
-							{{text}}
-						</div>
-                    </div>
-                </div>
-				<div class="ms_clear"></div>
+  <!-- チャットの外側部分 -->
+  <div id="ms_messages_container">
 
-            </div>
-		
-		<div id="ms_send">
-			<textarea id="ms_send_message" v-model="sendText"></textarea>
-			<div id="ms_send_btn" @click="sendMessage">送信</div>
-		</div>
+  <!-- タイムライン部分 -->
+  <div id="ms_messages">
+    <br>
+    <!--メッセージ左側-->
+    <div v-for="text in textList" v-bind:key="text.id">
+      <div class="ms_message ms_left">
+        <div class = "ms_message_box">
+          <div class="ms_message_content">
+           {{text}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ms_clear"></div>
+
+    <!--メッセージ右側-->
+    <div v-for="text in textList" v-bind:key="text.id">
+      <div class="ms_message ms_right">
+        <div class = "ms_message_box">
+          <div class="ms_message_content">
+           {{text}}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ms_clear"></div>
+</div>
+</div>
+
+  <div id="ms_send">
+    <textarea id="ms_send_message" v-model="sendText"></textarea>
+    <div id="ms_send_btn" @click="sendMessage">送信</div>
   </div>
+
+</div>
+
+
+</v-col>
+</v-row>
+</v-container>
+  </v-app>
+</div>
+		<div>
+			<h2>userList(今だけ仮指定)</h2>
+			<h2>to => {{sendTo}}</h2>
+			<div v-for="data in sendToList" v-bind:key="data.id" @click="toSet(data.id)">
+				{{data.name}}に送る
+			</div>
+		</div>
+          </v-card>
+        </v-tab-item>
+      </v-tabs>     
+    </v-card>
+  </v-app>
+</div>
 </template>
 
 <script>
 /* eslint-disable no-console */
+import {mapState, mapGetters} from 'vuex'
 
 const initialData = ()=>{
 	return {
+		tab: null,
 		sendText: "",
 		textList: ["あああああああああああ",
 		"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"],
-		sock: new WebSocket(process.env.VUE_APP_CHAT_URL)
+		sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
+		sendTo: "",
+		sendToList: []
 	};
 }
 
@@ -51,32 +236,72 @@ export default {
 	data(){
 		return initialData()
 	},
+	computed: {
+		...mapState({
+			id:s=>s.id.id,
+		}),
+	},
+	methods:{
+		...mapGetters({
+			getUsers: "users/getUsers",
+		}),
+		sendMessage: function(){
+			const data = JSON.stringify({"action":"sendMessage", "data":
+				{
+					text:this.sendText,
+					sendId:this.sendTo
+				}
+			});
+			this.sock.send(data);
+			this.sendText= "";
+		},
+		toSet(id){
+			this.sendTo = id;
+		},
+	},
 	created(){
+		if(this.id==="_"){return;}
+
+		const data = this;
+
+		// debug用 ユーザ取得
+		this.getUsers().then(function(users){
+			data.sendToList = users;
+		});
+
 		// 接続
 		this.sock.addEventListener('open',function(){
 			console.log('Socket 接続成功');
+			// ユーザの登録
+			const req= JSON.stringify({"action":"addUser", "data":data.id});
+			data.sock.send(req);
 		});
 
-		const data = this;
 		// サーバーからデータを受け取る
 		this.sock.addEventListener('message',function(e){
 			data.textList.push(e.data);
 		});
 	},
-	methods:{
-		sendMessage: function(){
-			const data = JSON.stringify({"action":"sendMessage", "data":this.sendText});
-			this.sock.send(data);
-			this.sendText= "";
-		}
-	}
 }
 
 </script>
 
-<style scoped>
+<!-- scoped -->
+<style>
+  #your_container{
+      /* 高さや幅など、好きな様に設定
+      ms_messages_containerの方で、縦横いっぱいに広がってくれるので、
+      ここで充てた高さと横幅がそのままスタイルになる仕組み */
 
-
+      height:600px;/*ここはご自由に*/
+      width: 100%;/*ここはご自由に*/
+  }
+  /* チャットの外側部分 */
+  #ms_messages_container{
+      height: 100%;/*your_containerに対して100%になる */
+      width: 100%;/*your_containerに対して100%になる */
+      background-color: #eee;
+  }
 
 	/* タイムライン部分 */
 	#ms_messages {
@@ -100,7 +325,7 @@ export default {
             font-size: 16px;
         }
             .ms_message_content{
-                padding: 20px;/*コンテンツの外側に隙間を入れる*/
+                padding: 3px;/*コンテンツの外側に隙間を入れる*/
             }
 			/* メッセージ左側 */
 			.ms_left {
@@ -111,7 +336,7 @@ export default {
 						padding: 10px;
 						color: #333;/*テキストを黒にする*/
 						background: #fff;
-						border: 2px solid #13178E;
+						border: 2px solid #CC3300;
 						border-radius: 30px 30px 30px 0px;
 						margin-right: 50px;/*吹き出し右側に隙間を入れる*/
 						display: inline-block;
@@ -124,8 +349,8 @@ export default {
 				.ms_right .ms_message_box {
 					padding: 10px;
 					color: #fff;/*テキストを白にする*/
-					background: #13178E;
-					border: 2px solid #13178E;
+					background: #CC3300;
+					border: 2px solid #CC3300;
 					border-radius: 30px 30px 0px 30px;
 					display: inline-block;
 				}
@@ -141,9 +366,7 @@ export default {
 			border-left: 1px solid #ddd;
 			border-bottom: 1px solid #ddd;
 			height: 48px;
-			padding: 4px;
 		}
-
 			#ms_send_message{
 				width: calc(100% - 75px);/*送信ボタンの横幅を引く*/
 				line-height: 16px;
@@ -154,7 +377,6 @@ export default {
 				text-align: left;/*文字を左寄せ*/
 				box-shadow: 2px 2px 4px 0px rgba(0,0,0,0.2) inset;/*内側に影を入れる*/
 				box-sizing: border-box;
-
 			}
 			#ms_send_btn {
 				width: 72px;
@@ -171,7 +393,8 @@ export default {
 				box-sizing: border-box;
 			}
 			#ms_send_btn:hover {
-				background: #13178E; /*マウスポインタを当てた場合、色が変化*/
+				background: #CC3300; /*マウスポインタを当てた場合、色が変化*/
 				cursor: pointer;/*マウスポインタを当てた場合、カーソルが変化*/
 			}
+      /**/
 </style>
