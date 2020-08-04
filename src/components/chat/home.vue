@@ -155,17 +155,19 @@ color="red"
 
 <div id="your_container">
 
-  <!-- チャットの外側部分① -->
+  <!-- チャットの外側部分 -->
   <div id="ms_messages_container">
 
-  <!-- タイムライン部分③ -->
+  <!-- タイムライン部分 -->
   <div id="ms_messages">
     <br>
     <!--メッセージ左側-->
     <div v-for="text in textList" v-bind:key="text.id">
       <div class="ms_message ms_left">
-        <div class = ms_message_box>
-          {{text}}
+        <div class = "ms_message_box">
+          <div class="ms_message_content">
+           {{text}}
+          </div>
         </div>
       </div>
     </div>
@@ -174,8 +176,10 @@ color="red"
     <!--メッセージ右側-->
     <div v-for="text in textList" v-bind:key="text.id">
       <div class="ms_message ms_right">
-        <div class = ms_message_box>
-          {{text}}
+        <div class = "ms_message_box">
+          <div class="ms_message_content">
+           {{text}}
+          </div>
         </div>
       </div>
     </div>
@@ -211,7 +215,7 @@ const initialData = ()=>{
 	return {
 		tab: null,
 		sendText: "",
-		textList: ["a","aa","aaa","aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa","sdfguhijokpljhgfdzghjkl;l:kjhgfdhjkl;::kjhgfjk;:lhfgcfbxhgjklhjgcfxhcgjkjl;hgfcgjykuhgyfjthdrgxrdhtfygkuhlijhgcfxqfkkmkoknkmnkomnjkomnjkomnjkokmnkomnkomnkomnkolkmkolkmkokqifojqif"],
+    textList: [],
 		sock: new WebSocket(process.env.VUE_APP_CHAT_URL)
 	};
 }
@@ -247,13 +251,13 @@ export default {
 <style>
   #your_container{
       /* 高さや幅など、好きな様に設定
-      bms_messages_containerの方で、縦横いっぱいに広がってくれるので、
+      ms_messages_containerの方で、縦横いっぱいに広がってくれるので、
       ここで充てた高さと横幅がそのままスタイルになる仕組み */
 
       height:600px;/*ここはご自由に*/
       width: 100%;/*ここはご自由に*/
   }
-  /* チャットの外側部分① */
+  /* チャットの外側部分 */
   #ms_messages_container{
       height: 100%;/*your_containerに対して100%になる */
       width: 100%;/*your_containerに対して100%になる */
@@ -282,7 +286,7 @@ export default {
             font-size: 16px;
         }
             .ms_message_content{
-                padding: 20px;/*コンテンツの外側に隙間を入れる*/
+                padding: 3px;/*コンテンツの外側に隙間を入れる*/
             }
 			/* メッセージ左側 */
 			.ms_left {
