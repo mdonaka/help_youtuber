@@ -17,11 +17,11 @@
   <v-app id="inspire">
     <v-card>
       <v-tabs
-		background-color="error"
-		grow
-		dark
-		icons-and-text
-		>
+				background-color="error"
+				grow
+				dark
+				icons-and-text
+			>
         <v-tab>
           <v-icon>mdi-card-account-details</v-icon>
           プロフィール
@@ -85,63 +85,109 @@
 						</v-row>
 					</v-img>
 					</v-card>
-					<br>
-					<v-textarea
-						outlined
-						label="自己紹介"
-						v-model="selfIntro"
-						v-bind:readonly="!isEditing"
-					></v-textarea>
 
-			</v-col>
-			<v-col>
-<div> 
-<td>
-<v-switch v-model="isEditing"></v-switch></td>
-<td>
-<p prepend-icon="mdi-account-edit">
-	<v-icon>mdi-account-edit</v-icon> 編集
-	<v-btn small color="primary" v-if="isEditing" @click="updateUserInfo">情報を更新する</v-btn>
-</p>
-</td>
+			<v-card
+			max-width="434"
+			class="mx-auto"
+			elevation="0">
+				<br>
+				<v-textarea
+					color="cyan"
+					height="200"
+					outlined
+					label="自己紹介"
+					placeholder="編集をONにして入力してください"
+					v-model="selfIntro"
+					v-bind:readonly="!isEditing"
+				></v-textarea>
+			</v-card>
+		</v-col>
+
+		<v-col>
+			<div> 
+				<td> <v-switch v-model="isEditing"></v-switch></td> 
+				<td>
+					<p prepend-icon="mdi-account-edit">
+						<v-icon>mdi-account-edit</v-icon> 編集
+						<v-btn small color="primary" v-if="isEditing" @click="updateUserInfo">情報を更新する</v-btn>
+					</p>
+				</td>
+				<v-card
+					max-width="300"
+					min-width="200"
+					elevation="0"
+				>
+
           <v-select
             :items="Sitems"
 						v-model="sitem"
             filled
+						class="mb-n6"
             label="サムネイル作成"
 						v-bind:readonly="!isEditing"
           ></v-select>
 
-          <v-select
-            :items="Kitems"
-						v-model="kitem"
-            filled
-            label="希望価格帯"
-						v-bind:readonly="!isEditing"
-          ></v-select>
+				<v-card
+					elevation="0"
+					max-width="300"
+				>
+					<v-row>
+					<v-col>
+						<v-select
+							:items="Kitems"
+							v-model="kitem"
+							filled
+							class="mb-n6"
+							label="希望価格帯"
+							v-bind:readonly="!isEditing"
+						></v-select>
+					</v-col>
 
-					<v-textarea
-						outlined
-						label="コメント"
-						v-model="comment"
-						v-bind:readonly="!isEditing"
-					></v-textarea>
+					<v-col>
+						<v-textarea
+							outlined
+							color="cyan"
+							class="mb-n6"
+							height="50"
+							label="価格帯詳細"
+							placeholder="約3,000円/h"
+							v-model="price"
+							v-bind:readonly="!isEditing"
+						></v-textarea>
+					</v-col>
+					</v-row>
 
-          <v-select
-            :items="Gitems"
-						v-model="gitem"
-            filled
-            label="業務形態"
-						v-bind:readonly="!isEditing"
-          ></v-select>
+					<v-row>
+						<v-textarea
+							color="cyan"
+							class="mb-n3"
+							outlined
+							label="コメント"
+							placeholder="価格相談受け付けます。"
+							v-model="comment"
+							v-bind:readonly="!isEditing"
+						></v-textarea>
+					</v-row>
+				</v-card>
 
-          <v-select
-            :items="Ditems"
-						v-model="ditem"
-            filled
-            label="動画編集歴"
-						v-bind:readonly="!isEditing"
-          ></v-select>
+				<v-select
+					:items="Gitems"
+					v-model="gitem"
+					filled
+					class="mb-n3"
+					label="業務形態"
+					v-bind:readonly="!isEditing"
+				></v-select>
+
+				<v-select
+					:items="Ditems"
+					v-model="ditem"
+					filled
+					class="mb-n6"
+					label="動画編集歴"
+					v-bind:readonly="!isEditing"
+				></v-select>
+			</v-card>
 
 	</div>
 			</v-col>
@@ -187,12 +233,12 @@ const initialData = ()=>{
 		kitem: "_",
 		Kitems: ['作業時間制', '動画時間制', '単価制', 'その他','要相談'],
 		gitem: "_",
-		Gitems: ['専業', '副業', '小遣い稼ぎ','練習'],
+		Gitems: ['専業', '副業', '小遣い稼ぎ','練習（無料で編集します）'],
 		ditem: "_",
 		Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
 		comment: "",
+		price: "",
 		selfIntro: "",
-
 	};
 }
 
@@ -231,6 +277,7 @@ export default {
 					local.comment = item.comment;
 					local.selfIntro = item.selfIntro;
 					local.nowLoading = false;
+					local.price = item.price;
 				}).catch(()=>{
 					local.nowLoading = false;
 				});
@@ -251,6 +298,7 @@ export default {
 				gitem: this.gitem,
 				ditem: this.ditem,
 				comment: this.comment,
+				price: this.price,
 				selfIntro: this.selfIntro,
 			});
 			const local = this;
