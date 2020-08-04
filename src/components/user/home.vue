@@ -78,6 +78,8 @@ class="mx-auto"
 elevation="0">
 					<br>
 					<v-textarea
+color="cyan"
+height="200"
 					outlined
 					label="自己紹介"
 					value=""
@@ -85,8 +87,11 @@ elevation="0">
 					></v-textarea>
 
 					<v-textarea
+color="cyan"
+height="200"
 					outlined
 					label="自己紹介"
+placeholder="編集をONにして入力してください"
 					value=""
 					v-else
 					readonly
@@ -104,11 +109,13 @@ elevation="0">
 </td>
 <v-card
 max-width="300"
+min-width="200"
 elevation="0"
 >
           <v-select
             :items="Sitems"
             filled
+class="mb-n6"
             label="サムネイル作成"
 			v-if=editFlg
           ></v-select>
@@ -116,6 +123,7 @@ elevation="0"
           <v-select
             :items="Sitems"
             filled
+class="mb-n6"
             label="サムネイル作成"
 			v-else
 			readonly
@@ -130,6 +138,7 @@ max-width="300"
           <v-select
             :items="Kitems"
             filled
+class="mb-n6"
             label="希望価格帯"
 			v-if=editFlg
           ></v-select>
@@ -137,6 +146,7 @@ max-width="300"
           <v-select
             :items="Kitems"
             filled
+class="mb-n6"
             label="希望価格帯"
 			v-else
 			readonly
@@ -145,6 +155,8 @@ max-width="300"
 <v-col>
   <v-textarea
 			outlined
+color="cyan"
+class="mb-n6"
 			label="価格帯詳細"
 placeholder="約3,000円/h"
 height="50"
@@ -154,6 +166,8 @@ height="50"
 
 			<v-textarea
 			outlined
+color="cyan"
+class="mb-n6"
 			label="価格帯詳細"
 height="50"
 			value=""
@@ -165,6 +179,8 @@ height="50"
 <v-row>
 			<v-textarea
 			outlined
+color="cyan"
+class="mb-n3"
 			label="コメント"
 placeholder="価格相談受け付けます。"
 			value=""
@@ -173,6 +189,8 @@ placeholder="価格相談受け付けます。"
 
 			<v-textarea
 			outlined
+color="cyan"
+class="mb-n3"
 			label="コメント"
 placeholder="編集をONにして入力してください"
 			value=""
@@ -185,6 +203,7 @@ placeholder="編集をONにして入力してください"
           <v-select
             :items="Gitems"
             filled
+class="mb-n3"
             label="業務形態"
 			v-if=editFlg
           ></v-select>
@@ -192,6 +211,7 @@ placeholder="編集をONにして入力してください"
           <v-select
             :items="Gitems"
             filled
+class="mb-n3"
             label="業務形態"
 			v-else
 			readonly
@@ -200,6 +220,7 @@ placeholder="編集をONにして入力してください"
           <v-select
             :items="Ditems"
             filled
+class="mb-n6"
             label="動画編集歴"
 			v-if=editFlg
           ></v-select>
@@ -207,6 +228,7 @@ placeholder="編集をONにして入力してください"
           <v-select
             :items="Ditems"
             filled
+class="mb-n6"
             label="動画編集歴"
 			v-else
 			readonly
