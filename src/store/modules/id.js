@@ -65,14 +65,30 @@ const actions = {
 		});
 	},
 	logout({state, commit}){
-		const cognitoUser = userPool.getCurrentUser();
-		if(cognitoUser == null){return "use not found";}
-		const id = state.id;
-		cognitoUser.signOut();
-		commit("login", "_");
-		router.push("/sign", ()=>{});
-		return {logout: id};
-	}
+		new Promise((resolve, reject) => {
+			Vue.$confirm({
+				message: 'ログアウトしますか？',
+				button: {
+					yes: 'はい',
+					no: 'いいえ'
+				},
+				callback: confirm => {
+					if(!confirm){reject();} 
+					resolve();
+				}
+			});
+		}).then(()=>{
+			const cognitoUser = userPool.getCurrentUser();
+			if(cognitoUser == null){return "use not found";}
+			const id = state.id;
+			cognitoUser.signOut();
+			commit("login", "_");
+			router.push("/sign", ()=>{});
+			console.log({"logout succes": id});
+		}).catch(()=>{
+			console.log("logout cancel");
+		});
+	},
 }
 
 const mutations = {

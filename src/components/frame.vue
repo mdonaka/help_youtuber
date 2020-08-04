@@ -31,15 +31,10 @@
         <v-btn icon href="/#/user/">
           <v-icon>mdi-home</v-icon>
         </v-btn>
+				<v-btn icon @click=logout>
+					<v-icon>mdi-wifi-off</v-icon>
+				</v-btn>
       </v-toolbar>
-		<!-- debug用 -->
-		<v-btn icon @click=logout>
-			<v-icon>mdi-wifi-off</v-icon>
-		</v-btn>
-		(debug用)ユーザID:{{id}}
-		<router-link to="/sign/signin">signin</router-link>
-		<!-- ------- -->
-
 		<router-view/>
 	</div>
 </template>
