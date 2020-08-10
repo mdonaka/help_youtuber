@@ -160,7 +160,6 @@ color="red"
 
   <!-- タイムライン部分 -->
   <div id="ms_messages">
-    <br>
     <!--メッセージ左側-->
     <div v-for="text in textList" v-bind:key="text.id">
       <div class="ms_message ms_left">
@@ -170,10 +169,13 @@ color="red"
           </div>
         </div>
       </div>
+	<div class="ms_clear"></div>
     </div>
-    <div class="ms_clear"></div>
+    
+
 
     <!--メッセージ右側-->
+
     <div v-for="text in textList" v-bind:key="text.id">
       <div class="ms_message ms_right">
         <div class = "ms_message_box">
@@ -182,8 +184,10 @@ color="red"
           </div>
         </div>
       </div>
+	<div class="ms_clear"></div>
     </div>
-    <div class="ms_clear"></div>
+
+	<br>
 </div>
 </div>
 
@@ -223,8 +227,7 @@ const initialData = ()=>{
 	return {
 		tab: null,
 		sendText: "",
-		textList: ["あああああああああああ",
-		"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"],
+		textList: ["あ","ああ","あああ","あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"],
 		sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
 		sendTo: "",
 		sendToList: []
