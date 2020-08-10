@@ -196,12 +196,62 @@
 			
           </v-card>
         </v-tab-item>
-        <v-tab-item>
-          <v-card flat>
-			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
-          </v-card>
-        </v-tab-item>
-        <v-tab-item>
+
+<v-tab-item>
+	<v-card flat>
+		<v-container>
+			<v-row>
+				<v-col>
+					<v-avatar
+					class="profile"
+					color="grey"
+					size="164"
+					tile
+					>
+					<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+					</v-avatar>
+
+					<v-list-item-title class="title">
+					<input v-if=isEditing type="text" v-model="name">
+					<span v-else>{{name}}</span>
+					</v-list-item-title>
+					<v-list-item-subtitle>Editor</v-list-item-subtitle>
+					<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
+					<h1>得意ジャンル</h1>
+					<h1>作業スピード</h1>
+					<h1>編集クオリティ</h1>
+				</v-col>
+				<v-col>
+				<h1>希望価格帯</h1>
+				<h1>サムネイル作成</h1>
+				<h1>編集ソフト</h1>
+				<h1>編集例</h1>
+				</v-col>
+				<v-col>
+ <v-slider
+color="red"
+            v-model="offset1"
+            min="0"
+            max="24"
+            label="時"
+            thumb-label
+          ></v-slider>
+					<v-textarea
+						color="cyan"
+						height="200"
+						outlined
+						label="自己紹介"
+						placeholder="編集をONにして入力してください"
+						v-model="selfIntro"
+						v-bind:readonly="!isEditing"
+					></v-textarea>
+				</v-col>
+			</v-row>
+		</v-container>
+	</v-card>
+</v-tab-item>
+
+<v-tab-item>
           <v-card flat>
 			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
           </v-card>
