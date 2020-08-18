@@ -202,6 +202,8 @@
 		<v-container>
 			<v-row>
 				<v-col>
+<v-card outlined
+elevation="3">
 					<v-avatar
 					class="profile"
 					color="grey"
@@ -217,15 +219,59 @@
 					</v-list-item-title>
 					<v-list-item-subtitle>Editor</v-list-item-subtitle>
 					<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
-					<h1>得意ジャンル</h1>
+</v-card>
+<v-card outlined
+elevation="3" class="mt-4">
+					<h1>得意ジャンル</h1> 
 					<h1>作業スピード</h1>
 					<h1>編集クオリティ</h1>
+</v-card>
 				</v-col>
 				<v-col>
 				<h1>希望価格帯</h1>
+<v-col cols="12">
+            <v-text-field
+              value="John Doe"
+              label="Solo"
+              solo
+              readonly
+outlined
+class="my-n3"
+            ></v-text-field>
+          </v-col>
 				<h1>サムネイル作成</h1>
+<v-col cols="12">
+            <v-text-field
+              value="John Doe"
+              label="Solo"
+              solo
+              readonly
+outlined
+class="my-n3"
+            ></v-text-field>
+          </v-col>
 				<h1>編集ソフト</h1>
+<v-col cols="12">
+            <v-text-field
+              value="John Doe"
+              label="Solo"
+              solo
+              readonly
+outlined
+class="my-n3"
+            ></v-text-field>
+          </v-col>
 				<h1>編集例</h1>
+<v-col cols="12">
+            <v-text-field
+              value="John Doe"
+              label="Solo"
+              solo
+              readonly
+outlined
+class="my-n3"
+            ></v-text-field>
+          </v-col>
 				</v-col>
 				<v-col>
  <v-slider
@@ -245,6 +291,10 @@ color="red"
 						v-model="selfIntro"
 						v-bind:readonly="!isEditing"
 					></v-textarea>
+<div class="my-3" fluid>
+ <v-btn x-large color="success" dark>
+<h3>コンタクト</h3></v-btn>
+</div>
 				</v-col>
 			</v-row>
 		</v-container>
