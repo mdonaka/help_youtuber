@@ -160,9 +160,12 @@ color="red"
 
   <!-- タイムライン部分 -->
   <div id="ms_messages">
-    <!--メッセージ左側-->
-    <div v-for="text in textList" v-bind:key="text.id">
-      <div class="ms_message ms_left">
+    <!--メッセージ-->
+    <div v-for="{text, isMine} in textList" v-bind:key="text.id">
+      <div 
+				class="ms_message" 
+				v-bind:class="{ms_left:!isMine, ms_right:isMine}"
+			>
         <div class = "ms_message_box">
           <div class="ms_message_content">
            {{text}}
@@ -171,22 +174,6 @@ color="red"
       </div>
 	<div class="ms_clear"></div>
     </div>
-    
-
-
-    <!--メッセージ右側-->
-
-    <div v-for="text in textList" v-bind:key="text.id">
-      <div class="ms_message ms_right">
-        <div class = "ms_message_box">
-          <div class="ms_message_content">
-           {{text}}
-          </div>
-        </div>
-      </div>
-	<div class="ms_clear"></div>
-    </div>
-
 	<br>
 </div>
 </div>
@@ -227,7 +214,11 @@ const initialData = ()=>{
 	return {
 		tab: null,
 		sendText: "",
-		textList: ["あ","ああ","あああ","あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"],
+		textList: [
+		{text:"こんにちは，私です", isMine:true},
+		{text:"誰だよ", isMine:false},
+		{text:"さんちゃんだお！ｗｗ", isMine:true},
+		{text:"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ", isMine:false}],
 		sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
 		sendTo: "",
 		sendToList: []
