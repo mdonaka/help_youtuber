@@ -247,6 +247,7 @@ export default {
 				}
 			});
 			this.sock.send(data);
+			this.textList.push({text:this.sendText, isMine:true});
 			this.sendText= "";
 		},
 		toSet(id){
@@ -273,7 +274,7 @@ export default {
 
 		// サーバーからデータを受け取る
 		this.sock.addEventListener('message',function(e){
-			data.textList.push(e.data);
+			data.textList.push({text:e.data, isMine:false});
 		});
 	},
 }
