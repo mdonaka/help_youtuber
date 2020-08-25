@@ -28,7 +28,7 @@
   <v-app id="inspire">
   <v-container fluid no-gutter>
   <v-row>
- <v-divider :inset="inset" vertical></v-divider>
+ <v-divider inset vertical></v-divider>
 	<v-col
 cols="10"
 md="5">
@@ -74,7 +74,7 @@ md="5">
         </v-row>
       </v-img>
     </v-card>
- <v-divider :inset="inset"></v-divider>
+ <v-divider inset></v-divider>
 <div class="font-weight-medium">Youtuber希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</div>
 <v-btn-toggle mandatory v-model="bg1">
 <v-container
@@ -129,7 +129,7 @@ class="ml-n4">
 </v-row>
 </v-container>
 </v-btn-toggle>
- <v-divider :inset="inset"></v-divider>
+ <v-divider inset></v-divider>
 <div class="font-weight-medium">動画時間目安 : {{offset1}}時間{{offset2}}分</div>
 <v-container>
 <v-row>
@@ -232,7 +232,12 @@ const initialData = ()=>{
 		"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"],
 		sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
 		sendTo: "",
-		sendToList: []
+		sendToList: [],
+		bg1: null,
+		bg2: null,
+		bg3: null,
+		offset1: null,
+		offset2: null,
 	};
 }
 

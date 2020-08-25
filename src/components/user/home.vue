@@ -289,6 +289,7 @@ const initialData = ()=>{
 		comment: "",
 		price: "",
 		selfIntro: "",
+		offset1: null,
 	};
 }
 
