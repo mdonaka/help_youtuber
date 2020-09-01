@@ -112,6 +112,9 @@
 						<v-btn small color="primary" v-if="isEditing" @click="updateUserInfo">情報を更新する</v-btn>
 					</p>
 				</td>
+<v-container>
+<v-row>
+<v-col>
 				<v-card
 					max-width="300"
 					min-width="200"
@@ -161,6 +164,7 @@
 						<v-textarea
 							color="cyan"
 							class="mb-n3"
+							height="80"			
 							outlined
 							label="コメント"
 							placeholder="価格相談受け付けます。"
@@ -187,6 +191,35 @@
 					label="動画編集歴"
 					v-bind:readonly="!isEditing"
 				></v-select>
+</v-col>
+<v-col>
+<v-btn-toggle maltiple>
+<v-container
+class="mb-n6">
+<v-row>
+<v-col>
+  <v-btn
+      width="5vw" outlined color="red" value="24h">2
+  </v-btn>
+</v-col>
+<v-col
+class="ml-n4">
+  <v-btn
+      width="5vw" outlined color="red accent-3" value="3d">3
+  </v-btn>
+</v-col>
+<v-col
+class="ml-n4">
+  <v-btn
+      width="5vw" outlined color="pink" value="1w">一
+  </v-btn>
+</v-col>
+</v-row>
+</v-container>
+</v-btn-toggle>
+</v-col>
+</v-row>
+</v-container>
 			</v-card>
 
 	</div>
@@ -202,33 +235,34 @@
 		<v-container>
 			<v-row>
 				<v-col>
+					<v-container fluid fill-height>
 <v-card outlined
 elevation="3">
 					<v-avatar
 					class="profile"
 					color="grey"
-					size="164"
-					tile
+					size="200"
 					>
 					<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
 					</v-avatar>
-
+</v-card>
+<v-card outlined
+elevation="3" class="mt-4">
 					<v-list-item-title class="title">
 					<input v-if=isEditing type="text" v-model="name">
 					<span v-else>{{name}}</span>
 					</v-list-item-title>
 					<v-list-item-subtitle>Editor</v-list-item-subtitle>
 					<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
+ <v-divider></v-divider>
+					<p class="font-weight-black">得意ジャンル</p> 
+					<p class="font-weight-black">作業スピード</p>
+					<p class="font-weight-black">編集クオリティ</p>
 </v-card>
-<v-card outlined
-elevation="3" class="mt-4">
-					<h1>得意ジャンル</h1> 
-					<h1>作業スピード</h1>
-					<h1>編集クオリティ</h1>
-</v-card>
+					</v-container>
 				</v-col>
 				<v-col>
-				<h1>希望価格帯</h1>
+				<p class="font-weight-black">希望価格帯</p>
 <v-col cols="12">
             <v-text-field
               value="John Doe"
@@ -236,10 +270,10 @@ elevation="3" class="mt-4">
               solo
               readonly
 outlined
-class="my-n3"
+class="my-n5"
             ></v-text-field>
           </v-col>
-				<h1>サムネイル作成</h1>
+				<p class="font-weight-black">サムネイル作成</p>
 <v-col cols="12">
             <v-text-field
               value="John Doe"
@@ -247,29 +281,29 @@ class="my-n3"
               solo
               readonly
 outlined
-class="my-n3"
+class="my-n5"
             ></v-text-field>
           </v-col>
-				<h1>編集ソフト</h1>
+				<p class="text--disabled">編集ソフト</p>
 <v-col cols="12">
             <v-text-field
-              value="John Doe"
+              value="工事中"
               label="Solo"
               solo
-              readonly
+              disabled
 outlined
-class="my-n3"
+class="my-n5"
             ></v-text-field>
           </v-col>
-				<h1>編集例</h1>
+				<p class="text--disabled">編集例</p>
 <v-col cols="12">
             <v-text-field
-              value="John Doe"
+              value="工事中"
               label="Solo"
               solo
-              readonly
+              disabled
 outlined
-class="my-n3"
+class="my-n5"
             ></v-text-field>
           </v-col>
 				</v-col>
