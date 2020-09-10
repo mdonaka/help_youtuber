@@ -130,6 +130,7 @@
 						v-bind:readonly="!isEditing"
           ></v-select>
 
+    </v-card>
 				<v-card
 					elevation="0"
 					max-width="300"
@@ -220,7 +221,6 @@ class="ml-n4">
 </v-col>
 </v-row>
 </v-container>
-			</v-card>
 
 	</div>
 			</v-col>
@@ -229,6 +229,8 @@ class="ml-n4">
 			
           </v-card>
         </v-tab-item>
+      </v-tabs>
+			</v-card>
 
 <v-tab-item>
 	<v-card flat>
@@ -340,8 +342,6 @@ color="red"
 			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
           </v-card>
         </v-tab-item>
-      </v-tabs>
-    </v-card>
 			<!-- ユーザ名は登録情報に関わるため変更不可能 -->
 			<v-text-field label="ユーザー名" type="text" v-model="name" readonly />
 			<v-text-field label="メールアドレス" type="text" v-model="mail" v-bind:readonly="!isEditing"/>
