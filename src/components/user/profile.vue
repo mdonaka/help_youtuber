@@ -80,66 +80,70 @@
 <v-container>
 	<v-row>
 		<v-col>
-				<v-card
-				max-width="300"
-				min-width="200"
-				elevation="0"
-				>
+			<v-card
+			max-width="300"
+			min-width="200"
+			elevation="0"
+			>
+				<v-select
+				:items="Sitems"
+				v-model="sitem"
+				filled
+				class="mb-n6"
+				label="サムネイル作成"
+				v-bind:readonly="!isEditing"
+				></v-select>
 
+			</v-card>
+			<v-card
+			elevation="0"
+			max-width="300"
+			>
+				<v-row>
+					<v-col>
 						<v-select
-						:items="Sitems"
-						v-model="sitem"
+						:items="Kitems"
+						v-model="kitem"
 						filled
 						class="mb-n6"
-						label="サムネイル作成"
+						label="希望価格帯"
 						v-bind:readonly="!isEditing"
 						></v-select>
+					</v-col>
 
-				</v-card>
-				<v-card
-				elevation="0"
-				max-width="300"
-				>
-					<v-row>
-						<v-col>
-							<v-select
-							:items="Kitems"
-							v-model="kitem"
-							filled
-							class="mb-n6"
-							label="希望価格帯"
-							v-bind:readonly="!isEditing"
-							></v-select>
-						</v-col>
-
-						<v-col>
-							<v-textarea
-							outlined
-							color="cyan"
-							class="mb-n6"
-							height="50"
-							label="価格帯詳細"
-							placeholder="約3,000円/h"
-							v-model="price"
-							v-bind:readonly="!isEditing"
-							></v-textarea>
-						</v-col>
-					</v-row>
-
-					<v-row>
+					<v-col>
 						<v-textarea
-						color="cyan"
-						class="mb-n3"
-						height="80"			
 						outlined
-						label="コメント"
-						placeholder="価格相談受け付けます。"
-						v-model="comment"
+						color="cyan"
+						class="mb-n6"
+						height="50"
+						label="価格帯詳細"
+						placeholder="例:約3,000円/h"
+						v-model="price"
 						v-bind:readonly="!isEditing"
 						></v-textarea>
-					</v-row>
-				</v-card>
+					</v-col>
+				</v-row>
 
+				<v-row>
+					<v-textarea
+					color="cyan"
+					class="mb-n3"
+					height="80"			
+					outlined
+					label="コメント"
+					placeholder="例：価格相談受け付けます。"
+					v-model="comment"
+					v-bind:readonly="!isEditing"
+					></v-textarea>
+				</v-row>
+			</v-card>
+
+			<v-card
+			max-width="300"
+			min-width="200"
+			elevation="0"
+			>
 				<v-select
 				:items="Gitems"
 				v-model="gitem"
@@ -153,36 +157,39 @@
 				:items="Ditems"
 				v-model="ditem"
 				filled
-				class="mb-n6"
+				class="mb-n3"
 				label="動画編集歴"
 				v-bind:readonly="!isEditing"
 				></v-select>
-		</v-col>
-		<v-col>
-			<v-btn-toggle maltiple>
-				<v-container
-				class="mb-n6">
-					<v-row>
-						<v-col>
-							<v-btn
-							width="5vw" outlined color="red" value="24h">2
-							</v-btn>
-						</v-col>
-						<v-col
-						class="ml-n4">
-							<v-btn
-							width="5vw" outlined color="red accent-3" value="3d">3
-							</v-btn>
-						</v-col>
-						<v-col
-						class="ml-n4">
-							<v-btn
-							width="5vw" outlined color="pink" value="1w">一
-							</v-btn>
-						</v-col>
-					</v-row>
-				</v-container>
-			</v-btn-toggle>
+
+				<v-select
+				:items="Hitems"
+				v-model="hitem"
+				filled
+				class="mb-n3"
+				label="作業スピード"
+				v-bind:readonly="!isEditing"
+				></v-select>
+
+				<v-select
+				:items="Iitems"
+				v-model="iitem"
+				filled
+				class="mb-n3"
+				label="編集クオリティ"
+				v-bind:readonly="!isEditing"
+				></v-select>
+
+				<v-select
+				:items="Oitems"
+				v-model="oitem"
+				filled
+				class="mb-n3"
+				label="ooppai"
+				multiple
+				v-bind:readonly="!isEditing"
+				></v-select>
+			</v-card>
 		</v-col>
 	</v-row>
 </v-container>
