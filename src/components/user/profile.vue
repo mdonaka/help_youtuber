@@ -1,5 +1,19 @@
 <template>
 	<div>
+	<!-- ローディング処理 -->
+	<v-dialog width="400px" v-model="Item.nowLoading" persistent hide-overlay>
+		<v-card color="primary" dark >
+			<v-card-text>
+				now loading...
+				<v-progress-linear
+					indeterminate
+					color="white"
+					class="mb-0"
+				></v-progress-linear>
+			</v-card-text>
+		</v-card>
+	</v-dialog>
+	<!-- ---------------------------- -->
 
 			<v-card flat>
 			<v-container fluid>
@@ -39,8 +53,8 @@
 							>
 							<v-list-item-content>
 								<v-list-item-title class="title">
-								<input v-if=isEditing type="text" v-model="name">
-								<span v-else>{{name}}</span>
+								<input v-if=isEditing type="text" v-model="Item.name">
+								<span v-else>{{Item.name}}</span>
 								</v-list-item-title>
 								<v-list-item-subtitle>Editor</v-list-item-subtitle>
 								<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
@@ -62,7 +76,7 @@
 					outlined
 					label="自己紹介"
 					placeholder="編集をONにして入力してください"
-					v-model="selfIntro"
+					v-model="Item.selfIntro"
 					v-bind:readonly="!isEditing"
 				></v-textarea>
 			</v-card>
@@ -87,8 +101,8 @@
 				>
 
           <v-select
-            :items="Sitems"
-						v-model="sitem"
+            :items="Item.Sitems"
+						v-model="Item.sitem"
             filled
 						class="mb-n6"
             label="サムネイル作成"
@@ -103,8 +117,8 @@
 					<v-row>
 					<v-col>
 						<v-select
-							:items="Kitems"
-							v-model="kitem"
+							:items="Item.Kitems"
+							v-model="Item.kitem"
 							filled
 							class="mb-n6"
 							label="希望価格帯"
@@ -120,7 +134,7 @@
 							height="50"
 							label="価格帯詳細"
 							placeholder="約3,000円/h"
-							v-model="price"
+							v-model="Item.price"
 							v-bind:readonly="!isEditing"
 						></v-textarea>
 					</v-col>
@@ -134,15 +148,15 @@
 							outlined
 							label="コメント"
 							placeholder="価格相談受け付けます。"
-							v-model="comment"
+							v-model="Item.comment"
 							v-bind:readonly="!isEditing"
 						></v-textarea>
 					</v-row>
 				</v-card>
 
 				<v-select
-					:items="Gitems"
-					v-model="gitem"
+					:items="Item.Gitems"
+					v-model="Item.gitem"
 					filled
 					class="mb-n3"
 					label="業務形態"
@@ -150,8 +164,8 @@
 				></v-select>
 
 				<v-select
-					:items="Ditems"
-					v-model="ditem"
+					:items="Item.Ditems"
+					v-model="Item.ditem"
 					filled
 					class="mb-n6"
 					label="動画編集歴"
@@ -194,14 +208,85 @@ class="ml-n4">
 			
           </v-card>
 		<!-- ユーザ名は登録情報に関わるため変更不可能 -->
-		<v-text-field label="ユーザー名" type="text" v-model="name" readonly />
-		<v-text-field label="メールアドレス" type="text" v-model="mail" v-bind:readonly="!isEditing"/>
-		<v-text-field label="好きな食べ物" type="text" v-model="food" v-bind:readonly="!isEditing" />
+		<v-text-field label="ユーザー名" type="text" v-model="Item.name" readonly />
+		<v-text-field label="メールアドレス" type="text" v-model="Item.mail" v-bind:readonly="!isEditing"/>
+		<v-text-field label="好きな食べ物" type="text" v-model="Item.food" v-bind:readonly="!isEditing" />
 	</div>
 </template>
 
 <script>
 /* eslint-disable no-console */
+
+import {mapState, mapActions} from 'vuex'
+
+const initialData = ()=>{
+	return {
+		nowLoading: true,
+		isEditing: false,
+		Item: {
+			name: "_",
+			mail: "_" ,
+			food: "_",
+			sitem: "_",
+			Sitems: ['可能(別途料金)', '可能(込料金)', '不可', '要相談'],
+			kitem: "_",
+			Kitems: ['作業時間制', '動画時間制', '単価制', 'その他','要相談'],
+			gitem: "_",
+			Gitems: ['専業', '副業', '小遣い稼ぎ','練習（無料で編集します）'],
+			ditem: "_",
+			Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
+			comment: "",
+			price: "",
+			selfIntro: "",
+		}
+	};
+}
+export default {
+	data(){
+		return initialData()
+	},
+	computed: {
+		...mapState({
+			id:s=>s.id.id
+		}),
+	},
+	mounted:function(){
+		this.updateAllContents();
+	},
+	methods:{
+		...mapActions({
+			getUserInfo: "users/getUserInfo",
+			userUpdate: "users/userUpdate",
+			login:"id/login",
+		}),
+		updateAllContents: function() {
+			this.nowLoading = true;
+			const local = this;
+			this.getUserInfo(this.id).then((data) => {
+				for(const key in data.Item){
+					local.Item[key] = data.Item[key];
+				}
+				local.nowLoading = false;
+			}).catch(()=>{
+				local.nowLoading = false;
+			});
+		},
+		updateUserInfo:function(){
+			let items = { id: this.id };
+			for(const key in this.Item){
+				items[key] = this.Item[key];
+			}
+			const data = JSON.stringify(items);
+
+			const local = this;
+			this.userUpdate(data).then(()=>{
+				console.log("update fin");
+				local.isEditing = false;
+			});
+		},
+	}
+}
+
 </script>
 <style scoped>
 </style>
