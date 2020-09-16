@@ -89,6 +89,18 @@ const actions = {
 			console.log("logout cancel");
 		});
 	},
+	getId: async({dispatch, state}) => {
+		return new Promise((resolve, reject) => {
+			if(state.id !== "_"){
+				resolve(state.id);
+			}
+			dispatch("login").then(function(){
+				resolve(state.id);
+			}).catch(()=>{
+				reject("_");
+			});
+		});
+	},
 }
 
 const mutations = {

@@ -257,12 +257,11 @@ export default {
 		...mapActions({
 			getUserInfo: "users/getUserInfo",
 			userUpdate: "users/userUpdate",
-			login:"id/login",
 		}),
 		updateAllContents: function() {
 			this.nowLoading = true;
 			const local = this;
-			this.getUserInfo(this.id).then((data) => {
+			this.getUserInfo().then((data) => {
 				for(const key in data.Item){
 					local.Item[key] = data.Item[key];
 				}
