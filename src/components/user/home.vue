@@ -15,253 +15,30 @@
 	</v-dialog>
 	<!-- ---------------------------- -->
   <v-app id="inspire">
-    <v-card>
-      <v-tabs
+    <v-card><v-tabs
 				background-color="error"
 				grow
 				dark
 				icons-and-text
 			>
-        <v-tab>
-          <v-icon>mdi-card-account-details</v-icon>
-          プロフィール
-        </v-tab>
-        <v-tab>
-          <v-icon>mdi-thumbs-up-down</v-icon>
-          評価
-        </v-tab>
-        <v-tab>
-          <v-icon>mdi-movie-open</v-icon>
-          編集例
-        </v-tab>
-  
-        <v-tab-item>
-			<v-card flat>
-			<v-container fluid>
-			<v-row align="center" >
-			<v-col>
-				<v-card
-					class="mx-auto"
-					max-width="434"
-					tile
-					>
-					<v-img
-						height="100%"
-						src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
-					>
-						<v-row
-						align="end"
-						class="fill-height"
-						>
-						<v-col
-							align-self="start"
-							class="pa-0"
-							cols="12"
-						>
-							<v-avatar
-							class="profile"
-							color="grey"
-							size="164"
-							tile
-							>
-							<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-							</v-avatar>
-						</v-col>
-						<v-col class="py-0">
-							<v-list-item
-							color="rgba(0, 0, 0, .4)"
-							dark
-							>
-							<v-list-item-content>
-								<v-list-item-title class="title">
-								<input v-if=isEditing type="text" v-model="name">
-								<span v-else>{{name}}</span>
-								</v-list-item-title>
-								<v-list-item-subtitle>Editor</v-list-item-subtitle>
-								<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
-							</v-list-item-content>
-							</v-list-item>
-						</v-col>
-						</v-row>
-					</v-img>
-					</v-card>
+			<v-tab>
+				<v-icon>mdi-card-account-details</v-icon>
+				プロフィール
+			</v-tab>
+			<v-tab>
+				<v-icon>mdi-thumbs-up-down</v-icon>
+				評価
+			</v-tab>
+			<v-tab>
+				<v-icon>mdi-movie-open</v-icon>
+				編集例
+			</v-tab>
 
-			<v-card
-			max-width="434"
-			class="mx-auto"
-			elevation="0">
-				<br>
-				<v-textarea
-					color="cyan"
-					height="200"
-					outlined
-					label="自己紹介"
-					placeholder="編集をONにして入力してください"
-					v-model="selfIntro"
-					v-bind:readonly="!isEditing"
-				></v-textarea>
-			</v-card>
-		</v-col>
+			<v-tab-item> <Profile/> </v-tab-item>
+			<v-tab-item> <Evaluation/> </v-tab-item>
+			<v-tab-item> <Example/> </v-tab-item>
 
-		<v-col>
-			<div> 
-				<td> <v-switch v-model="isEditing"></v-switch></td> 
-				<td>
-					<p prepend-icon="mdi-account-edit">
-						<v-icon>mdi-account-edit</v-icon> 編集
-						<v-btn small color="primary" v-if="isEditing" @click="updateUserInfo">情報を更新する</v-btn>
-					</p>
-				</td>
-				<v-card
-					max-width="300"
-					min-width="200"
-					elevation="0"
-				>
-
-          <v-select
-            :items="Sitems"
-						v-model="sitem"
-            filled
-						class="mb-n6"
-            label="サムネイル作成"
-						v-bind:readonly="!isEditing"
-          ></v-select>
-
-				<v-card
-					elevation="0"
-					max-width="300"
-				>
-					<v-row>
-					<v-col>
-						<v-select
-							:items="Kitems"
-							v-model="kitem"
-							filled
-							class="mb-n6"
-							label="希望価格帯"
-							v-bind:readonly="!isEditing"
-						></v-select>
-					</v-col>
-
-					<v-col>
-						<v-textarea
-							outlined
-							color="cyan"
-							class="mb-n6"
-							height="50"
-							label="価格帯詳細"
-							placeholder="約3,000円/h"
-							v-model="price"
-							v-bind:readonly="!isEditing"
-						></v-textarea>
-					</v-col>
-					</v-row>
-
-					<v-row>
-						<v-textarea
-							color="cyan"
-							class="mb-n3"
-							outlined
-							label="コメント"
-							placeholder="価格相談受け付けます。"
-							v-model="comment"
-							v-bind:readonly="!isEditing"
-						></v-textarea>
-					</v-row>
-				</v-card>
-
-				<v-select
-					:items="Gitems"
-					v-model="gitem"
-					filled
-					class="mb-n3"
-					label="業務形態"
-					v-bind:readonly="!isEditing"
-				></v-select>
-
-				<v-select
-					:items="Ditems"
-					v-model="ditem"
-					filled
-					class="mb-n6"
-					label="動画編集歴"
-					v-bind:readonly="!isEditing"
-				></v-select>
-			</v-card>
-
-	</div>
-			</v-col>
-			</v-row>
-			</v-container>
-			
-          </v-card>
-        </v-tab-item>
-
-<v-tab-item>
-	<v-card flat>
-		<v-container>
-			<v-row>
-				<v-col>
-					<v-avatar
-					class="profile"
-					color="grey"
-					size="164"
-					tile
-					>
-					<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-					</v-avatar>
-
-					<v-list-item-title class="title">
-					<input v-if=isEditing type="text" v-model="name">
-					<span v-else>{{name}}</span>
-					</v-list-item-title>
-					<v-list-item-subtitle>Editor</v-list-item-subtitle>
-					<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
-					<h1>得意ジャンル</h1>
-					<h1>作業スピード</h1>
-					<h1>編集クオリティ</h1>
-				</v-col>
-				<v-col>
-				<h1>希望価格帯</h1>
-				<h1>サムネイル作成</h1>
-				<h1>編集ソフト</h1>
-				<h1>編集例</h1>
-				</v-col>
-				<v-col>
- <v-slider
-color="red"
-            v-model="offset1"
-            min="0"
-            max="24"
-            label="時"
-            thumb-label
-          ></v-slider>
-					<v-textarea
-						color="cyan"
-						height="200"
-						outlined
-						label="自己紹介"
-						placeholder="編集をONにして入力してください"
-						v-model="selfIntro"
-						v-bind:readonly="!isEditing"
-					></v-textarea>
-				</v-col>
-			</v-row>
-		</v-container>
-	</v-card>
-</v-tab-item>
-
-<v-tab-item>
-          <v-card flat>
-			<v-card-text class=text-center><v-icon left>mdi-alert</v-icon>工事中</v-card-text>
-          </v-card>
-        </v-tab-item>
-      </v-tabs>
-    </v-card>
-			<!-- ユーザ名は登録情報に関わるため変更不可能 -->
-			<v-text-field label="ユーザー名" type="text" v-model="name" readonly />
-			<v-text-field label="メールアドレス" type="text" v-model="mail" v-bind:readonly="!isEditing"/>
-			<v-text-field label="好きな食べ物" type="text" v-model="food" v-bind:readonly="!isEditing" />
+		</v-tabs></v-card>
   </v-app>
 </div>
 </template>
@@ -270,6 +47,9 @@ color="red"
 /* eslint-disable no-console */
 
 import {mapState, mapActions} from 'vuex'
+import Profile from "./profile"
+import Evaluation from "./evaluation"
+import Example from "./example"
 
 const initialData = ()=>{
 	return {
@@ -286,6 +66,12 @@ const initialData = ()=>{
 		Gitems: ['専業', '副業', '小遣い稼ぎ','練習（無料で編集します）'],
 		ditem: "_",
 		Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
+		hitem: "_",
+		Hitems: ['早い', '比較的早い', 'ふつう', '比較的遅い', 'のんびり'],
+		iitem: "_",
+		Iitems: ['プロ級', '高クオリティ', 'ふつう', 'ああ', '見習い'],
+		oitem: "_",
+		Oitems: ['バラエティ', 'Vlog', 'ゲーム実況', '商品紹介', 'メイク・ファッション', 'ペット・動物', '食べ物', '乗り物（車・電車・航空機等）', '旅行・アウトドア', 'ミュージック', '教育', 'English', 'ハウツー', '漫画系', 'スポーツ', '企業タイアップ', '衝撃動画・まとめ系', 'Vtuber', 'トレンド・流行り', 'パチンコ', '政治・ニュース'],
 		comment: "",
 		price: "",
 		selfIntro: "",
@@ -294,6 +80,7 @@ const initialData = ()=>{
 }
 
 export default {
+	components: {Profile, Evaluation, Example},
 	data(){
 		return initialData()
 	},
