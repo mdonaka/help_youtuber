@@ -21,15 +21,16 @@
 							<input v-if=isEditing type="text" v-model="Item.name">
 							<span v-else>{{name}}</span>
 							</v-list-item-title>
-							<v-list-item-subtitle>Editor</v-list-item-subtitle>
-							<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
+							<v-list-item-subtitle align="center">Editor</v-list-item-subtitle>
+							<h1 align="center" class="my-n2">お名前</h1>
+							<v-list-item-title align="center">☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
 							<v-divider></v-divider>
 							<p class="font-weight-black">得意ジャンル</p> 
-							<h1 class="mt-n5" align="center">あいう</h1>
+							<h2 class="mt-n5 mb-2" align="center">{{Item.Oitems}}</h2>
 							<p class="font-weight-black">作業スピード</p>
-							<h1 class="mt-n5" align="center">あいう</h1>
+							<h2 class="mt-n5 mb-2" align="center">{{Item.Hitems}}</h2>
 							<p class="font-weight-black">編集クオリティ</p>
-							<h1 class="mt-n5" align="center">あいう</h1>
+							<h2 class="mt-n5" align="center">{{Item.Iitems}}</h2>
 						</v-card>
 					</v-container>
 				</v-col>
@@ -37,7 +38,7 @@
 					<p class="font-weight-black">希望価格帯</p>
 						<v-col cols="12">
 							<v-text-field
-							value="John Doe"
+							v-model="Item.Kitems"
 							label="Solo"
 							solo
 							readonly
@@ -48,7 +49,7 @@
 					<p class="font-weight-black">サムネイル作成</p>
 						<v-col cols="12">
 							<v-text-field
-							value="John Doe"
+							v-model="Item.Sitems"
 							label="Solo"
 							solo
 							readonly

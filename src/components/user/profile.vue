@@ -171,14 +171,14 @@
 				:items="Item.Ditems"
 				v-model="Item.ditem"
 				filled
-				class="mb-n6"
+				class="mb-n3"
 				label="動画編集歴"
 				v-bind:readonly="!isEditing"
 				></v-select>
 
 				<v-select
-				:items="Hitems"
-				v-model="hitem"
+				:items="Item.Hitems"
+				v-model="Item.hitem"
 				filled
 				class="mb-n3"
 				label="作業スピード"
@@ -242,6 +242,12 @@ const initialData = ()=>{
 			Gitems: ['専業', '副業', '小遣い稼ぎ','練習（無料で編集します）'],
 			ditem: "_",
 			Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
+			hitem: "_",
+			Hitems: ['はやい', 'ふつう', 'おそい'],
+			iitem: "_",
+			Iitems: ['プロ級', '高クオリティ', 'ふつう', 'ああ', '見習い'],
+			oitem: "_",
+			Oitems: ['バラエティ', 'Vlog', 'ゲーム実況', 'メイク・ファッション', 'ペット・動物', '食べ物', '乗り物（車・電車・航空機等）', '旅行・アウトドア', 'ミュージック', '教育', 'English', 'ハウツー', '漫画ストーリー系', 'スポーツ', '企業タイアップ', '衝撃動画・まとめ系', 'Vtuber', 'トレンド・流行り', 'パチンコ', '政治・ニュース'],
 			comment: "",
 			price: "",
 			selfIntro: "",
