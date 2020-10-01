@@ -18,7 +18,7 @@
 						<v-card outlined
 						elevation="3" class="mt-4" width="200">
 							<v-list-item-title class="title">
-							<input v-if=isEditing type="text" v-model="name">
+							<input v-if=isEditing type="text" v-model="Item.name">
 							<span v-else>{{name}}</span>
 							</v-list-item-title>
 							<v-list-item-subtitle>Editor</v-list-item-subtitle>
@@ -86,7 +86,7 @@
 						outlined
 						label="自己紹介"
 						placeholder="編集をONにして入力してください"
-						v-model="selfIntro"
+						v-model="Item.selfIntro"
 						v-bind:readonly="!isEditing"
 						class="mt-8"
 					></v-textarea>
@@ -103,6 +103,64 @@
 
 <script>
 /* eslint-disable no-console */
+import {mapState, mapActions} from 'vuex'
+
+const initialData = ()=>{
+	return {
+		nowLoading: true,
+		isEditing: false,
+		Item: {
+			name: "_",
+			offset: 12,
+			selfIntro: "",
+		}
+	};
+}
+
+export default {
+	data(){
+		return initialData()
+	},
+	computed: {
+		...mapState({
+			id:s=>s.id.id
+		}),
+	},
+	mounted:function(){
+		this.updateAllContents();
+	},
+	methods:{
+		...mapActions({
+			getUserInfo: "users/getUserInfo",
+			userUpdate: "users/userUpdate",
+		}),
+		updateAllContents: function() {
+			this.nowLoading = true;
+			const local = this;
+			this.getUserInfo().then((data) => {
+				for(const key in data.Item){
+					local.Item[key] = data.Item[key];
+				}
+				local.nowLoading = false;
+			}).catch(()=>{
+				local.nowLoading = false;
+			});
+		},
+		updateUserInfo:function(){
+			let items = { id: this.id };
+			for(const key in this.Item){
+				items[key] = this.Item[key];
+			}
+			const data = JSON.stringify(items);
+
+			const local = this;
+			this.userUpdate(data).then(()=>{
+				console.log("update fin");
+				local.isEditing = false;
+			});
+		},
+	}
+}
 </script>
 <style scoped>
 </style>
