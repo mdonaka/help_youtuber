@@ -176,7 +176,7 @@
 				v-model="iitem"
 				filled
 				class="mb-n3"
-				label="編集クオリティ"
+				label="編集クオリティ（自己評価）"
 				v-bind:readonly="!isEditing"
 				></v-select>
 
@@ -185,7 +185,7 @@
 				v-model="oitem"
 				filled
 				class="mb-n3"
-				label="ooppai"
+				label="得意ジャンル"
 				multiple
 				v-bind:readonly="!isEditing"
 				></v-select>

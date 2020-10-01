@@ -16,7 +16,7 @@
 							</v-avatar>
 						</v-card>
 						<v-card outlined
-						elevation="3" class="mt-4">
+						elevation="3" class="mt-4" width="200">
 							<v-list-item-title class="title">
 							<input v-if=isEditing type="text" v-model="name">
 							<span v-else>{{name}}</span>
@@ -25,8 +25,11 @@
 							<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
 							<v-divider></v-divider>
 							<p class="font-weight-black">得意ジャンル</p> 
+							<h1 class="mt-n5" align="center">あいう</h1>
 							<p class="font-weight-black">作業スピード</p>
+							<h1 class="mt-n5" align="center">あいう</h1>
 							<p class="font-weight-black">編集クオリティ</p>
+							<h1 class="mt-n5" align="center">あいう</h1>
 						</v-card>
 					</v-container>
 				</v-col>
@@ -77,14 +80,6 @@
 						</v-col>
 				</v-col>
 				<v-col>
-					<v-slider
-					color="red"
-					v-model="offset1"
-					min="0"
-					max="24"
-					label="時"
-					thumb-label
-					></v-slider>
 					<v-textarea
 						color="cyan"
 						height="250"
@@ -93,6 +88,7 @@
 						placeholder="編集をONにして入力してください"
 						v-model="selfIntro"
 						v-bind:readonly="!isEditing"
+						class="mt-8"
 					></v-textarea>
 					<div class="ml-12 mt-4" fluid>
 					<v-btn x-large color="success" dark>
