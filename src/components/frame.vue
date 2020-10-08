@@ -16,24 +16,54 @@
           dense
         ></v-text-field>
         </v-col>
-        <v-btn icon>
+
+        <v-tooltip bottom color="brown" nudge-top="15">
+        <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on">
           <v-icon>mdi-magnify</v-icon>
         </v-btn>
+        </template>
+        <span>検索</span>
+        </v-tooltip>
+
         <v-spacer></v-spacer>
   
-        <v-btn icon href="#/user/chat" >
+        <v-tooltip bottom color="brown" nudge-top="15">
+        <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on" href="#/user/chat" >
           <v-icon>mdi-chat</v-icon>
         </v-btn>
-  
-        <v-btn icon href="#/user/userpage">
+        </template>
+        <span>チャット</span>
+        </v-tooltip>
+
+        <v-tooltip bottom color="brown" nudge-top="15">
+        <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on" href="#/user/userpage">
           <v-icon>mdi-account</v-icon>
         </v-btn>
-        <v-btn icon href="/#/user/home">
+        </template>
+        <span>マイページ</span>
+        </v-tooltip>
+
+        <v-tooltip bottom color="brown" nudge-top="15">
+        <template v-slot:activator="{ on }">
+        <v-btn icon v-on="on" href="/#/user/home">
           <v-icon>mdi-home</v-icon>
         </v-btn>
-				<v-btn icon @click=logout>
+        </template>
+        <span>ホーム</span>
+        </v-tooltip>
+
+        <v-tooltip bottom color="brown" nudge-top="15">
+        <template v-slot:activator="{ on }">
+				<v-btn icon v-on="on" @click=logout>
 					<v-icon>mdi-logout</v-icon>
 				</v-btn>
+        </template>
+        <span>ログアウト</span>
+        </v-tooltip>
+
       </v-toolbar>
 		<router-view/>
 	</div>
