@@ -108,11 +108,11 @@
 						v-bind:readonly="!isEditing"
 					></v-select>
 
-			</v-card>
-			<v-card
-			elevation="0"
-			max-width="300"
-			>
+				</v-card>
+				<v-card
+				elevation="0"
+				max-width="300"
+				>
 				<v-row>
 					<v-col>
 						<v-select
@@ -175,7 +175,14 @@
 				label="動画編集歴"
 				v-bind:readonly="!isEditing"
 				></v-select>
-
+			</v-card>
+		</v-col>
+		<v-col>
+			<v-card
+			max-width="300"
+			min-width="200"
+			elevation="0"
+			>
 				<v-select
 				:items="Item.Hitems"
 				v-model="Item.hitem"
@@ -195,14 +202,16 @@
 				></v-select>
 
 				<v-select
+				v-model="e6"
 				:items="Item.Oitems"
-				v-model="Item.oitem"
-				filled
-				class="mb-n3"
+				:menu-props="{ maxHeight: '400' }"
 				label="得意ジャンル"
 				multiple
+				chips
+				hint="複数選択できます"
+				persistent-hint
 				v-bind:readonly="!isEditing"
-				></v-select>
+				></v-select>		
 			</v-card>
 		</v-col>
 	</v-row>
@@ -243,7 +252,7 @@ const initialData = ()=>{
 			ditem: "_",
 			Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
 			hitem: "_",
-			Hitems: ['はやい', 'ふつう', 'おそい'],
+			Hitems: ['はやい', 'ふつう', 'のんびり'],
 			iitem: "_",
 			Iitems: ['プロ級', '高クオリティ', 'ふつう', 'ああ', '見習い'],
 			oitem: "_",
