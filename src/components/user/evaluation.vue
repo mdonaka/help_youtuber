@@ -18,7 +18,7 @@
 						<v-card outlined
 						elevation="3" class="mt-4" width="200">
 							<v-list-item-title class="title">
-							<input v-if=isEditing type="text" v-model="Item.name">
+							<input v-if=isEditing type="text" v-model="saveItems.name">
 							<span v-else>{{name}}</span>
 							</v-list-item-title>
 							<v-list-item-subtitle align="center">Editor</v-list-item-subtitle>
@@ -26,11 +26,11 @@
 							<v-list-item-title align="center">☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
 							<v-divider></v-divider>
 							<p class="font-weight-black">得意ジャンル</p> 
-							<h2 class="mt-n5 mb-2" align="center">{{Item.Oitems}}</h2>
+							<h2 class="mt-n5 mb-2" align="center">{{saveItems.Oitems}}</h2>
 							<p class="font-weight-black">作業スピード</p>
-							<h2 class="mt-n5 mb-2" align="center">{{Item.Hitems}}</h2>
+							<h2 class="mt-n5 mb-2" align="center">{{saveItems.Hitems}}</h2>
 							<p class="font-weight-black">編集クオリティ</p>
-							<h2 class="mt-n5" align="center">{{Item.Iitems}}</h2>
+							<h2 class="mt-n5" align="center">{{saveItems.Iitems}}</h2>
 						</v-card>
 					</v-container>
 				</v-col>
@@ -38,7 +38,7 @@
 					<p class="font-weight-black">希望価格帯</p>
 						<v-col cols="12">
 							<v-text-field
-							v-model="Item.Kitems"
+							v-model="saveItems.Kitems"
 							label="Solo"
 							solo
 							readonly
@@ -49,7 +49,7 @@
 					<p class="font-weight-black">サムネイル作成</p>
 						<v-col cols="12">
 							<v-text-field
-							v-model="Item.Sitems"
+							v-model="saveItems.Sitems"
 							label="Solo"
 							solo
 							readonly
@@ -87,7 +87,7 @@
 						outlined
 						label="自己紹介"
 						placeholder="編集をONにして入力してください"
-						v-model="Item.selfIntro"
+						v-model="saveItems.selfIntro"
 						v-bind:readonly="!isEditing"
 						class="mt-8"
 					></v-textarea>
@@ -110,7 +110,7 @@ const initialData = ()=>{
 	return {
 		nowLoading: true,
 		isEditing: false,
-		Item: {
+		saveItems: {
 			name: "_",
 			offset: 12,
 			selfIntro: "",
@@ -140,7 +140,7 @@ export default {
 			const local = this;
 			this.getUserInfo().then((data) => {
 				for(const key in data.Item){
-					local.Item[key] = data.Item[key];
+					local.saveItems[key] = data.Item[key];
 				}
 				local.nowLoading = false;
 			}).catch(()=>{
@@ -149,8 +149,8 @@ export default {
 		},
 		updateUserInfo:function(){
 			let items = { id: this.id };
-			for(const key in this.Item){
-				items[key] = this.Item[key];
+			for(const key in this.saveItems){
+				items[key] = this.saveItems[key];
 			}
 			const data = JSON.stringify(items);
 

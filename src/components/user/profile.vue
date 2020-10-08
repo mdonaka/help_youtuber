@@ -1,7 +1,7 @@
 <template>
 	<div>
 	<!-- ローディング処理 -->
-	<v-dialog width="400px" v-model="Item.nowLoading" persistent hide-overlay>
+	<v-dialog width="400px" v-model="saveItems.nowLoading" persistent hide-overlay>
 		<v-card color="primary" dark >
 			<v-card-text>
 				now loading...
@@ -53,8 +53,8 @@
 							>
 							<v-list-item-content>
 								<v-list-item-title class="title">
-								<input v-if=isEditing type="text" v-model="Item.name">
-								<span v-else>{{Item.name}}</span>
+								<input v-if=isEditing type="text" v-model="saveItems.name">
+								<span v-else>{{saveItems.name}}</span>
 								</v-list-item-title>
 								<v-list-item-subtitle>Editor</v-list-item-subtitle>
 								<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
@@ -76,7 +76,7 @@
 							outlined
 							label="自己紹介"
 							placeholder="編集をONにして入力してください"
-							v-model="Item.selfIntro"
+							v-model="saveItems.selfIntro"
 							v-bind:readonly="!isEditing"
 						></v-textarea>
 						</v-card>
@@ -100,8 +100,8 @@
 					elevation="0"
 				>
 					<v-select
-						:items="Item.Sitems"
-						v-model="Item.sitem"
+						:items="notSaveItems.Sitems"
+						v-model="saveItems.sitem"
 						filled
 						class="mb-n6"
 						label="サムネイル作成"
@@ -116,8 +116,8 @@
 				<v-row>
 					<v-col>
 						<v-select
-						:items="Item.Kitems"
-						v-model="Item.kitem"
+						:items="notSaveItems.Kitems"
+						v-model="saveItems.kitem"
 						filled
 						class="mb-n6"
 						label="希望価格帯"
@@ -133,7 +133,7 @@
 						height="50"
 						label="価格帯詳細"
 						placeholder="例:約3,000円/h"
-						v-model="Item.price"
+						v-model="saveItems.price"
 						v-bind:readonly="!isEditing"
 						></v-textarea>
 					</v-col>
@@ -147,7 +147,7 @@
 					outlined
 					label="コメント"
 					placeholder="例：価格相談受け付けます。"
-					v-model="Item.comment"
+					v-model="saveItems.comment"
 					v-bind:readonly="!isEditing"
 					></v-textarea>
 				</v-row>
@@ -159,8 +159,8 @@
 			elevation="0"
 			>
 				<v-select
-				:items="Item.Gitems"
-				v-model="Item.gitem"
+				:items="notSaveItems.Gitems"
+				v-model="saveItems.gitem"
 				filled
 				class="mb-n3"
 				label="業務形態"
@@ -168,8 +168,8 @@
 				></v-select>
 
 				<v-select
-				:items="Item.Ditems"
-				v-model="Item.ditem"
+				:items="notSaveItems.Ditems"
+				v-model="saveItems.ditem"
 				filled
 				class="mb-n3"
 				label="動画編集歴"
@@ -177,8 +177,8 @@
 				></v-select>
 
 				<v-select
-				:items="Item.Hitems"
-				v-model="Item.hitem"
+				:items="notSaveItems.Hitems"
+				v-model="saveItems.hitem"
 				filled
 				class="mb-n3"
 				label="作業スピード"
@@ -186,8 +186,8 @@
 				></v-select>
 
 				<v-select
-				:items="Item.Iitems"
-				v-model="Item.iitem"
+				:items="notSaveItems.Iitems"
+				v-model="saveItems.iitem"
 				filled
 				class="mb-n3"
 				label="編集クオリティ（自己評価）"
@@ -195,8 +195,8 @@
 				></v-select>
 
 				<v-select
-				:items="Item.Oitems"
-				v-model="Item.oitem"
+				:items="notSaveItems.Oitems"
+				v-model="saveItems.oitem"
 				filled
 				class="mb-n3"
 				label="得意ジャンル"
@@ -215,9 +215,9 @@
 			
           </v-card>
 		<!-- ユーザ名は登録情報に関わるため変更不可能 -->
-		<v-text-field label="ユーザー名" type="text" v-model="Item.name" readonly />
-		<v-text-field label="メールアドレス" type="text" v-model="Item.mail" v-bind:readonly="!isEditing"/>
-		<v-text-field label="好きな食べ物" type="text" v-model="Item.food" v-bind:readonly="!isEditing" />
+		<v-text-field label="ユーザー名" type="text" v-model="saveItems.name" readonly />
+		<v-text-field label="メールアドレス" type="text" v-model="saveItems.mail" v-bind:readonly="!isEditing"/>
+		<v-text-field label="好きな食べ物" type="text" v-model="saveItems.food" v-bind:readonly="!isEditing" />
 	</div>
 </template>
 
@@ -230,27 +230,29 @@ const initialData = ()=>{
 	return {
 		nowLoading: true,
 		isEditing: false,
-		Item: {
+		saveItems: {
 			name: "_",
 			mail: "_" ,
 			food: "_",
 			sitem: "_",
-			Sitems: ['可能(別途料金)', '可能(込料金)', '不可', '要相談'],
 			kitem: "_",
-			Kitems: ['作業時間制', '動画時間制', '単価制', 'その他','要相談'],
 			gitem: "_",
-			Gitems: ['専業', '副業', '小遣い稼ぎ','練習（無料で編集します）'],
 			ditem: "_",
-			Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
 			hitem: "_",
-			Hitems: ['はやい', 'ふつう', 'おそい'],
 			iitem: "_",
-			Iitems: ['プロ級', '高クオリティ', 'ふつう', 'ああ', '見習い'],
 			oitem: "_",
-			Oitems: ['バラエティ', 'Vlog', 'ゲーム実況', 'メイク・ファッション', 'ペット・動物', '食べ物', '乗り物（車・電車・航空機等）', '旅行・アウトドア', 'ミュージック', '教育', 'English', 'ハウツー', '漫画ストーリー系', 'スポーツ', '企業タイアップ', '衝撃動画・まとめ系', 'Vtuber', 'トレンド・流行り', 'パチンコ', '政治・ニュース'],
 			comment: "",
 			price: "",
 			selfIntro: "",
+		},
+		notSaveItems: {
+			Sitems: ['可能(別途料金)', '可能(込料金)', '不可', '要相談'],
+			Kitems: ['作業時間制', '動画時間制', '単価制', 'その他','要相談'],
+			Gitems: ['専業', '副業', '小遣い稼ぎ','練習（無料で編集します）'],
+			Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
+			Hitems: ['はやい', 'ふつう', 'おそい'],
+			Iitems: ['プロ級', '高クオリティ', 'ふつう', 'ああ', '見習い'],
+			Oitems: ['バラエティ', 'Vlog', 'ゲーム実況', 'メイク・ファッション', 'ペット・動物', '食べ物', '乗り物（車・電車・航空機等）', '旅行・アウトドア', 'ミュージック', '教育', 'English', 'ハウツー', '漫画ストーリー系', 'スポーツ', '企業タイアップ', '衝撃動画・まとめ系', 'Vtuber', 'トレンド・流行り', 'パチンコ', '政治・ニュース'],
 		}
 	};
 }
@@ -276,7 +278,7 @@ export default {
 			const local = this;
 			this.getUserInfo().then((data) => {
 				for(const key in data.Item){
-					local.Item[key] = data.Item[key];
+					local.saveItems[key] = data.Item[key];
 				}
 				local.nowLoading = false;
 			}).catch(()=>{
@@ -285,8 +287,8 @@ export default {
 		},
 		updateUserInfo:function(){
 			let items = { id: this.id };
-			for(const key in this.Item){
-				items[key] = this.Item[key];
+			for(const key in this.saveItems){
+				items[key] = this.saveItems[key];
 			}
 			const data = JSON.stringify(items);
 
