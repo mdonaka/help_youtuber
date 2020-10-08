@@ -7,6 +7,7 @@ import Sign from '@/components/sign/home'
 import Signin from '@/components/sign/signin'
 import Signup from '@/components/sign/signup'
 import Frame from '@/components/frame'
+import Home from '@/components/Home/home'
  
 Vue.use(Router)
  
@@ -23,6 +24,7 @@ export default new Router({
 				{ path: '/', component: UserPage},
 				{ path: 'userpage/', component: UserPage},
 				{ path: 'chat/', component: Chat },
+				{ path: 'Home/', component: Home },
 			],
 		},
 		{

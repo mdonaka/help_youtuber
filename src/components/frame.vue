@@ -28,11 +28,11 @@
         <v-btn icon href="#/user/userpage">
           <v-icon>mdi-account</v-icon>
         </v-btn>
-        <v-btn icon href="/#/user/">
+        <v-btn icon href="/#/user/home">
           <v-icon>mdi-home</v-icon>
         </v-btn>
 				<v-btn icon @click=logout>
-					<v-icon>mdi-wifi-off</v-icon>
+					<v-icon>mdi-logout</v-icon>
 				</v-btn>
       </v-toolbar>
 		<router-view/>
