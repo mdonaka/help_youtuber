@@ -108,11 +108,11 @@
 						v-bind:readonly="!isEditing"
 					></v-select>
 
-			</v-card>
-			<v-card
-			elevation="0"
-			max-width="300"
-			>
+				</v-card>
+				<v-card
+				elevation="0"
+				max-width="300"
+				>
 				<v-row>
 					<v-col>
 						<v-select
@@ -175,7 +175,14 @@
 				label="動画編集歴"
 				v-bind:readonly="!isEditing"
 				></v-select>
-
+			</v-card>
+		</v-col>
+		<v-col>
+			<v-card
+			max-width="300"
+			min-width="200"
+			elevation="0"
+			>
 				<v-select
 				:items="notSaveItems.Hitems"
 				v-model="saveItems.hitem"
@@ -195,14 +202,16 @@
 				></v-select>
 
 				<v-select
+				v-model="saveItems.e6"
 				:items="notSaveItems.Oitems"
-				v-model="saveItems.oitem"
-				filled
-				class="mb-n3"
+				:menu-props="{ maxHeight: '400' }"
 				label="得意ジャンル"
 				multiple
+				chips
+				hint="複数選択できます"
+				persistent-hint
 				v-bind:readonly="!isEditing"
-				></v-select>
+				></v-select>		
 			</v-card>
 		</v-col>
 	</v-row>
@@ -250,7 +259,7 @@ const initialData = ()=>{
 			Kitems: ['作業時間制', '動画時間制', '単価制', 'その他','要相談'],
 			Gitems: ['専業', '副業', '小遣い稼ぎ','練習（無料で編集します）'],
 			Ditems: ['1年未満', '1年以上3年未満', '3年以上5年未満', '5年以上7年未満', '7年以上10年未満', '10年以上'],
-			Hitems: ['はやい', 'ふつう', 'おそい'],
+			Hitems: ['はやい', 'ふつう', 'のんびり'],
 			Iitems: ['プロ級', '高クオリティ', 'ふつう', 'ああ', '見習い'],
 			Oitems: ['バラエティ', 'Vlog', 'ゲーム実況', 'メイク・ファッション', 'ペット・動物', '食べ物', '乗り物（車・電車・航空機等）', '旅行・アウトドア', 'ミュージック', '教育', 'English', 'ハウツー', '漫画ストーリー系', 'スポーツ', '企業タイアップ', '衝撃動画・まとめ系', 'Vtuber', 'トレンド・流行り', 'パチンコ', '政治・ニュース'],
 		}
