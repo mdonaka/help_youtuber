@@ -20,24 +20,24 @@
 						>
 							<v-list-item-title class="title">
 							<input v-if=isEditing type="text" v-model="saveItems.name">
-							<span v-else>{{name}}</span>
+							<span v-else>{{saveItems.name}}</span>
 							</v-list-item-title>
 
 							<v-list-item-subtitle align="center">Editor</v-list-item-subtitle>
-							<h1 align="center" class="my-n2">{{name}}</h1>
+							<h1 align="center" class="my-n2">{{saveItems.name}}</h1>
 							<v-list-item-title align="center">☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
 							<v-divider></v-divider>
 							<p class="font-weight-black red--text">作業スピード</p>
-								<h2 class="mt-n5 mb-2" align="center">{{saveItem.hitem}}</h2>
+								<h2 class="mt-n5 mb-2" align="center">{{saveItems.hitem}}</h2>
 							<p class="font-weight-black red--text">編集クオリティ</p>
-								<h2 class="mt-n5" align="center">{{saveItem.iitem}}</h2>
+								<h2 class="mt-n5" align="center">{{saveItems.iitem}}</h2>
 							<v-expansion-panels>
 								<v-expansion-panel>
 									<v-expansion-panel-header>
 									<h3 class="red--text">得意ジャンル</h3>
 									</v-expansion-panel-header>
 									<v-expansion-panel-content>
-									{{saveItem.oitem}}
+									{{saveItems.oitem}}
 									</v-expansion-panel-content>
 								</v-expansion-panel>
 							</v-expansion-panels>
@@ -48,7 +48,7 @@
 					<p class="font-weight-black">希望価格帯</p>
 						<v-col cols="12">
 							<v-text-field
-							v-model="saveItem.kitem"
+							v-model="saveItems.kitem"
 							label="None"
 							solo
 							readonly
@@ -56,7 +56,7 @@
 							class="my-n5"
 							></v-text-field>
 							<v-text-field
-							v-model="saveItem.price"
+							v-model="saveItems.price"
 							label="None"
 							solo
 							readonly
@@ -67,7 +67,7 @@
 					<p class="font-weight-black">サムネイル作成</p>
 						<v-col cols="12">
 							<v-text-field
-							v-model="saveItem.sitem"
+							v-model="saveItems.sitem"
 							label="None"
 							solo
 							readonly
