@@ -79,7 +79,7 @@
 						<v-col cols="12">
 							<v-text-field
 							value="工事中"
-							label="Solo"
+							label="None"
 							solo
 							disabled
 							outlined
@@ -90,7 +90,7 @@
 						<v-col cols="12">
 							<v-text-field
 							value="工事中"
-							label="Solo"
+							label="None"
 							solo
 							disabled
 							outlined
