@@ -28,7 +28,7 @@
   <v-app id="inspire">
   <v-container fluid no-gutter>
   <v-row>
- <v-divider :inset="inset" vertical></v-divider>
+ <v-divider inset vertical></v-divider>
 	<v-col
 cols="10"
 md="5">
@@ -74,7 +74,7 @@ md="5">
         </v-row>
       </v-img>
     </v-card>
- <v-divider :inset="inset"></v-divider>
+ <v-divider inset></v-divider>
 <div class="font-weight-medium">Youtuber希望項目 : {{ bg1 }} {{ bg2 }} {{ bg3 }}</div>
 <v-btn-toggle mandatory v-model="bg1">
 <v-container
@@ -129,7 +129,7 @@ class="ml-n4">
 </v-row>
 </v-container>
 </v-btn-toggle>
- <v-divider :inset="inset"></v-divider>
+ <v-divider inset></v-divider>
 <div class="font-weight-medium">動画時間目安 : {{offset1}}時間{{offset2}}分</div>
 <v-container>
 <v-row>
@@ -165,30 +165,21 @@ color="red"
 
   <!-- タイムライン部分 -->
   <div id="ms_messages">
-    <br>
-    <!--メッセージ左側-->
-    <div v-for="text in textList" v-bind:key="text.id">
-      <div class="ms_message ms_left">
+    <!--メッセージ-->
+    <div v-for="{text, isMine} in textList" v-bind:key="text.id">
+      <div 
+				class="ms_message" 
+				v-bind:class="{ms_left:!isMine, ms_right:isMine}"
+			>
         <div class = "ms_message_box">
           <div class="ms_message_content">
            {{text}}
           </div>
         </div>
       </div>
+	<div class="ms_clear"></div>
     </div>
-    <div class="ms_clear"></div>
-
-    <!--メッセージ右側-->
-    <div v-for="text in textList" v-bind:key="text.id">
-      <div class="ms_message ms_right">
-        <div class = "ms_message_box">
-          <div class="ms_message_content">
-           {{text}}
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="ms_clear"></div>
+	<br>
 </div>
 </div>
 
@@ -228,11 +219,19 @@ const initialData = ()=>{
 	return {
 		tab: null,
 		sendText: "",
-		textList: ["あああああああああああ",
-		"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ"],
+		textList: [
+		{text:"こんにちは，私です", isMine:true},
+		{text:"誰だよ", isMine:false},
+		{text:"さんちゃんだお！ｗｗ", isMine:true},
+		{text:"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ", isMine:false}],
 		sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
 		sendTo: "",
-		sendToList: []
+		sendToList: [],
+		bg1: null,
+		bg2: null,
+		bg3: null,
+		offset1: null,
+		offset2: null,
 	};
 }
 
@@ -258,6 +257,7 @@ export default {
 				}
 			});
 			this.sock.send(data);
+			this.textList.push({text:this.sendText, isMine:true});
 			this.sendText= "";
 		},
 		toSet(id){
@@ -284,7 +284,7 @@ export default {
 
 		// サーバーからデータを受け取る
 		this.sock.addEventListener('message',function(e){
-			data.textList.push(e.data);
+			data.textList.push({text:e.data, isMine:false});
 		});
 	},
 }
