@@ -83,13 +83,13 @@
 							</v-avatar>
 						</v-card>
                 <v-card-title class="subheading font-weight-bold">
-                  {{ item.name }} <span class="font-weight-thin ml-3">さん</span>
+                  {{ item.名前 }} <span class="font-weight-thin ml-3">さん</span>
                 </v-card-title>
   
                 <v-divider></v-divider>
   
                 <v-list dense>
-				<span class="font-weight-black red--text">作業スピード</span>
+				<span class="font-weight-black red--text">希望項目</span>
                   <v-list-item
                     v-for="(key, index) in filteredKeys"
                     :key="index"
@@ -105,6 +105,13 @@
                     </v-list-item-content>
                   </v-list-item>
                 </v-list>
+
+                <v-divider></v-divider>
+
+				<span class="font-weight-black red--text">動画時間目安</span>
+                  <v-row justify="center">
+                   <h1>sanchan</h1>
+                  </v-row>
               </v-card>
             </v-col>
           </v-row>
@@ -186,57 +193,33 @@ const initialData = ()=>{
       sortDesc: false,
       page: 1,
       itemsPerPage: 4,
-      sortBy: 'name',
+      sortBy: '名前',
       keys: [
-        'Name',
-        'Calories',
-        'Fat',
-        'Carbs',
-        'Protein',
-        'Sodium',
-        'Calcium',
-        'Iron',
+        'デフォルト',
+        '納期',
+        '名前',
+        '動画時間目安',
       ],
       items: [
         {
-          name: 'さんちゃん',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          sodium: 87,
-          calcium: '14%',
-          iron: '1%',
+          名前: 'さんちゃん',
+          品質: 1,
+          納期: 1,
         },
         {
-          name: 'さんなか',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          sodium: 129,
-          calcium: '8%',
-          iron: '1%',
+          名前: 'さんなか',
+          品質: 1,
+          納期: 1,
         },
         {
-          name: 'たつきち',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          sodium: 337,
-          calcium: '6%',
-          iron: '7%',
+          名前: 'たつきち',
+          品質: 1,
+          納期: 1,
         },
         {
-          name: '山中',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          sodium: 413,
-          calcium: '3%',
-          iron: '8%',
+          名前: '山中',
+          品質: 1,
+          納期: 1,
         },
       ],
     }
