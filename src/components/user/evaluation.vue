@@ -6,8 +6,6 @@
         :items-per-page.sync="itemsPerPage"
         :page="page"
         :search="search"
-        :sort-by="sortBy.toLowerCase()"
-        :sort-desc="sortDesc"
         hide-default-footer
       >
         <template v-slot:header>
@@ -17,6 +15,7 @@
             class="mb-1"
           >
             <v-text-field
+              width="50"
               v-model="Search"
               clearable
               flat
@@ -25,40 +24,6 @@
               prepend-inner-icon="mdi-magnify"
               label="検索"
             ></v-text-field>
-            <template v-if="$vuetify.breakpoint.mdAndUp">
-              <v-spacer></v-spacer>
-              <v-select
-                v-model="sortBy"
-                flat
-                solo-inverted
-                hide-details
-                :items="keys"
-                prepend-inner-icon="mdi-magnify"
-                label="絞り込み"
-              ></v-select>
-              <v-spacer></v-spacer>
-              <v-btn-toggle
-                v-model="sortDesc"
-                mandatory
-              >
-                <v-btn
-                  large
-                  depressed
-                  color="red"
-                  :value="false"
-                >
-                  <v-icon>mdi-arrow-up</v-icon>
-                </v-btn>
-                <v-btn
-                  large
-                  depressed
-                  color="red"
-                  :value="true"
-                >
-                  <v-icon>mdi-arrow-down</v-icon>
-                </v-btn>
-              </v-btn-toggle>
-            </template>
           </v-toolbar>
         </template>
   
@@ -73,42 +38,46 @@
               lg="3"
             >
               <v-card>
-						<v-card	elevation="3">
-							<v-avatar
-							class="profile"
-							color="grey"
-							size="100"
-							>
-							<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-							</v-avatar>
-						</v-card>
+                <v-card	elevation="0">
+                  <v-layout justify-center>
+                    <v-avatar
+                      class="profile"
+                      color="grey"
+                      size="100"
+                    >
+                    <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                    </v-avatar>
+                  </v-layout>
+                </v-card>
                 <v-card-title class="subheading font-weight-bold">
                   {{ item.名前 }} <span class="font-weight-thin ml-3">さん</span>
                 </v-card-title>
-  
-                <v-divider></v-divider>
-  
-                <v-list dense>
-				<span class="font-weight-black red--text">希望項目</span>
-                  <v-list-item
-                    v-for="(key, index) in filteredKeys"
-                    :key="index"
-                  >
-                    <v-list-item-content :class="{ 'blue--text': sortBy === key }">
-                      {{ key }}:
-                    </v-list-item-content>
-                    <v-list-item-content
-                      class="align-end"
-                      :class="{ 'blue--text': sortBy === key }"
-                    >
-                      {{ item[key.toLowerCase()] }}
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
 
                 <v-divider></v-divider>
 
-				<span class="font-weight-black red--text">動画時間目安</span>
+                <v-row>
+                  <span class="font-weight-black red--text ml-5">希望項目</span>
+                </v-row>
+                <v-row>
+                  <v-chip
+                    class="ml-5 ma-2"
+                    color="red">
+                    <v-list>
+                      <v-list-item
+                       v-for="(key, index) in filteredKeys"
+                       :key="index"
+                      >
+                        <v-list-item-content>
+                         {{ item[key.toLowerCase()] }}
+                        </v-list-item-content>
+                      </v-list-item>
+                    </v-list>
+                  </v-chip>
+                </v-row>
+
+                <v-divider></v-divider>
+
+                <span class="font-weight-black red--text">動画時間目安</span>
                   <v-row justify="center">
                    <h1>sanchan</h1>
                   </v-row>
@@ -160,8 +129,10 @@
             <v-btn
               fab
               dark
+              height="40"
+              width="40"
               color="red"
-              class="mr-3"
+              class="mr-2"
               @click="formerPage"
             >
               <v-icon>mdi-chevron-left</v-icon>
@@ -169,6 +140,8 @@
             <v-btn
               fab
               dark
+              height="40"
+              width="40"
               color="red"
               class="mr-3"
               @click="nextPage"
@@ -193,33 +166,33 @@ const initialData = ()=>{
       sortDesc: false,
       page: 1,
       itemsPerPage: 4,
-      sortBy: '名前',
       keys: [
         'デフォルト',
         '納期',
         '名前',
+        '品質',
         '動画時間目安',
       ],
       items: [
         {
           名前: 'さんちゃん',
-          品質: 1,
-          納期: 1,
+          品質: 'クオリティ重視' ,
+          納期: '10日以内' ,
         },
         {
           名前: 'さんなか',
-          品質: 1,
-          納期: 1,
+          品質: 'スピード重視' ,
+          納期: '3日以内' ,
         },
         {
           名前: 'たつきち',
-          品質: 1,
-          納期: 1,
+          品質: 'クオリティ重視' ,
+          納期: '一ヶ月以内' ,
         },
         {
           名前: '山中',
-          品質: 1,
-          納期: 1,
+          品質: 'スピード重視' ,
+          納期: '今日明日中' ,
         },
       ],
     }
