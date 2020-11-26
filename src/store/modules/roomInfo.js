@@ -13,73 +13,72 @@ const state = {
 }
 
 const getters = {
-	calcHash: (idA, idB) => {
-		// hash化関数
-		idA,idB;
-	},
 }
 
 const actions = {
+	calcHash: async (c, {idA, idB}) => {
+		// sha256
+		const uint8  = new TextEncoder().encode(idA+idB)
+		const digest = await crypto.subtle.digest('SHA-256', uint8)
+		return Array.from(new Uint8Array(digest)).map(v => v.toString(16).padStart(2,'0')).join('')
+	},
 
-	getRoomInfo: async(idA, idB) => {
-		idA;idB;
-		const roomHash = "roomHash"//hash化
+	getRoomInfo: async({dispatch}, {idA, idB}) => {
+		const roomHash = await dispatch("calcHash", {"idA": idA,"idB": idB});
 
 		const API = process.env.VUE_APP_CHAT_DB_API + "info_get";
 		const val = axios_obj.get(API,{params:{ID:roomHash}}).then(response => {
 			const data = response.data.body;
 			return data;
 		}).catch(err => {
-			console.log({"err":err});
-			return "ERROR";
+			return err;
 		});
-		val.then(res => {
-			console.log({"info": "get"});
-			console.log(res);
+
+		return val.then(res => {
+			if(!res.hasOwnProperty("Item")){
+				return dispatch("updateRoomInfo", {"idA": idA, "idB": idB, "chatNum": 0, "unreadNum": 0}).then(()=>{
+					return dispatch("getRoomInfo", {"idA": idA, "idB": idB});
+				});
+			}
+			return res.Item;
+		}).catch(err => {
+			console.log({"room get error": err});
+			return err;
 		})
 	},
 
-	updateRoomInfo: async(idA, idB, chatNum, unreadNum) => {
-		const roomHash = "roomHash"//hash化
+	updateRoomInfo: async({dispatch}, {idA, idB, chatNum, unreadNum}) => {
+		const roomHash = await dispatch("calcHash", {"idA": idA,"idB": idB});
 
-		idA;idB;chatNum;unreadNum;
 		const API = process.env.VUE_APP_CHAT_DB_API + "info_update";
 		const data = JSON.stringify({
 			ID: roomHash,
 			chatNum: chatNum,
 			unreadNum: unreadNum 
 		});
-		const val = axios_obj.post(API,data).then(response => {
-			const data = response.data.body;
-			return data;
+		axios_obj.post(API,data).then(()=> {
 		}).catch(err => {
 			console.log({"err":err});
-			return "ERROR";
 		});
-		val.then(res => {
-			console.log({"info": "update"});
-			console.log(res);
-		})
 	},
 
-	getRoomChat: async(idA, idB) => {
-		idA;idB;
-		const roomHash = "roomHash"//hash化
+	getRoomChat: async({dispatch}, {idA, idB}) => {
+		const roomHash = await dispatch("calcHash", {"idA": idA,"idB": idB});
 
 		const API = process.env.VUE_APP_CHAT_DB_API + "text_get";
 		const val = axios_obj.get(API,{params:{ID:roomHash}}).then(response => {
 			const data = response.data.body;
 			return data;
 		});
-		val.then(res => {
-			console.log({"get chat":res});
-		})
+		return val.then(res => {
+			return res.Item;
+		}).catch(()=>{
+			return {};
+		});
 	},
 
-	addRoomChat: async({state},{idA, idB, chatText}) => {
-		const roomHash = "roomHash"//hash化
-		// updateRoomInfo(idA,idB, chatNum+1, unreadNum+1);
-		idA;idB;state;
+	addRoomChat: async({dispatch},{idA, idB, chatText}) => {
+		const roomHash = await dispatch("calcHash", {"idA": idA,"idB": idB});
 
 		// 日付取得
 		const zeroPadding = (val, len)=>{
@@ -101,15 +100,9 @@ const actions = {
 			text: chatText,
 			date: jDate
 		});
-		console.log(data);
-		const val = axios_obj.post(API,data).then(response => {
-			const data = response.data.body;
-			return data;
+		axios_obj.post(API,data).then(() => {
 		}).catch((res)=>{
 			console.log({"err":res});
-		});
-		val.then((res) => {
-			console.log({"update chat":res});
 		});
 	},
 }
