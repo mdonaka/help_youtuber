@@ -49,9 +49,6 @@ export default {
 		}),
 	},
 	methods:{
-		hello: function(){
-			console.log("on");
-		},
 		...mapActions({
 			logout:"id/logout",
 			login:"id/login"
@@ -60,7 +57,7 @@ export default {
 	created(){
 		const this2 = this;
 		this.login().then((res) => {
-			console.log(res);
+			res;//console.log(res);
 		}).catch(function(){
 			this2.$router.push("/sign");
 		});

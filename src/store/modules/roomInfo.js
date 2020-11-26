@@ -20,58 +20,83 @@ const getters = {
 }
 
 const actions = {
+
 	getRoomInfo: async(idA, idB) => {
-		const roomHash = 0//hash化
+		idA;idB;
+		const roomHash = "roomHash"//hash化
 
-		const API = process.env.VUE_APP_HOGE_DB_API + "hoge";
-		const val = axios_obj.get(API,{params:{room:roomHash}}).then(response => {
+		const API = process.env.VUE_APP_CHAT_DB_API + "info_get";
+		const val = axios_obj.get(API,{params:{ID:roomHash}}).then(response => {
 			const data = response.data.body;
 			return data;
+		}).catch(err => {
+			console.log({"err":err});
+			return "ERROR";
 		});
-		val;
+		val.then(res => {
+			console.log({"info": "get"});
+			console.log(res);
+		})
 	},
+
 	updateRoomInfo: async(idA, idB, chatNum, unreadNum) => {
-		const roomHash = 0//hash化
+		const roomHash = "roomHash"//hash化
 
-		const API = process.env.VUE_APP_HOGE_DB_API + "huga";
-		const data = {
-			room: roomHash,
+		idA;idB;chatNum;unreadNum;
+		const API = process.env.VUE_APP_CHAT_DB_API + "info_update";
+		const data = JSON.stringify({
+			ID: roomHash,
 			chatNum: chatNum,
-			unreadNum: unreadNum
-		};
-		const val = axios_obj.get(API,data).then(response => {
+			unreadNum: unreadNum 
+		});
+		const val = axios_obj.post(API,data).then(response => {
 			const data = response.data.body;
 			return data;
+		}).catch(err => {
+			console.log({"err":err});
+			return "ERROR";
 		});
-		val;
+		val.then(res => {
+			console.log({"info": "update"});
+			console.log(res);
+		})
 	},
+
 	getRoomChat: async(idA, idB) => {
-		const roomHash = 0//hash化
+		idA;idB;
+		const roomHash = "roomHash"//hash化
 
-		const API = process.env.VUE_APP_HOGE_DB_API + "hoge";
-		const val = axios_obj.get(API,{params:{room:roomHash}}).then(response => {
+		const API = process.env.VUE_APP_CHAT_DB_API + "text_get";
+		const val = axios_obj.get(API,{params:{ID:roomHash}}).then(response => {
 			const data = response.data.body;
 			return data;
 		});
-		val;
+		val.then(res => {
+			console.log({"get chat":res});
+		})
 	},
-	addRoomChat: async(idA, idB, chatText) => {
-		const roomHash = 0//hash化
-		const chatNum = 0// chat数を取得
-		const unreadNum = 0//未読数を取得
-		// updateRoomInfo(idA,idB, chatNum+1, unreadNum+1);
 
-		const API = process.env.VUE_APP_HOGE_DB_API + "huga";
-		const data = {
-			room: roomHash,
+	addRoomChat: async({state},{idA, idB, chatText}) => {
+		const roomHash = "roomHash"//hash化
+		// updateRoomInfo(idA,idB, chatNum+1, unreadNum+1);
+		idA;idB;state;
+
+		const API = process.env.VUE_APP_CHAT_DB_API + "text_update";
+		const data = JSON.stringify({
+			ID: roomHash,
 			text: chatText,
-			data: 0// 日付を取得
-		};
-		const val = axios_obj.get(API,data).then(response => {
+			date: "20201029"// 日付を取得
+		});
+		console.log(data);
+		const val = axios_obj.post(API,data).then(response => {
 			const data = response.data.body;
 			return data;
+		}).catch((res)=>{
+			console.log({"err":res});
 		});
-		val;
+		val.then((res) => {
+			console.log({"update chat":res});
+		});
 	},
 }
 

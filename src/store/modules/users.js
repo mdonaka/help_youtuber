@@ -27,7 +27,6 @@ const getters = {
 
 const actions = {
 	getUserInfo: async function({dispatch}){
-		console.log("call");
 		return dispatch("id/getId", null, { root: true }).then((id)=>{
 			const axios_obj = Axios.create({
 				responseType: 'json'

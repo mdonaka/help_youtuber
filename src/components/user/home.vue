@@ -36,6 +36,8 @@ import Profile from "./profile"
 import Evaluation from "./evaluation"
 import Example from "./example"
 
+import {mapActions} from 'vuex'
+
 const initialData = ()=>{
 	return { };
 }
@@ -45,11 +47,24 @@ export default {
 	data(){
 		return initialData()
 	},
+	methods:{
+		...mapActions({
+			login:"id/login",
+			getRoomInfo: "roomInfo/getRoomInfo",
+			updateRoomInfo: "roomInfo/updateRoomInfo",
+			getRoomChat: "roomInfo/getRoomChat",
+			addRoomChat: "roomInfo/addRoomChat"
+		}),
+	},
 	computed: {
 	},
 	mounted:function(){
 	},
-	methods:{
+	created(){
+		this.getRoomInfo("T", "S");
+		//this.updateRoomInfo("T", "S", 0, 0);
+		this.getRoomChat("T", "S");
+		this.addRoomChat({"idA":"T","idB": "S","chatText": "from vue"});
 	}
 }
 </script>

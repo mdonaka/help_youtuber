@@ -84,7 +84,8 @@ const actions = {
 			cognitoUser.signOut();
 			commit("login", "_");
 			router.push("/sign", ()=>{});
-			console.log({"logout succes": id});
+			id;
+			//console.log({"logout succes": id});
 		}).catch(()=>{
 			console.log("logout cancel");
 		});

@@ -21,10 +21,10 @@ export default {
 	created(){
 		this.login().then((res) => {
 			this.$router.push("user", ()=>{});
-			console.log(res);
+			res;//console.log(res);
 		}).catch((res)=>{
 			this.$router.push("sign", ()=>{});
-			console.log(res);
+			res;//console.log(res);
 		});
 	}
 }
