@@ -81,11 +81,25 @@ const actions = {
 		// updateRoomInfo(idA,idB, chatNum+1, unreadNum+1);
 		idA;idB;state;
 
+		// 日付取得
+		const zeroPadding = (val, len)=>{
+			return (Array(len).join('0') + val).slice(-len);
+		};
+		const date = new Date();
+		const ye = zeroPadding(date.getFullYear(), 4);
+		const mo = zeroPadding(date.getMonth()+1, 2);
+		const da = zeroPadding(date.getDate(), 2);
+		const ho = zeroPadding(date.getHours(), 2);
+		const mi = zeroPadding(date.getMinutes(), 2);
+		const se = zeroPadding(date.getSeconds(), 2);
+		const we= "日月火水木金土"[date.getDay()];
+		const jDate = `${ye}/${mo}/${da}(${we}) ${ho}:${mi}:${se}`
+
 		const API = process.env.VUE_APP_CHAT_DB_API + "text_update";
 		const data = JSON.stringify({
 			ID: roomHash,
 			text: chatText,
-			date: "20201029"// 日付を取得
+			date: jDate
 		});
 		console.log(data);
 		const val = axios_obj.post(API,data).then(response => {
