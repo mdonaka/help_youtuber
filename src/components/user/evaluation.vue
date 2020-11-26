@@ -38,17 +38,33 @@
               lg="3"
             >
               <v-card>
-                <v-card	elevation="0">
-                  <v-layout justify-center>
-                    <v-avatar
-                      class="profile"
-                      color="grey"
-                      size="100"
+                <v-row>
+                  <v-col>
+                    <v-card	elevation="0"
+                    width="150"
                     >
-                    <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-                    </v-avatar>
-                  </v-layout>
-                </v-card>
+                      <v-layout justify-center>
+                        <v-avatar
+                          class="profile"
+                          color="grey"
+                          size="100"
+                        >
+                          <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                        </v-avatar>
+                      </v-layout>
+                    </v-card>
+                  </v-col>
+                  <v-col>
+                    <v-chip
+                      class="ml-n3"
+                      color="success"
+                      outlined
+                    >
+                      <v-icon left>mdi-alert-circle-outline</v-icon>
+                      {{ item.通知 }}
+                    </v-chip>
+                  </v-col>
+                </v-row>
                 <v-card-title class="subheading font-weight-bold">
                   {{ item.名前 }} <span class="font-weight-thin ml-3">さん</span>
                 </v-card-title>
@@ -56,30 +72,34 @@
                 <v-divider></v-divider>
 
                 <v-row>
-                  <span class="font-weight-black red--text ml-5">希望項目</span>
+                  <span class="font-black ml-5">希望項目</span>
                 </v-row>
                 <v-row>
                   <v-chip
                     class="ml-5 ma-2"
-                    color="red">
-                    <v-list>
-                      <v-list-item
-                       v-for="(key, index) in filteredKeys"
-                       :key="index"
-                      >
-                        <v-list-item-content>
-                         {{ item[key.toLowerCase()] }}
-                        </v-list-item-content>
-                      </v-list-item>
-                    </v-list>
+                    color="red"
+                    dark>
+                    {{ item.品質 }}
+                  </v-chip>
+                  <v-chip
+                    class="ml-5 ma-2"
+                    color="green"
+                    dark>
+                    {{ item.納期 }}
+                  </v-chip>
+                  <v-chip
+                    class="ml-5 ma-2"
+                    color="blue"
+                    dark>
+                    {{ item.価格 }}
                   </v-chip>
                 </v-row>
 
                 <v-divider></v-divider>
 
-                <span class="font-weight-black red--text">動画時間目安</span>
+                <span class="font-black ml-2">動画時間目安</span>
                   <v-row justify="center">
-                   <h1>sanchan</h1>
+                   <h1>{{ item.時間 }}</h1>
                   </v-row>
               </v-card>
             </v-col>
@@ -167,32 +187,39 @@ const initialData = ()=>{
       page: 1,
       itemsPerPage: 4,
       keys: [
-        'デフォルト',
-        '納期',
-        '名前',
-        '品質',
-        '動画時間目安',
       ],
       items: [
         {
           名前: 'さんちゃん',
           品質: 'クオリティ重視' ,
           納期: '10日以内' ,
+          価格: '10円' ,
+          時間: '１時間' ,
+          通知: 'コンタクト受信' ,
         },
         {
           名前: 'さんなか',
-          品質: 'スピード重視' ,
+          品質: '納期重視' ,
           納期: '3日以内' ,
+          価格: '20000円' ,
+          時間: '5分' ,
+          通知: '納期まであと2日' ,
         },
         {
           名前: 'たつきち',
           品質: 'クオリティ重視' ,
           納期: '一ヶ月以内' ,
+          価格: '4000円' ,
+          時間: '10分' ,
+          通知: '' ,
         },
         {
-          名前: '山中',
-          品質: 'スピード重視' ,
+          名前: '山P',
+          品質: '納期重視' ,
           納期: '今日明日中' ,
+          価格: '1円' ,
+          時間: '5時間' ,
+          通知: '納期まであと1日' ,
         },
       ],
     }

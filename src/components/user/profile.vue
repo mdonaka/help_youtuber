@@ -57,7 +57,11 @@
 								<span v-else>{{saveItems.name}}</span>
 								</v-list-item-title>
 								<v-list-item-subtitle>Editor</v-list-item-subtitle>
-								<v-list-item-title>☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
+								<star-rating
+        v-model="rating"
+        background-color="grey"
+        color="yellow"
+      ></star-rating>
 							</v-list-item-content>
 							</v-list-item>
 							</v-col>
