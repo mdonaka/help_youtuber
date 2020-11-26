@@ -196,13 +196,6 @@ color="red"
 </v-container>
   </v-app>
 </div>
-		<div>
-			<h2>userList(今だけ仮指定)</h2>
-			<h2>to => {{sendTo}}</h2>
-			<div v-for="data in sendToList" v-bind:key="data.id" @click="toSet(data.id)">
-				{{data.name}}に送る
-			</div>
-		</div>
           </v-card>
         </v-tab-item>
       </v-tabs>     
@@ -213,7 +206,7 @@ color="red"
 
 <script>
 /* eslint-disable no-console */
-import {mapState, mapGetters} from 'vuex'
+import {mapState, mapActions} from 'vuex'
 
 const initialData = ()=>{
 	return {
@@ -224,9 +217,8 @@ const initialData = ()=>{
 		{text:"誰だよ", isMine:false},
 		{text:"さんちゃんだお！ｗｗ", isMine:true},
 		{text:"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ", isMine:false}],
-		sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
+		//sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
 		sendTo: "",
-		sendToList: [],
 		bg1: null,
 		bg2: null,
 		bg3: null,
@@ -246,10 +238,14 @@ export default {
 		}),
 	},
 	methods:{
-		...mapGetters({
-			getUsers: "users/getUsers",
+		...mapActions({
+			getRoomInfo: "roomInfo/getRoomInfo",
+			updateRoomInfo: "roomInfo/updateRoomInfo",
+			getRoomChat: "roomInfo/getRoomChat",
+			addRoomChat: "roomInfo/addRoomChat"
 		}),
 		sendMessage: function(){
+			/*
 			const data = JSON.stringify({"action":"sendMessage", "data":
 				{
 					text:this.sendText,
@@ -257,6 +253,8 @@ export default {
 				}
 			});
 			this.sock.send(data);
+			*/
+			this.addRoomChat({"idA": "S", "idB": "T", "chatText": this.sendText});
 			this.textList.push({text:this.sendText, isMine:true});
 			this.sendText= "";
 		},
@@ -265,14 +263,23 @@ export default {
 		},
 	},
 	created(){
+		const data = this;
+		this.getRoomChat({"idA": "S", "idB": "T"}).then(res => {
+			for (const obj of res){
+				data.textList.push({"text": obj.text, "isMine": true});
+			}
+		});
+		this.getRoomChat({"idA": "T", "idB": "S"}).then(res => {
+			for (const obj of res){
+				data.textList.push({"text": obj.text, "isMine": false});
+			}
+		});
+
+		// TODO:以下の処理を別のフローへ
+		/*
+		if(this.id !== "_"){return;}
 		if(this.id==="_"){return;}
 
-		const data = this;
-
-		// debug用 ユーザ取得
-		this.getUsers().then(function(users){
-			data.sendToList = users;
-		});
 
 		// 接続
 		this.sock.addEventListener('open',function(){
@@ -286,6 +293,7 @@ export default {
 		this.sock.addEventListener('message',function(e){
 			data.textList.push({text:e.data, isMine:false});
 		});
+		*/
 	},
 }
 

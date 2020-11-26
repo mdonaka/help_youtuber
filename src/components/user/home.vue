@@ -48,26 +48,13 @@ export default {
 		return initialData()
 	},
 	methods:{
-		...mapActions({
-			login:"id/login",
-			getRoomInfo: "roomInfo/getRoomInfo",
-			updateRoomInfo: "roomInfo/updateRoomInfo",
-			getRoomChat: "roomInfo/getRoomChat",
-			addRoomChat: "roomInfo/addRoomChat"
-		}),
+		...mapActions({}),
 	},
 	computed: {
 	},
 	mounted:function(){
 	},
-	created(){
-		//const val = this.getRoomInfo({"idA":"T","idB": "S"});
-		//val.then((res)=>console.log({"res": res}));
-		//this.updateRoomInfo({"idA": "T", "idB": "S", "chatNum": 0, "unreadNum": 0});
-		//this.getRoomChat({"idA":"T","idB": "S"}).then(res=>{console.log({"1":res})});
-		//this.addRoomChat({"idA":"T","idB": "S","chatText": "from vue"});
-		//this.getRoomChat({"idA":"T","idB": "S"}).then(res=>{console.log({"2":res})});
-	}
+	created(){}
 }
 </script>
 

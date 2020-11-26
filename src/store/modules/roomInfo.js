@@ -71,8 +71,12 @@ const actions = {
 			return data;
 		});
 		return val.then(res => {
-			return res.Item;
-		}).catch(()=>{
+			if(res.hasOwnProperty("Item")){
+				return res.Item;
+			}
+			return {};
+		}).catch(err=>{
+			console.log({"err":err});
 			return {};
 		});
 	},
