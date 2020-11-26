@@ -1,13 +1,18 @@
 import Vue from 'vue'
-import Branch from '@/components/id_check'
 import Router from 'vue-router'
-import Chat from '@/components/chat/home'
-import UserPage from '@/components/user/home'
-import Sign from '@/components/sign/home'
-import Signin from '@/components/sign/signin'
-import Signup from '@/components/sign/signup'
-import Frame from '@/components/frame'
-import Home from '@/components/Home/home'
+import Frame from '@/components/both/frame'
+import Branch from '@/components/both/id_check'
+import Sign from '@/components/both/sign/home'
+import Signin from '@/components/both/sign/signin'
+import Signup from '@/components/both/sign/signup'
+/*
+import Chat from '@/components/editor/chat/home'
+import UserPage from '@/components/editor/user/home'
+import Home from '@/components/editor/Home/home'
+*/
+import Chat from '@/components/youtuber/chat/home'
+import UserPage from '@/components/youtuber/user/home'
+import Home from '@/components/youtuber/Home/home'
  
 Vue.use(Router)
  

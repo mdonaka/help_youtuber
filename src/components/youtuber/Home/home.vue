@@ -88,10 +88,10 @@ export default {
   name: 'App',
   data: () => ({
     items: [
-      { title: 'さんちゃん', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',Genre:'ゲーム実況',quality:'達人',speed:'8/10',rating: 4.5, url:"#/user/userpage"},
-      { title: '三太郎', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',Genre:'商品紹介',quality:'普通',speed:'7/10',rating: 2.5, url:"#/user/userpage"},
-      { title: 'さんさんさん', avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',Genre:'アニメーション',quality:'玄人',speed:'6/10',rating: 3.0, url:"#/user/userpage"},
-      { title: 'やまなかたつき', avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',Genre:'楽曲PV',quality:'練習中',speed:'5/10',rating: 4.0, url:"#/user/userpage"},
+      { title: 'さんちゃん', avatar: 'https://cdn.vuetifyjs.com/images/lists/1.jpg',Genre:'ゲーム実況',quality:'プロ',speed:'4/5',rating: 4.5, url:"#/user/userpage"},
+      { title: '三太郎', avatar: 'https://cdn.vuetifyjs.com/images/lists/2.jpg',Genre:'商品紹介',quality:'アマチュア',speed:'2/5',rating: 2.5, url:"#/user/userpage"},
+      { title: 'さんさんさん', avatar: 'https://cdn.vuetifyjs.com/images/lists/3.jpg',Genre:'アニメーション',quality:'セミプロ',speed:'3/5',rating: 3.0, url:"#/user/userpage"},
+      { title: 'やまなかたつき', avatar: 'https://cdn.vuetifyjs.com/images/lists/4.jpg',Genre:'楽曲PV',quality:'ビギナー',speed:'1/5',rating: 4.0, url:"#/user/userpage"},
     ],
   })
 };
