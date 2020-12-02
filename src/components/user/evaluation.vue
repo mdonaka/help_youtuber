@@ -8,24 +8,6 @@
         :search="search"
         hide-default-footer
       >
-        <template v-slot:header>
-          <v-toolbar
-            dark
-            color="black"
-            class="mb-1"
-          >
-            <v-text-field
-              width="50"
-              v-model="Search"
-              clearable
-              flat
-              solo-inverted
-              hide-details
-              prepend-inner-icon="mdi-magnify"
-              label="検索"
-            ></v-text-field>
-          </v-toolbar>
-        </template>
   
         <template v-slot:default="props">
           <v-row>

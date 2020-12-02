@@ -15,65 +15,69 @@
 	</v-dialog>
 	<!-- ---------------------------- -->
 
-		<v-card flat>
-			<v-container fluid>
-				<v-row align="center" >
-					<v-col>
-						<v-card
-						class="mx-auto"
-						max-width="434"
-						tile
+	<v-card flat>
+		<v-container fluid>
+			<v-row align="center" >
+				<v-col>
+					<v-card
+					class="mx-auto"
+					max-width="434"
+					tile
+					>
+						<v-img
+						height="100%"
+						src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
 						>
-							<v-img
-							height="100%"
-							src="https://cdn.vuetifyjs.com/images/cards/server-room.jpg"
-							>
 							<v-row
 							align="end"
 							class="fill-height"
 							>
-							<v-col
-								align-self="start"
-								class="pa-0"
-								cols="12"
-							>
-							<v-avatar
-							class="profile"
-							color="grey"
-							size="164"
-							tile
-							>
-							<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-							</v-avatar>
-						</v-col>
-						<v-col class="py-0">
-							<v-list-item
-							color="rgba(0, 0, 0, .4)"
-							dark
-							>
-							<v-list-item-content>
-								<v-list-item-title class="title">
-								<input v-if=isEditing type="text" v-model="saveItems.name">
-								<span v-else>{{saveItems.name}}</span>
-								</v-list-item-title>
-								<v-list-item-subtitle>Editor</v-list-item-subtitle>
-								<star-rating
-        v-model="rating"
-        background-color="grey"
-        color="yellow"
-      ></star-rating>
-							</v-list-item-content>
-							</v-list-item>
-							</v-col>
+								<v-col
+									align-self="start"
+									class="pa-0"
+									cols="12"
+								>
+									<v-avatar
+									class="profile"
+									color="grey"
+									size="164"
+									tile
+									>
+										<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+									</v-avatar>
+								</v-col>
+								<v-col class="py-0">
+									<v-list-item
+									color="rgba(0, 0, 0, .4)"
+									dark
+									>
+										<v-list-item-content>
+											<v-list-item-title class="title">
+												<input v-if=isEditing type="text" v-model="saveItems.name">
+												<span v-else>{{saveItems.name}}</span>
+											</v-list-item-title>
+											<v-list-item-subtitle>Editor</v-list-item-subtitle>
+											<v-rating
+											v-model="rating"
+											harf-increments
+											harf-icon="$mdiStarHarfFull"
+											background-color="yellow"
+											color="yellow"
+											readonly
+											size="20"
+											></v-rating>
+										</v-list-item-content>
+									</v-list-item>
+								</v-col>
 							</v-row>
-							</v-img>
-						</v-card>
+						</v-img>
+					</v-card>
 
-						<v-card
-						max-width="434"
-						class="mx-auto"
-						elevation="0">
-				<br>
+					<v-card
+					max-width="434"
+					class="mx-auto"
+					elevation="0">
+						<br>
 						<v-textarea
 							color="cyan"
 							height="200"
@@ -83,11 +87,11 @@
 							v-model="saveItems.selfIntro"
 							v-bind:readonly="!isEditing"
 						></v-textarea>
-						</v-card>
-						</v-col>
+					</v-card>
+				</v-col>
 
-						<v-col>
-			<div> 
+				<v-col>
+				<div> 
 				<td> <v-switch v-model="isEditing"></v-switch></td> 
 				<td>
 					<p prepend-icon="mdi-account-edit">
