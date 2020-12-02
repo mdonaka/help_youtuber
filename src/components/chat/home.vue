@@ -206,17 +206,12 @@ color="red"
 
 <script>
 /* eslint-disable no-console */
-import {mapState, mapActions} from 'vuex'
+import {mapState, mapMutations, mapActions} from 'vuex'
 
 const initialData = ()=>{
 	return {
 		tab: null,
 		sendText: "",
-		textList: [
-		{text:"こんにちは，私です", isMine:true},
-		{text:"誰だよ", isMine:false},
-		{text:"さんちゃんだお！ｗｗ", isMine:true},
-		{text:"あああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああああ", isMine:false}],
 		//sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
 		sendTo: "",
 		bg1: null,
@@ -234,7 +229,7 @@ export default {
 	},
 	computed: {
 		...mapState({
-			id:s=>s.id.id,
+			textList:s=>s.chatWebhook.textList
 		}),
 	},
 	methods:{
@@ -243,6 +238,10 @@ export default {
 			updateRoomInfo: "roomInfo/updateRoomInfo",
 			getRoomChat: "roomInfo/getRoomChat",
 			addRoomChat: "roomInfo/addRoomChat"
+		}),
+		...mapMutations({
+			pushText: "chatWebhook/push",
+			init: "chatWebhook/init",
 		}),
 		sendMessage: function(){
 			/*
@@ -264,14 +263,15 @@ export default {
 	},
 	created(){
 		const data = this;
+		data.init();
 		this.getRoomChat({"idA": "S", "idB": "T"}).then(res => {
 			for (const obj of res){
-				data.textList.push({"text": obj.text, "isMine": true});
+				data.pushText({"text": obj.text, "isMine": true});
 			}
 		});
 		this.getRoomChat({"idA": "T", "idB": "S"}).then(res => {
 			for (const obj of res){
-				data.textList.push({"text": obj.text, "isMine": false});
+				data.pushText({"text": obj.text, "isMine": false});
 			}
 		});
 
