@@ -212,7 +212,6 @@ const initialData = ()=>{
 	return {
 		tab: null,
 		sendText: "",
-		//sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
 		bg1: null,
 		bg2: null,
 		bg3: null,
@@ -239,15 +238,6 @@ export default {
 		...mapMutations({
 		}),
 		sendMessage: function(){
-			/*
-			const data = JSON.stringify({"action":"sendMessage", "data":
-				{
-					text:this.sendText,
-					sendId:this.sendTo
-				}
-			});
-			this.sock.send(data);
-			*/
 			this.pushText(this.sendText);
 			this.sendText= "";
 		},
@@ -255,26 +245,6 @@ export default {
 	created(){
 		const data = this;
 		data.updateTarget("T");
-
-		// TODO:以下の処理を別のフローへ
-		/*
-		if(this.id !== "_"){return;}
-		if(this.id==="_"){return;}
-
-
-		// 接続
-		this.sock.addEventListener('open',function(){
-			console.log('Socket 接続成功');
-			// ユーザの登録
-			const req= JSON.stringify({"action":"addUser", "data":data.id});
-			data.sock.send(req);
-		});
-
-		// サーバーからデータを受け取る
-		this.sock.addEventListener('message',function(e){
-			data.textList.push({text:e.data, isMine:false});
-		});
-		*/
 	},
 }
 

@@ -40,7 +40,7 @@ const actions = {
 			});
 		});
 	},
-	login: async({commit, state}) => {
+	login: async({dispatch, commit, state}) => {
 		return new Promise((resolve, reject) => {
 			if(state.id !== "_"){resolve({already: state.id});}
 			const cognitoUser = userPool.getCurrentUser();  // 現在のユーザー
@@ -60,6 +60,7 @@ const actions = {
 					commit("login", id);
 					router.push("/user", ()=>{});
 					resolve({login: id});
+					dispatch("chatWebhook/socketConnect", null, { root: true });
 				});
 			});
 		});

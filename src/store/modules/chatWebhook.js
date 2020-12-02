@@ -6,7 +6,8 @@ Vue.use(Vuex)
 
 const state = {
 		textList: [{text:"example", isMine:true}],
-		toId: "_"
+		toId: "_",
+		sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
 }
 
 const getters = {
@@ -35,12 +36,39 @@ const actions = {
 	},
 
 	pushText: async({state, dispatch, commit}, text) =>{
+		// ローカルを更新
+		commit("push",{"text": text, "isMine": true});
+		// データベースを更新
 		const myId = await dispatch("id/getId", null, { root: true });
 		dispatch("roomInfo/addRoomChat", 
 			{"idA": myId, "idB": state.toId, "chatText": text},
 			{ root: true });
-		commit("push",{"text": text, "isMine": true});
+		// 相手へ送信
+		const data = JSON.stringify({"action":"sendMessage", "data":
+			{ text:text, sendId:state.toId }
+		});
+		state.sock.send(data);
 	},
+
+	socketConnect: async({dispatch, state, commit}) => {
+		const myId = await dispatch("id/getId", null, { root: true });
+
+		// 接続
+		state.sock.addEventListener('open',function(){
+			console.log('Socket 接続成功');
+			// ユーザの登録
+			const req= JSON.stringify({"action":"addUser", "data":myId});
+			state.sock.send(req);
+		});
+
+		// サーバーからデータを受け取る
+		state.sock.addEventListener('message',function(e){
+			console.log({"get": e.data});
+			// TODO: 相手が誰かを確認する if(state.toId == e.hoge)
+			commit("push", {text:e.data, isMine:false});
+		});
+
+	}
 }
 
 const mutations = {
