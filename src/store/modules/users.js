@@ -21,7 +21,7 @@ const getters = {
 			const data = response.data;
 			return data;
 		});
-		return val;
+		return await val;
 	},
 }
 

@@ -20,6 +20,11 @@
         <v-tab-item>
           <v-card flat>
 			<h1>工事中</h1>
+			<!-- -->
+			<div v-for="{name, id} in users" v-bind:key="id">
+				<div @click="updateTarget(id)">{{name}}</div>
+			</div>
+			<!-- -->
           </v-card>
         </v-tab-item>
         <v-tab-item>
@@ -206,7 +211,7 @@ color="red"
 
 <script>
 /* eslint-disable no-console */
-import {mapState, mapMutations, mapActions} from 'vuex'
+import {mapGetters, mapState, mapActions} from 'vuex'
 
 const initialData = ()=>{
 	return {
@@ -217,6 +222,7 @@ const initialData = ()=>{
 		bg3: null,
 		offset1: null,
 		offset2: null,
+		users: []
 	};
 }
 
@@ -235,7 +241,8 @@ export default {
 			updateTarget: "chatWebhook/updateTarget",
 			pushText: "chatWebhook/pushText",
 		}),
-		...mapMutations({
+		...mapGetters({
+			getUsers: "users/getUsers"
 		}),
 		sendMessage: function(){
 			this.pushText(this.sendText);
@@ -244,7 +251,9 @@ export default {
 	},
 	created(){
 		const data = this;
-		data.updateTarget("T");
+		this.users = this.getUsers().then(res=>{
+			data.users = res;
+		});
 	},
 }
 

@@ -15,6 +15,7 @@ const getters = {
 
 const actions = {
 	updateTarget: async({dispatch, commit}, toId) => {
+		console.info("target update");
 		// chat相手の更新
 		commit("updateTarget", toId);
 		
@@ -36,6 +37,7 @@ const actions = {
 	},
 
 	pushText: async({state, dispatch, commit}, text) =>{
+		if(state.toId === "_"){return;}
 		// ローカルを更新
 		commit("push",{"text": text, "isMine": true});
 		// データベースを更新
