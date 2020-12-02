@@ -94,12 +94,13 @@ const actions = {
 		return new Promise((resolve, reject) => {
 			if(state.id !== "_"){
 				resolve(state.id);
+			}else{
+				dispatch("login").then(function(){
+					resolve(state.id);
+				}).catch(()=>{
+					reject("_");
+				});
 			}
-			dispatch("login").then(function(){
-				resolve(state.id);
-			}).catch(()=>{
-				reject("_");
-			});
 		});
 	},
 }

@@ -213,7 +213,6 @@ const initialData = ()=>{
 		tab: null,
 		sendText: "",
 		//sock: new WebSocket(process.env.VUE_APP_CHAT_URL),
-		sendTo: "",
 		bg1: null,
 		bg2: null,
 		bg3: null,
@@ -229,19 +228,15 @@ export default {
 	},
 	computed: {
 		...mapState({
-			textList:s=>s.chatWebhook.textList
+			textList:s=>s.chatWebhook.textList,
 		}),
 	},
 	methods:{
 		...mapActions({
-			getRoomInfo: "roomInfo/getRoomInfo",
-			updateRoomInfo: "roomInfo/updateRoomInfo",
-			getRoomChat: "roomInfo/getRoomChat",
-			addRoomChat: "roomInfo/addRoomChat"
+			updateTarget: "chatWebhook/updateTarget",
+			pushText: "chatWebhook/pushText",
 		}),
 		...mapMutations({
-			pushText: "chatWebhook/push",
-			init: "chatWebhook/init",
 		}),
 		sendMessage: function(){
 			/*
@@ -253,27 +248,13 @@ export default {
 			});
 			this.sock.send(data);
 			*/
-			this.addRoomChat({"idA": "S", "idB": "T", "chatText": this.sendText});
-			this.textList.push({text:this.sendText, isMine:true});
+			this.pushText(this.sendText);
 			this.sendText= "";
-		},
-		toSet(id){
-			this.sendTo = id;
 		},
 	},
 	created(){
 		const data = this;
-		data.init();
-		this.getRoomChat({"idA": "S", "idB": "T"}).then(res => {
-			for (const obj of res){
-				data.pushText({"text": obj.text, "isMine": true});
-			}
-		});
-		this.getRoomChat({"idA": "T", "idB": "S"}).then(res => {
-			for (const obj of res){
-				data.pushText({"text": obj.text, "isMine": false});
-			}
-		});
+		data.updateTarget("T");
 
 		// TODO:以下の処理を別のフローへ
 		/*
