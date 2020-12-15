@@ -1,184 +1,234 @@
 <template>
 	<div>
-	<v-card flat>
-		<v-container>
-			<v-row>
-				<v-col>
-					<v-container fluid fill-height>
-						<v-card outlined
-						elevation="3">
-							<v-avatar
-							class="profile"
-							color="grey"
-							size="200"
-							>
-							<v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
-							</v-avatar>
-						</v-card>
-						<v-card outlined
-						elevation="3" class="mt-4" width="200"
-						>
-							<v-list-item-title class="title">
-							<input v-if=isEditing type="text" v-model="saveItems.name">
-							<span v-else>{{saveItems.name}}</span>
-							</v-list-item-title>
+	<v-container fluid>
+      <v-data-iterator
+        :items="items"
+        :items-per-page.sync="itemsPerPage"
+        :page="page"
+        :search="search"
+        hide-default-footer
+      >
+  
+        <template v-slot:default="props">
+          <v-row>
+            <v-col
+              v-for="item in props.items"
+              :key="item.name"
+              cols="12"
+              sm="6"
+              md="4"
+              lg="3"
+            >
+              <v-card>
+                <v-row>
+                  <v-col>
+                    <v-card	elevation="0"
+                    width="150"
+                    >
+                      <v-layout justify-center>
+                        <v-avatar
+                          class="profile"
+                          color="grey"
+                          size="100"
+                        >
+                          <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                        </v-avatar>
+                      </v-layout>
+                    </v-card>
+                  </v-col>
+                  <v-col>
+                    <v-chip
+                      class="ml-n3"
+                      color="success"
+                      outlined
+                    >
+                      <v-icon left>mdi-alert-circle-outline</v-icon>
+                      {{ item.通知 }}
+                    </v-chip>
+                  </v-col>
+                </v-row>
+                <v-card-title class="subheading font-weight-bold">
+                  {{ item.名前 }} <span class="font-weight-thin ml-3">さん</span>
+                </v-card-title>
 
-							<v-list-item-subtitle align="center">Editor</v-list-item-subtitle>
-							<h1 align="center" class="my-n2">{{saveItems.name}}</h1>
-							<v-list-item-title align="center">☆☆☆☆☆ 0.0 (0件)</v-list-item-title>
-							<v-divider></v-divider>
-							<p class="font-weight-black red--text">作業スピード</p>
-								<h2 class="mt-n5 mb-2" align="center">{{saveItems.hitem}}</h2>
-							<p class="font-weight-black red--text">編集クオリティ</p>
-								<h2 class="mt-n5" align="center">{{saveItems.iitem}}</h2>
-							<v-expansion-panels>
-								<v-expansion-panel>
-									<v-expansion-panel-header>
-									<h3 class="red--text">得意ジャンル</h3>
-									</v-expansion-panel-header>
-									<v-expansion-panel-content>
-									{{saveItems.oitem}}
-									</v-expansion-panel-content>
-								</v-expansion-panel>
-							</v-expansion-panels>
-						</v-card>
-					</v-container>
-				</v-col>
-				<v-col>
-					<p class="font-weight-black">希望価格帯</p>
-						<v-col cols="12">
-							<v-text-field
-							v-model="saveItems.kitem"
-							label="None"
-							solo
-							readonly
-							outlined
-							class="my-n5"
-							></v-text-field>
-							<v-text-field
-							v-model="saveItems.price"
-							label="None"
-							solo
-							readonly
-							outlined
-							class="my-n5"
-							></v-text-field>
-						</v-col>
-					<p class="font-weight-black">サムネイル作成</p>
-						<v-col cols="12">
-							<v-text-field
-							v-model="saveItems.sitem"
-							label="None"
-							solo
-							readonly
-							outlined
-							class="my-n5"
-							></v-text-field>
-						</v-col>
-					<p class="text--disabled">編集ソフト</p>
-						<v-col cols="12">
-							<v-text-field
-							value="工事中"
-							label="None"
-							solo
-							disabled
-							outlined
-							class="my-n5"
-							></v-text-field>
-						</v-col>
-					<p class="text--disabled">編集例</p>
-						<v-col cols="12">
-							<v-text-field
-							value="工事中"
-							label="None"
-							solo
-							disabled
-							outlined
-							class="my-n5"
-							></v-text-field>
-						</v-col>
-				</v-col>
-				<v-col>
-					<v-textarea
-						color="cyan"
-						height="250"
-						outlined
-						label="自己紹介"
-						placeholder="編集をONにして入力してください"
-						v-model="saveItems.selfIntro"
-						v-bind:readonly="!isEditing"
-						class="mt-8"
-					></v-textarea>
-					<div class="ml-12 mt-4" fluid>
-					<v-btn x-large color="success" dark>
-					<h3>コンタクト</h3></v-btn>
-					</div>
-				</v-col>
-			</v-row>
-		</v-container>
-	</v-card>
+                <v-divider></v-divider>
+
+                <v-row>
+                  <span class="font-black ml-5">希望項目</span>
+                </v-row>
+                <v-row>
+                  <v-chip
+                    class="ml-5 ma-2"
+                    color="red"
+                    dark>
+                    {{ item.品質 }}
+                  </v-chip>
+                  <v-chip
+                    class="ml-5 ma-2"
+                    color="green"
+                    dark>
+                    {{ item.納期 }}
+                  </v-chip>
+                  <v-chip
+                    class="ml-5 ma-2"
+                    color="blue"
+                    dark>
+                    {{ item.価格 }}
+                  </v-chip>
+                </v-row>
+
+                <v-divider></v-divider>
+
+                <span class="font-black ml-2">動画時間目安</span>
+                  <v-row justify="center">
+                   <h1>{{ item.時間 }}</h1>
+                  </v-row>
+              </v-card>
+            </v-col>
+          </v-row>
+        </template>
+  
+        <template v-slot:footer>
+          <v-row
+            class="ml-2"
+            align="center"
+            justify="center"
+          >
+            <span class="grey--text">表示数</span>
+            <v-menu offset-y>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  dark
+                  text
+                  color="black"
+                  class="ml-2"
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                  {{ itemsPerPage }}
+                  <v-icon>mdi-chevron-down</v-icon>
+                </v-btn>
+              </template>
+              <v-list>
+                <v-list-item
+                  v-for="(number, index) in itemsPerPageArray"
+                  :key="index"
+                  @click="updateItemsPerPage(number)"
+                >
+                  <v-list-item-title>{{ number }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+  
+            <v-spacer></v-spacer>
+  
+            <span
+              class="mr-4
+              grey--text"
+            >
+             {{ page }} / {{ numberOfPages }} 
+            </span>
+            <v-btn
+              fab
+              dark
+              height="40"
+              width="40"
+              color="red"
+              class="mr-2"
+              @click="formerPage"
+            >
+              <v-icon>mdi-chevron-left</v-icon>
+            </v-btn>
+            <v-btn
+              fab
+              dark
+              height="40"
+              width="40"
+              color="red"
+              class="mr-3"
+              @click="nextPage"
+            >
+              <v-icon>mdi-chevron-right</v-icon>
+            </v-btn>
+          </v-row>
+        </template>
+      </v-data-iterator>
+    </v-container>
 	</div>
 </template>
 
 <script>
 /* eslint-disable no-console */
-import {mapState, mapActions} from 'vuex'
 
 const initialData = ()=>{
-	return {
-		nowLoading: true,
-		isEditing: false,
-		saveItems: {
-			name: "_",
-			offset: 12,
-			selfIntro: "",
-		}
-	};
+    return {
+      itemsPerPageArray: [4, 8, 12],
+      search: '',
+      filter: {},
+      sortDesc: false,
+      page: 1,
+      itemsPerPage: 4,
+      keys: [
+      ],
+      items: [
+        {
+          名前: 'さんちゃん',
+          品質: 'クオリティ重視' ,
+          納期: '10日以内' ,
+          価格: '10円' ,
+          時間: '１時間' ,
+          通知: 'コンタクト受信' ,
+        },
+        {
+          名前: 'さんなか',
+          品質: '納期重視' ,
+          納期: '3日以内' ,
+          価格: '20000円' ,
+          時間: '5分' ,
+          通知: '納期まであと2日' ,
+        },
+        {
+          名前: 'たつきち',
+          品質: 'クオリティ重視' ,
+          納期: '一ヶ月以内' ,
+          価格: '4000円' ,
+          時間: '10分' ,
+          通知: '' ,
+        },
+        {
+          名前: '山P',
+          品質: '納期重視' ,
+          納期: '今日明日中' ,
+          価格: '1円' ,
+          時間: '5時間' ,
+          通知: '納期まであと1日' ,
+        },
+      ],
+    }
 }
-
 export default {
-	data(){
+	data() {
 		return initialData()
 	},
 	computed: {
-		...mapState({
-			id:s=>s.id.id
-		}),
-	},
-	mounted:function(){
-		this.updateAllContents();
-	},
-	methods:{
-		...mapActions({
-			getUserInfo: "users/getUserInfo",
-			userUpdate: "users/userUpdate",
-		}),
-		updateAllContents: function() {
-			this.nowLoading = true;
-			const local = this;
-			this.getUserInfo().then((data) => {
-				for(const key in data.Item){
-					local.saveItems[key] = data.Item[key];
-				}
-				local.nowLoading = false;
-			}).catch(()=>{
-				local.nowLoading = false;
-			});
+		numberOfPages () {
+			return Math.ceil(this.items.length / this.itemsPerPage)
 		},
-		updateUserInfo:function(){
-			let items = { id: this.id };
-			for(const key in this.saveItems){
-				items[key] = this.saveItems[key];
-			}
-			const data = JSON.stringify(items);
-
-			const local = this;
-			this.userUpdate(data).then(()=>{
-				console.log("update fin");
-				local.isEditing = false;
-			});
+		filteredKeys () {
+			return this.keys.filter(key => key !== 'Name')
 		},
-	}
+	},
+  methods: {
+    nextPage () {
+      if (this.page + 1 <= this.numberOfPages) this.page += 1
+    },
+    formerPage () {
+      if (this.page - 1 >= 1) this.page -= 1
+    },
+    updateItemsPerPage (number) {
+      this.itemsPerPage = number
+    },
+	},
 }
 </script>
 <style scoped>
