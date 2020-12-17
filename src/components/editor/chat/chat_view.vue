@@ -59,7 +59,6 @@ export default {
 	},
 	methods:{
 		...mapActions({
-			updateTarget: "chatWebhook/updateTarget",
 			pushText: "chatWebhook/pushText",
 		}),
 		sendMessage: function(){

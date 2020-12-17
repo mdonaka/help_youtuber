@@ -11,7 +11,7 @@
 
 <script>
 /* eslint-disable no-console */
-import {mapGetters } from 'vuex'
+import {mapGetters, mapActions} from 'vuex'
 
 const initialData = ()=>{
 	return {
@@ -24,6 +24,9 @@ export default {
 		return initialData()
 	},
 	methods:{
+		...mapActions({
+			updateTarget: "chatWebhook/updateTarget",
+		}),
 		...mapGetters({
 			getUsers: "users/getUsers"
 		}),
