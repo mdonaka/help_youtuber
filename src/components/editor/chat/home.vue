@@ -59,7 +59,6 @@
 /* eslint-disable no-console */
 import Chat_view from "./../../both/chat/chat_view"
 import Talker_view from "./talker_view.vue"
-// import Talker_infomation from "./talker_infomation.vue"
 import Talker_infomation from "./evaluation.vue"
 
 const initialData = ()=>{
