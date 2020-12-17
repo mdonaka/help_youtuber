@@ -19,7 +19,7 @@
               md="4"
               lg="3"
             >
-              <v-card>
+              <v-card @click="clllll()">
                 <v-row>
                   <v-col>
                     <v-card	elevation="0"
@@ -219,6 +219,9 @@ export default {
 		},
 	},
   methods: {
+		clllll(){
+			console.log("clicked");
+		},
     nextPage () {
       if (this.page + 1 <= this.numberOfPages) this.page += 1
     },

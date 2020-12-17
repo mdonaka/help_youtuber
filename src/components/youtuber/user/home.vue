@@ -20,9 +20,9 @@
 				編集例
 			</v-tab>
 
-			<v-tab-item> <Profile/> </v-tab-item>
-			<v-tab-item> <Evaluation/> </v-tab-item>
-			<v-tab-item> <Example/> </v-tab-item>
+			<v-tab-item> <Action/> </v-tab-item>
+			<v-tab-item> <Action/> </v-tab-item>
+			<v-tab-item> <Action/> </v-tab-item>
 
 		</v-tabs></v-card>
   </v-app>
@@ -32,9 +32,7 @@
 <script>
 /* eslint-disable no-console */
 
-import Profile from "./profile"
-import Evaluation from "./evaluation"
-import Example from "./example"
+import Action from "./../../both/action"
 
 import {mapActions} from 'vuex'
 
@@ -43,7 +41,7 @@ const initialData = ()=>{
 }
 
 export default {
-	components: {Profile, Evaluation, Example},
+	components: {Action},
 	data(){
 		return initialData()
 	},
