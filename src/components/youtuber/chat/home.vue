@@ -11,8 +11,8 @@
       >
         <!-- タブ -->
         <v-tab>
-          <v-icon>mdi-human</v-icon>
-            Editor情報
+          <v-icon>mdi-account-group</v-icon>
+            チャット一覧
         </v-tab>
 
         <v-tab>
@@ -23,8 +23,7 @@
         <!-- 各タブ内のview -->
         <!-- 1つ目 -->
         <v-tab-item>
-          <v-card flat>
-						TODO: youtube仕様にへんこうすｒ 
+          <v-card flat> 
             <Talker_infomation/>
           </v-card>
         </v-tab-item>

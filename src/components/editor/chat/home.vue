@@ -11,8 +11,8 @@
       >
         <!-- タブ -->
         <v-tab>
-          <v-icon>mdi-human</v-icon>
-            Editor情報
+          <v-icon>mdi-account-group</v-icon>
+            チャット一覧
         </v-tab>
 
         <v-tab>

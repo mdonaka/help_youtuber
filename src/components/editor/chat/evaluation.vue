@@ -31,7 +31,7 @@
                           color="grey"
                           size="100"
                         >
-                          <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                          <v-img src="./../../../assets/E_icon.png"></v-img>
                         </v-avatar>
                       </v-layout>
                     </v-card>

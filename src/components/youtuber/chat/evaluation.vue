@@ -31,7 +31,7 @@
                           color="grey"
                           size="100"
                         >
-                          <v-img src="https://cdn.vuetifyjs.com/images/profiles/marcus.jpg"></v-img>
+                          <v-img src="./../../../assets/E_icon.png"></v-img>
                         </v-avatar>
                       </v-layout>
                     </v-card>
@@ -53,36 +53,52 @@
 
                 <v-divider></v-divider>
 
+                <span class="font-black ml-2">希望価格帯</span>
+                  <v-row justify="center">
+                   <h1>{{ item.料金 }}</h1>
+                  </v-row>
+                <v-divider></v-divider>
                 <v-row>
-                  <span class="font-black ml-5">希望項目</span>
+                  <span class="font-black ml-5">編集歴・編集技術</span>
+                </v-row>
+                <v-row>
+                  <v-chip
+                    class="ml-5 ma-2"
+                    color="teal"
+                    dark>
+                    {{ item.時間 }}
+                  </v-chip>
+                  <v-chip
+                    class="ml-5 ma-2"
+                    color="gray"
+                    dark>
+                    {{ item.クォリティ }}
+                  </v-chip>
+                </v-row>
+                <v-divider></v-divider>
+                <v-row>
+                  <span class="font-black ml-5">その他</span>
                 </v-row>
                 <v-row>
                   <v-chip
                     class="ml-5 ma-2"
                     color="red"
                     dark>
-                    {{ item.品質 }}
+                    {{ item.ジャンル }}
                   </v-chip>
                   <v-chip
                     class="ml-5 ma-2"
                     color="green"
                     dark>
-                    {{ item.納期 }}
+                    {{ item.形態 }}
                   </v-chip>
                   <v-chip
                     class="ml-5 ma-2"
                     color="blue"
                     dark>
-                    {{ item.価格 }}
+                    {{ item.編集 }}
                   </v-chip>
                 </v-row>
-
-                <v-divider></v-divider>
-
-                <span class="font-black ml-2">動画時間目安</span>
-                  <v-row justify="center">
-                   <h1>{{ item.時間 }}</h1>
-                  </v-row>
               </v-card>
             </v-col>
           </v-row>
@@ -172,36 +188,44 @@ const initialData = ()=>{
       ],
       items: [
         {
-          名前: 'さんちゃん',
-          品質: 'クオリティ重視' ,
-          納期: '10日以内' ,
-          価格: '10円' ,
-          時間: '１時間' ,
+          名前: 'さんたろう',
+          ジャンル: '商品紹介' ,
+          クォリティ: 'プロ' ,
+          編集: 'adobe' ,
+          時間: '10年以上' ,
           通知: 'コンタクト受信' ,
+          料金: '動画時間制',
+          形態: '専業',
         },
         {
-          名前: 'さんなか',
-          品質: '納期重視' ,
-          納期: '3日以内' ,
-          価格: '20000円' ,
-          時間: '5分' ,
+          名前: 'VRTTK',
+          ジャンル: 'ゲーム実況' ,
+          クォリティ: 'ビギナー' ,
+          編集: 'PowerDirector' ,
+          時間: '1年以上3年未満' ,
           通知: '納期まであと2日' ,
+          料金: '単価制',
+          形態: '練習',
         },
         {
-          名前: 'たつきち',
-          品質: 'クオリティ重視' ,
-          納期: '一ヶ月以内' ,
-          価格: '4000円' ,
-          時間: '10分' ,
+          名前: 'たつキング',
+          ジャンル: 'Vlog' ,
+          クォリティ: 'アマチュア' ,
+          編集: 'AviUtl' ,
+          時間: '3年以上5年未満' ,
           通知: '' ,
-        },
+          料金: '作成時間制',
+          形態: '練習',
+       },
         {
-          名前: '山P',
-          品質: '納期重視' ,
-          納期: '今日明日中' ,
-          価格: '1円' ,
-          時間: '5時間' ,
+          名前: '山中',
+          ジャンル: '政治・ニュース' ,
+          クォリティ: 'セミプロ' ,
+          編集: 'video studio' ,
+          時間: '5年以上7年未満' ,
           通知: '納期まであと1日' ,
+          料金: '要相談',
+          形態: '副業',
         },
       ],
     }
