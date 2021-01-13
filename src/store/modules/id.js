@@ -58,9 +58,17 @@ const actions = {
 					// idを更新
 					const id = result[0].getValue();
 					commit("login", id);
-					router.push("/user", ()=>{});
-					resolve({login: id});
 					dispatch("chatWebhook/socketConnect", null, { root: true });
+					const data = dispatch("users/getUserInfo", null, { root: true });
+					data.then((res)=>{
+						try{
+							const row = res.Item.row;
+							router.push(((row=="Youtuber")?"/user_y":"/user_e")+"/userpage", ()=>{});
+							resolve({login: row});
+						}catch(e){
+							resolve({login: "???"});
+						}
+					})
 				});
 			});
 		});
@@ -84,7 +92,7 @@ const actions = {
 			const id = state.id;
 			cognitoUser.signOut();
 			commit("login", "_");
-			router.push("/sign", ()=>{});
+			router.push("/sign/signin", ()=>{});
 			id;
 			//console.log({"logout succes": id});
 		}).catch(()=>{

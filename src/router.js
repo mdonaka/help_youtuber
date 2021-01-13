@@ -6,14 +6,13 @@ import Sign from '@/components/both/sign/home'
 import Signin from '@/components/both/sign/signin'
 import Signup from '@/components/both/sign/signup'
 
-/**
-import Chat from '@/components/editor/chat/home'
-import UserPage from '@/components/editor/user/home'
-import Home from '@/components/editor/Home/home'
-/*/
-import Chat from '@/components/youtuber/chat/home'
-import UserPage from '@/components/youtuber/user/home'
-import Home from '@/components/youtuber/Home/home'
+import Chat_E from '@/components/editor/chat/home'
+import UserPage_E from '@/components/editor/user/home'
+import Home_E from '@/components/editor/Home/home'
+
+import Chat_Y from '@/components/youtuber/chat/home'
+import UserPage_Y from '@/components/youtuber/user/home'
+import Home_Y from '@/components/youtuber/Home/home'
 /**/
 Vue.use(Router)
  
@@ -24,20 +23,30 @@ export default new Router({
 			component: Branch, 
 		},
 		{
-			path: '/user/',
+			path: '/user_y/',
 			component: Frame,
 			children: [
-				{ path: '/', component: UserPage},
-				{ path: 'userpage/', component: UserPage},
-				{ path: 'chat/', component: Chat },
-				{ path: 'Home/', component: Home },
+				{ path: '/', component: Branch},
+				{ path: 'userpage/', component: UserPage_Y},
+				{ path: 'chat/', component: Chat_Y},
+				{ path: 'Home/', component: Home_Y},
+			],
+		},
+		{
+			path: '/user_e/',
+			component: Frame,
+			children: [
+				{ path: '/', component: Branch},
+				{ path: 'userpage/', component: UserPage_E},
+				{ path: 'chat/', component: Chat_E},
+				{ path: 'Home/', component: Home_E},
 			],
 		},
 		{
 			path: '/sign/',
 			component: Sign,
 			children: [
-				{path: '/',component: Signin},
+				{path: '/',component: Branch},
 				{path: 'signin/',component: Signin},
 				{path: 'signup/',component: Signup},
 			]

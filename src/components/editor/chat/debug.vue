@@ -1,0 +1,43 @@
+
+<template>
+<div> 
+<h1>工事中</h1>
+<!-- -->
+<div v-for="{name, id} in users" v-bind:key="id">
+<div @click="updateTarget(id)">{{name}}</div>
+</div>
+<!-- -->
+</div>
+</template>
+
+<script>
+/* eslint-disable no-console */
+import {mapGetters, mapActions} from 'vuex'
+const initialData = ()=>{
+return {
+users: []
+};
+}
+export default {
+data(){
+return initialData()
+},
+methods:{
+...mapActions({
+updateTarget: "chatWebhook/updateTarget",
+}),
+...mapGetters({
+getUsers: "users/getUsers"
+}),
+},
+created(){
+const data = this;
+this.users = this.getUsers().then(res=>{
+data.users = res;
+});
+},
+}
+</script>
+
+<style scoped>
+</style>

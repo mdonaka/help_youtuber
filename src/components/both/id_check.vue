@@ -20,10 +20,9 @@ export default {
 	},
 	created(){
 		this.login().then((res) => {
-			this.$router.push("user", ()=>{});
-			res;//console.log(res);
+			res;
 		}).catch((res)=>{
-			this.$router.push("sign", ()=>{});
+			this.$router.push("sign/signin", ()=>{});
 			res;//console.log(res);
 		});
 	}

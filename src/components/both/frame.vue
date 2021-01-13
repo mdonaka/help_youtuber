@@ -30,27 +30,33 @@
   
         <v-tooltip bottom color="brown" nudge-top="15">
         <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on" href="#/user/chat" >
-          <v-icon>mdi-chat</v-icon>
-        </v-btn>
+				<router-link to="chat">
+					<v-btn icon v-on="on">
+						<v-icon>mdi-chat</v-icon>
+					</v-btn>
+				</router-link>
         </template>
         <span>チャット</span>
         </v-tooltip>
 
         <v-tooltip bottom color="brown" nudge-top="15">
         <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on" href="#/user/userpage">
-          <v-icon>mdi-account</v-icon>
-        </v-btn>
+				<router-link to="userpage">
+					<v-btn icon v-on="on">
+						<v-icon>mdi-account</v-icon>
+					</v-btn>
+				</router-link>
         </template>
         <span>マイページ</span>
         </v-tooltip>
 
         <v-tooltip bottom color="brown" nudge-top="15">
         <template v-slot:activator="{ on }">
-        <v-btn icon v-on="on" href="/#/user/home">
-          <v-icon>mdi-home</v-icon>
-        </v-btn>
+				<router-link to="home">
+					<v-btn icon v-on="on">
+						<v-icon>mdi-home</v-icon>
+					</v-btn>
+				</router-link>
         </template>
         <span>ホーム</span>
         </v-tooltip>
